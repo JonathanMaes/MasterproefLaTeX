@@ -98,6 +98,16 @@
 	Energy of magnetization in an external field.
 	$E = -\mu_0 \vb{M} \cdot \vb{H_{ext}}$
 	
+	\section{Tests}
+	\subsection{Random thermal switching}
+	In GYP-18~\cite{GYP-18} the formula
+	\begin{equation}
+	    t_i = -\frac{1}{f_0} \exp(\frac{\Delta E_i}{k_B T}) \ln(1-P_i)
+	\end{equation}
+	appears, with $f_0 = \SI{e12}{\hertz}$ attempt frequency, and $P_i$ random between 0 and 1. The average value of $-\ln(1-P_i)$ is then $\ln(4) \approx 1.4$ (?). To get an average $t_i = \SI{100}{\nano\second}$ at $T=\SI{300}{\kelvin}$, one should therefore have
+	\begin{equation}
+	    \Delta E_i = k_B T \ln(\frac{f_0 t_i}{\ln(4)}) = 11.186 k_B T = \SI{0.289}{\electronvolt} \mathrm{.}
+	\end{equation}
 	
 	\newpage
 	\bibliographystyle{IEEEtran}
