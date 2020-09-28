@@ -100,6 +100,11 @@
 	
 	\section{Tests}
 	\subsection{Random thermal switching}
+	\subsubsection{Preparation}
+	Step 1: find energy barrier \\
+	The procedure used is to set both $m$ and $B_{ext}$ at an angle ($\abs{B_{ext}} = \SI{5}{\tesla}$) and then \code{minimize()}.
+	
+	Step 2: random switching over \SI{100}{\nano\second} \\
 	In GYP-18~\cite{GYP-18} the formula
 	\begin{equation}
 	    t_i = -\frac{1}{f_0} \exp(\frac{\Delta E_i}{k_B T}) \ln(1-P_i)
@@ -108,6 +113,32 @@
 	\begin{equation}
 	    \Delta E_i = k_B T \ln(\frac{f_0 t_i}{\ln(4)}) = 11.186 k_B T = \SI{0.289}{\electronvolt} \mathrm{.}
 	\end{equation}
+	This seems pretty high tbh
+	Also there is another formula in mumax3~\cite{MuMax3}
+	
+	Observation: with a barrier height approximately equal to $k_B T$, a switching speed of about \SI{100}{\nano\second} is observed.
+	
+	Question: should $\alpha$ be 0.1 always, i guess this is just a case of ``0.1 works so we use 0.1''
+	
+	\subsubsection{Results}
+	Step 1: find energy barrier \\
+	With perfectly circular geometry (i.e. \\
+	\code{geometry := Ellipse(100e-9, 100e-9)} \\
+	\code{geometry = geometry.Add(Ellipse(100e-9, 100e-9).RotZ(Pi/2))}) \\
+	there is still shape anisotropy, but with opposite sign (what are maxima in actual plus-figures are now minima)
+	
+	Findings (for \SI{100}{\nano\metre} long axis ellipse plus-sign):
+	at \SI{45}{\nano\metre} the preferred directions switch from the axes (\SI{0}{\degree}) to in between the axes (\SI{45}{\degree}),
+	at \SI{65}{\nano\metre} the anisotropy with preferred \SI{0}{\degree} direction is the strongest
+	
+	After running for \SI{1}{\micro\second} at \SI{300}{\kelvin}, with shape \SI{65}{\nano\metre} by \SI{100}{\nano\metre} ellipses in plus shape, the following angles were observed (\cref{fig:biaxial_island:1microsecond_300K}):
+	\begin{figure}
+	    \centering
+	    \includegraphics[width=1.0\columnwidth]{Figures/biaxial_island/table.png}
+	    \caption{\SI{1}{\micro\second} at \SI{300}{\kelvin}}
+	    \label{fig:biaxial_island:1microsecond_300K}
+	\end{figure}
+	
 	
 	\newpage
 	\bibliographystyle{IEEEtran}
