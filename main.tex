@@ -109,9 +109,11 @@
 	\begin{equation}
 	    t_i = -\frac{1}{f_0} \exp(\frac{\Delta E_i}{k_B T}) \ln(1-P_i)
 	\end{equation}
-	appears, with $f_0 = \SI{e12}{\hertz}$ attempt frequency, and $P_i$ random between 0 and 1. The average value of $-\ln(1-P_i)$ is then $\ln(4) \approx 1.4$ (?). To get an average $t_i = \SI{100}{\nano\second}$ at $T=\SI{300}{\kelvin}$, one should therefore have
+	appears, with $f_0 = \SI{e12}{\hertz}$ attempt frequency, and $P_i$ random between 0 and 1. The average value of $-\ln(1-P_i)$ is then $\ln(4) \approx 1.4$ (?).
+	Idea: perhaaps attempt frequency is the sinusoidal pattern in the long simulations, with period of about \SI{0.5}{\nano\second}.
+	To get an average $t_i = \SI{100}{\nano\second}$ at $T=\SI{300}{\kelvin}$, one should therefore have
 	\begin{equation}
-	    \Delta E_i = k_B T \ln(\frac{f_0 t_i}{\ln(4)}) = 11.186 k_B T = \SI{0.289}{\electronvolt} \mathrm{.}
+	    \Delta E_i = k_B T \ln(\frac{f_0 t_i}{\ln(4)}) = 4.96 k_B T = \SI{0.128}{\electronvolt} \mathrm{.}
 	\end{equation}
 	This seems pretty high tbh
 	Also there is another formula in mumax3~\cite{MuMax3}
@@ -119,6 +121,7 @@
 	Observation: with a barrier height approximately equal to $k_B T$, a switching speed of about \SI{100}{\nano\second} is observed.
 	
 	Question: should $\alpha$ be 0.1 always, i guess this is just a case of ``0.1 works so we use 0.1''
+	Answer: it's better to use 0.01
 	
 	\subsubsection{Results}
 	Step 1: find energy barrier \\
@@ -131,12 +134,18 @@
 	at \SI{45}{\nano\metre} the preferred directions switch from the axes (\SI{0}{\degree}) to in between the axes (\SI{45}{\degree}),
 	at \SI{65}{\nano\metre} the anisotropy with preferred \SI{0}{\degree} direction is the strongest
 	
-	After running for \SI{1}{\micro\second} at \SI{300}{\kelvin}, with shape \SI{65}{\nano\metre} by \SI{100}{\nano\metre} ellipses in plus shape, the following angles were observed (\cref{fig:biaxial_island:1microsecond_300K}):
+	After running for \SI{1}{\micro\second} at \SI{300}{\kelvin}, with shape \SI{65}{\nano\metre} by \SI{100}{\nano\metre} ellipses in plus shape, the following angles were observed (\cref{fig:biaxial_island:1microsecond_300K_alpha0.1}):
 	\begin{figure}
 	    \centering
-	    \includegraphics[width=1.0\columnwidth]{Figures/biaxial_island/table.png}
-	    \caption{\SI{1}{\micro\second} at \SI{300}{\kelvin}}
-	    \label{fig:biaxial_island:1microsecond_300K}
+	    \includegraphics[width=1.0\columnwidth]{Figures/biaxial_island/table_1µs_alpha0.1_300K.png}
+	    \caption{\SI{1}{\micro\second} at \SI{300}{\kelvin}, with $\alpha=0.1$.}
+	    \label{fig:biaxial_island:1microsecond_300K_alpha0.1}
+	\end{figure}
+	\begin{figure}
+	    \centering
+	    \includegraphics[width=1.0\columnwidth]{Figures/biaxial_island/table_1µs_alpha0.01_300K.png}
+	    \caption{\SI{1}{\micro\second} at \SI{300}{\kelvin}, with $\alpha=0.01$.}
+	    \label{fig:biaxial_island:1microsecond_300K_alpha0.01}
 	\end{figure}
 	
 	
