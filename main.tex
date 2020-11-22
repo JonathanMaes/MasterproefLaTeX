@@ -71,21 +71,9 @@ Quantum Cellular Automata (QCA) are discussed in \cite{QCA_Algorithms, QCA_Image
 \section{Physics}
 % === THE FOLLOWING IS A NONCOMPREHENSIVE SUMMARY OF THE PHYSICS ===
 The main formulae are derived in \cite{abert2013discrete} or \cite{NML_Carlton} and in the \mumax{} advances \cite{MuMax3_advances}.
-\subsection{Landau-Lifschitz-Gilbert equation}
-The Landau-Lifschitz(-Gilbert) equation is a partial differential equation given by
-\begin{equation}
-	\frac{\partial \vb{M}}{\partial t} = - \gamma_0 \vb{M} \cross \vb{H_{eff}} - \lambda \vb{M} \cross (\vb{M} \cross \vb{H_{eff}}) \mathrm{.}
-\end{equation}
-PDE requires an effective field $\vb{H_{eff}}$ which is defined as
-\begin{equation}
-	\vb{H_{eff}} = - \frac{1}{\mu_0} \frac{\partial E}{\partial \vb{M}}
-\end{equation}
-the energy $E$ is the sum of several contributions, all explained in the next section.
 
-Gilbert \cite{Gilbert1956} replaced the damping term with a term dependent on the time derivative of the magnetization:
-\begin{equation}
-	\frac{\partial \vb{M}}{\partial t} = - \gamma_0 \Big( \vb{M} \cross \vb{H_{eff}} - \lambda \vb{M} \cross (\vb{M} \cross \vb{H_{eff}}) \Big) \mathrm{.}
-\end{equation}
+The micromagnetic model describes magnetic processes in terms of a continuum theory governed by partial differential equations. Due to the lack of an analytical solution, many particular problems can only be solved approximately by discrete methods.~\cite{abert2013discrete}.
+In theoretical physics, a magnetic problem is an N-body problem, which restricts the analytical calculations to very small systems.~\cite{abert2013discrete} It is more instructive to use a continuum theory which works well on a macroscopic scale. For the problem at hand, this scale is in the order of tens to hundreds of nanometres, which is described by the so-called micromagnetic theory.~\cite{abert2013discrete}
 
 \subsection{Energy contributions}
 \subsubsection{Exchange energy}
@@ -108,6 +96,24 @@ There is uniaxial, and there is cubic, and there is many other options which are
 \subsubsection{Zeeman energy}
 Energy of magnetization in an external field.
 $E = -\mu_0 \vb{M} \cdot \vb{H_{ext}}$
+
+\subsection{Landau-Lifschitz-Gilbert equation}
+The Landau-Lifschitz(-Gilbert) equation is a partial differential equation given by
+\begin{equation}
+	\frac{\partial \vb{M}}{\partial t} = - \gamma_0 \vb{M} \cross \vb{H_{eff}} - \lambda \vb{M} \cross (\vb{M} \cross \vb{H_{eff}}) \mathrm{.}
+\end{equation}
+PDE requires an effective field $\vb{H_{eff}}$ which is defined as
+\begin{equation}
+	\vb{H_{eff}} = - \frac{1}{\mu_0} \frac{\partial E}{\partial \vb{M}}
+\end{equation}
+the energy $E$ is the sum of several contributions, all explained in the next section.
+
+Gilbert \cite{Gilbert1956} replaced the damping term with a term dependent on the time derivative of the magnetization:
+\begin{equation}
+	\frac{\partial \vb{M}}{\partial t} = - \gamma_0 \Big( \vb{M} \cross \vb{H_{eff}} - \lambda \vb{M} \cross (\vb{M} \cross \vb{H_{eff}}) \Big) \mathrm{.}
+\end{equation}
+
+
 
 \section{Tests}
 \subsection{Biaxial island}
@@ -143,8 +149,10 @@ Interesting findings:
 - Fourthly or finally idk, for lower magnetic fields the energy barrier lowers until it reaches a limit value. This is because high external magnetic fields prevent the relaxation of the edges of the geometry, instead keeping them pointed in roughly the same direction. It is the relaxation of the magnetization angle in a non-uniform way which causes the anisotropy, so forcing the magnetization in a certain direction (like with a high external field) will prevent this from happening, thus increasing the energy and lowering the fictional variant of the energy barrier.
 
 \paragraph{Energy barrier as function of roundness}
+See \cref{fig:barrier-cell_size-1nm} blue curve for \SI{128}{\nano\metre}.
 
 \paragraph{Energy barrier as function of overall size}
+See \cref{fig:barrier-cell_size-1nm} all different curves
 
 \paragraph{Numerical error: influence of cell size on energy barrier}
 When performing longer simulations, it is advantageous to use as large a cell size as possible, to minimize the total amount of cells in the simulation. Increasing the size of the cells does however also increase the numerical error originating from the discretization of the grid. The size of this numerical error was examined by determining the energy barrier for different shapes (varying roundness and overall size) and for different cell sizes of \SI{4}{\nano\metre}, \SI{2}{\nano\metre} and \SI{1}{\nano\metre}. The results of this calculation are shown in \cref{fig:barrier-cell_size}.
@@ -173,9 +181,16 @@ When performing longer simulations, it is advantageous to use as large a cell si
         \caption{Energy barrier for different cell sizes. The legend represents the length of the long axis of the ellipses.}
         \label{fig:barrier-cell_size}
 \end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\columnwidth]{Figures/biaxial_island/Barrier/Plus_100_0.1-1_aPi4_B0.001.pdf}
+    \caption{Energy barrier for different cell sizes, for a long ellipse axis of \SI{100}{\nano\metre}.}
+    \label{fig:barrier-cell_size-100nm}
+\end{figure}
 The figure obtained with cells of \SI{1}{\nano\metre} is quite smooth, so it is justified that this size was used in the previous paragraphs. For \SI{2}{\nano\metre} cells, the curve becomes rougher, but the overall shape remains very similar to that of \SI{1}{\nano\metre} cells. Cells of \SI{4}{\nano\metre}, however, yield a very rough and almost stair-like energy landscape, which clearly indicates that this size is too large. \par
 It may also be noted that for the \SI{4}{\nano\metre} cells, there are no values for the lowest roundnesses for long ellipse axes of \SI{16}{\nano\metre} or \SI{32}{\nano\metre}, because for these situations the short axis is smaller than the grid size, which yields an empty simulation geometry and thus no results. \par
 Everything taken into account, it seems that the optimal compromise between simulation speed and accuracy, is a \SI{2}{\nano\metre} cell size, which will be used to perform longer simulations. For the 65x100nm geometry, a \SI{4}{\nano\metre} cell size is probably still acceptable since the energy barrier is similar, and since this will result in a 4x speed increase this will be used. For the perfectly round situation, the difference is very large so it is instructive to use \SI{2}{\nano\metre} or even \SI{1}{\nano\metre}.
+
 
 
 
@@ -220,18 +235,84 @@ Findings (for \SI{100}{\nano\metre} long axis ellipse plus-sign):
 at \SI{45}{\nano\metre} the preferred directions switch from the axes (\SI{0}{\degree}) to in between the axes (\SI{45}{\degree}),
 at \SI{65}{\nano\metre} the anisotropy with preferred \SI{0}{\degree} direction is the strongest
 
-After running for \SI{1}{\micro\second} at \SI{300}{\kelvin}, with shape \SI{65}{\nano\metre} by \SI{100}{\nano\metre} ellipses in plus shape, the following angles were observed (\cref{fig:biaxial_island:1microsecond_300K_alpha0.1}):
-\begin{figure}
+After running for \SI{1}{\micro\second} at \SI{300}{\kelvin}, with shape \SI{65}{\nano\metre} by \SI{100}{\nano\metre} ellipses in plus shape, the following angles were observed (\cref{fig:switching-alpha}):
+
+
+\subsubsection{Counting switches}
+Since the counting of switches is ambiguous, several different ways of counting them were performed:
+
+1) Counting every crossing of a \SI{90}{\degree} line, e.g. a \SI{270}{\degree} switch is counted as 3 individual switches.
+
+2) Counting every visible switch, with switches larger than \SI{90}{\degree} counted as 1 switch.
+
+3) Looking every \SI{5}{\nano\second} and seeing if the magnetization direction changed without looking at the detailed magnetization in between those timestamps. This excludes 'spikes'.
+
+\begin{table}[]
     \centering
-    \includegraphics[width=1.0\columnwidth]{Figures/biaxial_island/table_1µs_alpha0.1_300K.png}
-    \caption{\SI{1}{\micro\second} at \SI{300}{\kelvin}, with $\alpha=0.1$.}
-    \label{fig:biaxial_island:1microsecond_300K_alpha0.1}
+    \begin{tabular}{c|c}
+        Geometry [nm] & Energy barrier [eV] & T [K] & Discretization [nm] & Time [ns] & Switches (1) & Switches (2) & Switches (3) \\
+        \hline
+         & 
+    \end{tabular}
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.75\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/biaxial_island/Switching/65x100_300K_alpha0.1_1µs_4nm.pdf}
+         \caption{$\alpha=0.1$}
+         \label{fig:switching-alpha-0.1}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.75\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/biaxial_island/Switching/65x100_300K_alpha0.01_1µs_4nm.pdf}
+         \caption{$\alpha = 0.01$}
+         \label{fig:switching-alpha-0.01}
+     \end{subfigure}
+        \caption{Switching for different $\alpha$, with grid discritization of \SI{4}{\nano\metre} at \SI{300}{\kelvin}, for 65x100.}
+        \label{fig:switching-alpha}
+\end{figure}
+
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/biaxial_island/Switching/65x100_300K_alpha0.01_1µs_4nm.pdf}
+         \caption{\SI{300}{\kelvin}, 65x100}
+         \label{fig:switching-temp-300-65x100}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/biaxial_island/Switching/65x100_350K_alpha0.01_1µs_4nm.pdf}
+         \caption{\SI{350}{\kelvin}, 65x100}
+         \label{fig:switching-temp-350-65x100}
+     \end{subfigure}
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/biaxial_island/Switching/100x100_300K_alpha0.01_1µs_4nm.pdf}
+         \caption{\SI{300}{\kelvin}, 100x100}
+         \label{fig:switching-temp-300-100x100}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/biaxial_island/Switching/100x100_350K_alpha0.01_1µs_4nm.pdf}
+         \caption{\SI{350}{\kelvin}, 100x100}
+         \label{fig:switching-temp-350-100x100}
+     \end{subfigure}
+        \caption{Switching for different temperatures, with grid discritization of \SI{4}{\nano\metre} and $\alpha = 0.01$.}
+        \label{fig:switching-temp}
 \end{figure}
 \begin{figure}
     \centering
-    \includegraphics[width=1.0\columnwidth]{Figures/biaxial_island/table_1µs_alpha0.01_300K.png}
-    \caption{\SI{1}{\micro\second} at \SI{300}{\kelvin}, with $\alpha=0.01$.}
-    \label{fig:biaxial_island:1microsecond_300K_alpha0.01}
+    \includegraphics[width=0.9\columnwidth]{Figures/biaxial_island/Switching/49x100_300K_alpha0.01_100ns_2nm.pdf}
+    \caption{Switching for a long ellipse axis of \SI{49}{\nano\metre}, which has a very low energy barrier, with grid discretization of \SI{2}{\nano\metre} at \SI{300}{\kelvin} and $\alpha = 0.01$.}
+    \label{fig:switching-49x100-300}
 \end{figure}
 
 
