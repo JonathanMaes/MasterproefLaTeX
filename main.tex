@@ -247,15 +247,23 @@ Since the counting of switches is ambiguous, several different ways of counting 
 
 3) Looking every \SI{5}{\nano\second} and seeing if the magnetization direction changed without looking at the detailed magnetization in between those timestamps. This excludes 'spikes'.
 
+% TODO: This table is too wide, but currently serves as a sort of data storage
 \begin{table}[]
     \centering
-    \begin{tabular}{c|c}
-        Geometry [nm] & Energy barrier [eV] & T [K] & Discretization [nm] & Time [ns] & Switches (1) & Switches (2) & Switches (3) \\
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c}
+        Geometry [nm] & Barrier [eV] & T [K] & Grid [nm] & Time [ns] & (1) & (2) & (3) & f0 (1) & f0 (2) & f0 (3) \\
         \hline
-         & 
+        49x100 & 0.0247152 & 300 & 2 & 100 & 57 & 37 & 6 & 2055546939 & 1334302398 & 216373362 \\
+        \hline
+        65x100 & 0.154979 & 273 & 4 & 1000 & 13 & 13 & 9 & 13086504432 & 13086504432 & 9059887684 \\
+        65x100 & 0.154979 & 300 & 4 & 1000 & 15 & 11 & 7 & 8346018192 & 6120413341 & 3894808490 \\
+        65x100 & 0.154979 & 350 & 4 & 1000 & 51 & 41 & 30 & 12051053484 & 9688101821 & 7088854991 \\
+        \hline
+        100x100 & 0.241124 & 300 & 4 & 1000 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        100x100 & 0.241124 & 350 & 4 & 1000 & 5 & 5 & 5 & 20552196672 & 20552196672 & 20552196672 
     \end{tabular}
-    \caption{Caption}
-    \label{tab:my_label}
+    \caption{For $\alpha=0.01$.}
+    \label{tab:switching-summary}
 \end{table}
 
 \begin{figure}
