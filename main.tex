@@ -26,7 +26,7 @@
 \usepackage{xurl} % Loads package 'url' and breaks urls nicely
 
 %% PACKAGES SETUP COMMANDS
-\hypersetup{colorlinks=true,urlcolor=blue}
+\hypersetup{colorlinks=true,urlcolor=blue,citecolor=gray}
 
 %% COMMANDS
 % Bold and italic vector symbols (preferably use \vb{} instead)
@@ -68,36 +68,116 @@ Interesting sources regarding the random thermal switching could be \cite{ThermF
 Exchange bias is explained in \cite{ExchangeBias, ExchangeBias_nanostructures, ExchangeBias_Mechanisms}.
 Quantum Cellular Automata (QCA) are discussed in \cite{QCA_Algorithms, QCA_ImageRecognition, QCA_GameOfLife}. Magnetic QCA (MQCA) are discussed in \cite{MQCA_MajorityGate, MQCA_RoomTemp}.
 
+
+- Logic states are signaled by the magnetization direction of the single-domain magnetic dots.~\cite{MQCA_RoomTemp}
+- Classical magnetostatic interactions are then used to propagate information along the chain.~\cite{MQCA_RoomTemp}
+- The 'Quantum' in MQCA is because of the exchange interactions forming a giant spin.~\cite{MQCA_RoomTemp}
+- Magnetic Force Microscopy: images stray dipole fields~\cite{NML_Carlton}
+- Photoemission Electron Microscopy: directly images the magnetization direction, relies on X-ray Magnetic Circular Dichroism~\cite{NML_Carlton}
+- Electron beam litography~\cite{NML_Carlton}
+
+
 \section{Physics}
 % === THE FOLLOWING IS A NONCOMPREHENSIVE SUMMARY OF THE PHYSICS ===
-The main formulae are derived in \cite{abert2013discrete} or \cite{NML_Carlton} and in the \mumax{} advances \cite{MuMax3_advances}.
+The main formulae are derived in \cite{abert2013discrete} or \cite{NML_Carlton} and in the \mumax{} advances \cite{MuMax3_advances}. \par
+In a crystalline material, the atoms are evenly spaced. Each atom has a discrete magnetic moment $\vb{m_i}$ associated with it. The interaction of many magnetic moments can give rise to macroscopic effects. Since every magnetic moment interacts with every other magnetic moment, the underlying problem is therefore a discrete N-body problem. Unfortunately, such a problem quickly becomes very hard if not impossible to solve analytically for even small $N$, hence restricting analytical calculations to very small systems.~\cite{abert2013discrete} Due to the lack of an analytical solution, many particular problems can only be solved approximately in a numerical manner.~\cite{abert2013discrete} Even with numerical techniques, the computational power or time required to solve an N-body problem increases rapidly with $N$, due to the number of interactions. For this reason, a continuum theory was developed, called the micromagnetic theory. In this formalism, the magnetization is represented by the continuous magnetization field, denoted by $\vb{M}(\vb{r}) = M_S \vb{m}(\vb{r})$. This is the magnetic moment per unit volume averaged over a small region of space, with $\vb{m}(\vb{r})$ a unit vector.~\cite{Gilbert1956}
+The size of this small region is characterized by the exchange length $\lambda$. It should be much smaller than the size of a single magnetic domain, yet much larger than a crystal unit cell, so on the order of several nanometres. It is clear that this continuum approximation is only applicable if every discrete magnetic moment in such a region is nearly parallel, i.e.
+\begin{equation}
+    \vb{m_i} \approx \vb{m_j}~~\mathrm{if}~~\abs{\vb{r_i} - \vb{r_j}} < \lambda \mathrm{,}
+\end{equation}
+as is for example the case in ferromagnets. \par
+In situations where this approximation holds, the continuum theory can provide a significant computational improvement, because one can now use numerical cells with typical dimensions on the order of $\lambda$, which significantly decreases the amount of variables compared to the original N-body problem, where every single atom had to be taken into account. The characteristic size of a simulation using micromagnetic theory is on the order of tens to hundreds of nanometres, using millions of cells with dimensions on the order of $\lambda$.~\cite{abert2013discrete} Thus, the micromagnetic theory works well on a macroscopic scale and can be solved numerically in a reasonable amount of time, which would be wholly impossible with an N-body approach.
 
-The micromagnetic model describes magnetic processes in terms of a continuum theory governed by partial differential equations. Due to the lack of an analytical solution, many particular problems can only be solved approximately by discrete methods.~\cite{abert2013discrete}.
-In theoretical physics, a magnetic problem is an N-body problem, which restricts the analytical calculations to very small systems.~\cite{abert2013discrete} It is more instructive to use a continuum theory which works well on a macroscopic scale. For the problem at hand, this scale is in the order of tens to hundreds of nanometres, which is described by the so-called micromagnetic theory.~\cite{abert2013discrete}
+
+% TODO: Delete the following paragraph and salvage useful information from it
+A continuum approximation can be made in ferromagnets, where locally all spins try to align themselves parallel to each other.~\cite{abert2013discrete} The term `locally' can be characterized by the parameter $\lambda$ called the exchange length, and is determined by
+\begin{equation}
+    \vb{m_i} \approx \vb{m_j}~~\mathrm{if}~~\abs{\vb{r_i} - \vb{r_j}} < \lambda \mathrm{.}
+\end{equation}
+In the micromagnetic theory, the magnetization is represented by the continuous magnetization field, denoted by $\vb{M}(\vb{r}) = M_S \vb{m}(\vb{r})$. This is the magnetic moment per unit volume averaged over a lattice cell, with $\vb{m}(\vb{r})$ a unit vector.~\cite{Gilbert1956}
 
 \subsection{Energy contributions}
+The energy corresponding to a certain $\vb{m}(\vb{r})$ is the sum of several different contributions
+\begin{equation}
+    E = E_{exch} + E_{anis} + E_{demag} + E_{Zeeman} \mathrm{.} \label{eq:Energy_Terms}
+\end{equation}
+The physical nature of these different terms along with small derivations are presented in this section.
 \subsubsection{Exchange energy}
-Tries to align neighboring spins:
-$E_{i,j} = -J \vb{S_i} \vdot \vb{S_j}$
-\subsubsection{Magnetostatic energy/Demagnetization energy}
-I think:
-\begin{align}
-	\div{\vb{B}} &= 0 \\
-	\vb{B} &= \mu_0 (\vb{H} + \vb{M})
-\end{align}
-means that a given $\vb{M}$ must result in a certain $\vb{H}$, which is then called $\vb{H}_{demag}$.
-($\vb{H}$ is gradient of scalar field $u$)
+The exchange energy is of quantummechanical origin. It tries to align neighboring spins and takes on the simple form
+\begin{equation}
+    E_{i,j} = -J \vb{S_i} \vdot \vb{S_j} \mathrm{.}
+    \label{eq:Energy_ExchangeEnergy_Discrete}
+\end{equation}
+Summing over all contributions gives
+\begin{equation}
+    E = -\sum_{i,j} J_{i,j} S^2 \vb{n_i} \vdot \vb{n_j} \mathrm{,}
+    \label{eq:Energy_ExchangeEnergy_SumDiscrete}
+\end{equation}
+with $\vb{S_i} = S \vb{n_i}$ and $\abs{n_i} = 1$. 
+The sign of $J$ determines whether the spins align parallel ($J>0$) or anti-parallel ($J<0$). A parallel alignment results in a so-called ferromagnetic material, while an anti-parallel alignment is characteristic of an anti-ferromagnetic material.
+% TODO: Exchange bias? Hier misschien niet op zijn plaats maar heeft wel te maken met FM/AFM
+
+Micromagnetic theory makes use of the magnetization field $\vb{m}(\vb{r})$, while \cref{eq:Energy_ExchangeEnergy_Discrete} is discrete. Two particles $i$ and $j$ only feel the exchange interaction when they are close to each other. This allows us to expand $\vb{m}(\vb{r}) \cdot \vb{m}(\vb{r} + \Delta\vb{r})$ in first order~\cite{abert2013discrete} to
+\begin{align*}
+    \vb{m}(\vb{r}) \cdot \vb{m}(\vb{r} + \Delta\vb{r}) &= 1 - \frac{1}{2}(\vb{m}(\vb{r}) - \vb{m}(\vb{r} + \Delta\vb{r}))^2 \\
+    &\approx 1 - \frac{1}{2}\sum_i(\Delta\vb{r} \cdot \gradient{m_i})^2 \numberthis \label{eq:Energy_ExchangeEnergy_DotApprox} \mathrm{.}
+\end{align*}
+We can now write an equation similar to \cref{eq:Energy_ExchangeEnergy_SumDiscrete}, but for $\vb{m}(\vb{r})$:
+\begin{equation*}
+    E_{exch} = \int_\Omega \sum_i A_i \vb{m}(\vb{r}) \cdot \vb{m}(\vb{r} + \Delta\vb{r}_i) \mathrm{,}
+\end{equation*}
+which by substitution of \cref{eq:Energy_ExchangeEnergy_DotApprox} finally yields~\cite{abert2013discrete,Gilbert1956}
+\begin{equation}
+    E_{exch} = A \int_\Omega \sum_i (\gradient{m_i}(\vb{r}))^2 \, d\vb{r} \mathrm{.} \label{eq:Energy_Term_Exchange}
+\end{equation}
+$A$ is called the exchange stiffness constant.~\cite{Gilbert1956}
 
 \subsubsection{Anisotropy energy}
-Only even orders in Taylor expansion are considered, in order to fulfill $E(\vb{M}_{min}) = E(-\vb{M}_{min})$. Then $K_{u1}, K_{u2}, \dots$ for order 2, 4, ... respectively.
+A material may exhibit anisotropy due to its crystal structure. The most often encountered types of anisotropy are uniaxial and cubic anisotropy. Uniaxial anisotropy is common in hexagonal or tetragonal crystal structures, while cubic anisotropy is often present in FCC or BCC structures.~\cite{Gilbert1956, abert2013discrete} \par
+In the uniaxial case, the energy is minimal when the magnetization lies along a certain axis $\vb{u}$. In the cubic case, there are three such axes $\vb{e_i}, i=1,\dots,3$, which are all equivalent. The direction of $\vb{M}$ along this axis (i.e. $\vb{m}=\pm \vb{u}$) does not matter, such that $E(\vb{m}_{min}) = E(-\vb{m}_{min})$. For this reason, only even orders in the Taylor expansion are considered.~\cite{abert2013discrete} For uniaxial anisotropy this gives
+\begin{equation}
+    E_{anis,u} = - \int_\Omega \big(K_{u1} (\vb{m} \cdot \vb{u})^2 + K_{u2} (\vb{m} \cdot \vb{u})^4 + \dots\big) \, d\vb{r} \mathrm{.} \label{eq:Energy_Term_AnisUniaxial}
+\end{equation}
+For cubic anisotropy, one can use a similar symmetry reasoning~\cite{abert2013discrete} to find
+\begin{equation}
+    E_{anis,c} = \int_\Omega \big(K_{c1} (m_1^2m_2^2 + m_2^2m_3^2 + m_3^2m_1^2) + K_{c2} m_1^2m_2^2m_3^2\big) \, d\vb{r} \mathrm{,} \label{eq:Energy_Term_AnisCubic}
+\end{equation}
+with $m_i(\vb{r}) = \vb{m}(\vb{r}) \cdot \vb{e_i}, i=1,\dots,3$.
 
-There is uniaxial, and there is cubic, and there is many other options which are rarely used.
+\subsubsection{Demagnetization energy/Magnetostatic energy}
+The demagnetization energy, often also called the magnetostatic energy, is the energy arising from the interaction of every magnetic moment in a ferromagnetic material with the force of every other magnetic moment in the material.~\cite{NML_Carlton} In other words, it is the energy of the magnetization in the magnetic field created by itself.~\cite{abert2013discrete}
+From classical electrodynamics it is known that, in the absence of currents,
+\begin{align}
+	\div{\vb{B}} &= 0 \label{eq:Energy_Demag_DivB0} \\
+	\curl{\vb{H}} &= 0 \label{eq:Energy_Demag_CurlH0} \\
+	\vb{B} &= \mu_0 (\vb{H} + \vb{M}) \label{eq:Energy_Demag_BHM} \mathrm{.}
+\end{align}
+From \cref{eq:Energy_Demag_CurlH0} immediately follows that $\exists \psi(\vb{r}): \vb{H} = -\gradient{\psi}$. By substituting \cref{eq:Energy_Demag_BHM} in \cref{eq:Energy_Demag_DivB0} it is then clear that
+\begin{equation}
+    \Delta \phi = \div{\vb{M}} \mathrm{.}
+\end{equation}
+The solution of this Laplace equation, for the boundary condition $\abs{\vb{r}} \rightarrow 0 \Rightarrow \psi \rightarrow 0$, is found using Green's function and Green's theorem:
+\begin{align*}
+    \psi(\vb{r}) &= -\frac{1}{4\pi}\int_\Omega \frac{\boldsymbol{\nabla'\,\vdot}\,\vb{M}(\vb{r'})}{\abs{\vb{r}-\vb{r'}}} \,d\vb{r'} + \frac{1}{4\pi}\int_{\partial\Omega} \frac{\vb{M}(\vb{r'}) \vdot \vb{n}}{\abs{\vb{r}-\vb{r'}}} \,d\vb{s'} \\
+    &= \frac{1}{4\pi}\int_\Omega \vb{M}(\vb{r'}) \vdot \boldsymbol{\nabla'} \frac{1}{\abs{\vb{r}-\vb{r'}}} \,d\vb{r'} \mathrm{.}
+\end{align*}
+A more rigorous derivation is given in~\cite{abert2013discrete}.
+From this explicit expression for $\psi(\vb{r})$, one can determine $\vb{H_{demag}} = -\gradient{\psi}$. The energy can then also be found through classical electrodynamics as
+\begin{equation}
+    E_{demag} = -\frac{\mu_0}{2} \int_\Omega \vb{M} \cdot \vb{H_{demag}} \, d\vb{r} \mathrm{.} \label{eq:Energy_Term_Demag}
+\end{equation}
+There is an additional $\frac{1}{2}$ factor because each interaction is counted twice.
 
 \subsubsection{Zeeman energy}
-Energy of magnetization in an external field.
-$E = -\mu_0 \vb{M} \cdot \vb{H_{ext}}$
+If an external field is applied, an additional energy term similar to the demagnetization energy appears,
+\begin{equation}
+    E_{Zeeman} = -\mu_0 \int_\Omega \vb{M} \vdot \vb{H_{ext}} \, d\vb{r} \mathrm{.} \label{eq:Energy_Term_Zeeman}
+\end{equation}
+
+% TODO: Gilbert also mentions a magnetoelastic term
 
 \subsection{Landau-Lifschitz-Gilbert equation}
+% TODO: Sort out the difference between LL eq. and LLG eq.
 The Landau-Lifschitz(-Gilbert) equation is a partial differential equation given by
 \begin{equation}
 	\frac{\partial \vb{M}}{\partial t} = - \gamma_0 \vb{M} \cross \vb{H_{eff}} - \lambda \vb{M} \cross (\vb{M} \cross \vb{H_{eff}}) \mathrm{.}
@@ -107,12 +187,15 @@ PDE requires an effective field $\vb{H_{eff}}$ which is defined as
 	\vb{H_{eff}} = - \frac{1}{\mu_0} \frac{\partial E}{\partial \vb{M}}
 \end{equation}
 the energy $E$ is the sum of several contributions, all explained in the next section.
+The term $\vb{M} \cross \vb{H_{eff}}$ causes the magnetic moment to precess around effective field. If only this term were present, the precession would occur forever, so a phenomenological damping term $\vb{M} \cross (\vb{M} \cross \vb{H_{eff}})$ was included as well, which causes the moment $\vb{M}$ to slowly damp toward the effective field vector $\vb{H_{eff}}$.~\cite{NML_Carlton}
 
 Gilbert \cite{Gilbert1956} replaced the damping term with a term dependent on the time derivative of the magnetization:
 \begin{equation}
 	\frac{\partial \vb{M}}{\partial t} = - \gamma_0 \Big( \vb{M} \cross \vb{H_{eff}} - \lambda \vb{M} \cross (\vb{M} \cross \vb{H_{eff}}) \Big) \mathrm{.}
 \end{equation}
 
+\section{Literature}
+- Biaxial signal propagation? Very different from uniaxial (NML)
 
 
 \section{Tests}
@@ -208,6 +291,7 @@ At high fields everything is stable and just uniform, which makes the energy lan
 In GYP-18~\cite{GYP-18} the formula
 \begin{equation}
     t_i = -\frac{1}{f_0} \exp(\frac{\Delta E_i}{k_B T}) \ln(1-P_i)
+    \label{eq:Switching_time}
 \end{equation}
 appears, with $f_0 = \SI{e12}{\hertz}$ attempt frequency, and $P_i$ random between 0 and 1. The average value of $-\ln(1-P_i)$ is then $\ln(4) \approx 1.4$.
 
@@ -247,8 +331,14 @@ Since the counting of switches is ambiguous, several different ways of counting 
 
 3) Looking every \SI{5}{\nano\second} and seeing if the magnetization direction changed without looking at the detailed magnetization in between those timestamps. This excludes 'spikes'.
 
+Formula for $f_0$ derived from \eqref{eq:Switching_time}:
+\begin{equation*}
+    f_0 = \frac{N \ln(4)}{\Delta t} \exp(\frac{E_{barrier}}{k_B T})
+\end{equation*}
+with $\Delta t$ the simulation time and $N$ the number of switches.
+
 % TODO: This table is too wide, but currently serves as a sort of data storage
-\begin{table}[]
+\begin{table}[b!]
     \centering
     \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c}
         Geometry [nm] & Barrier [eV] & T [K] & Grid [nm] & Time [ns] & (1) & (2) & (3) & f0 (1) & f0 (2) & f0 (3) \\
