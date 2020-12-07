@@ -10,6 +10,7 @@
 \usepackage[nottoc,notlot,notlof]{tocbibind} % Include bibliography in table of contents
 
 %% PACKAGES WITHOUT OPTIONS
+\usepackage{adjustbox} % Use \begin{adjustbox}{center} environment for too wide floats
 \usepackage{amsmath, amsfonts, amssymb}
 \usepackage{enumitem} % Lists
 \usepackage{flafter} % Place floats after their first appearance in text
@@ -66,44 +67,57 @@ Gilbert is \cite{Gilbert1956} and Lifdau is \cite{LANDAU1992}.
 
 Interesting sources regarding the random thermal switching could be \cite{ThermFluc_SingleDomain, RandomSwitch_MonteCarlo, Nonmonotonic_reversal}, and perhaps \cite{MagDynamics_JumpNoise}.
 Exchange bias is explained in \cite{ExchangeBias, ExchangeBias_nanostructures, ExchangeBias_Mechanisms}.
-Quantum Cellular Automata (QCA) are discussed in \cite{QCA_Algorithms, QCA_ImageRecognition, QCA_GameOfLife}. Magnetic QCA (MQCA) are discussed in \cite{MQCA_MajorityGate, MQCA_RoomTemp}.
+Quantum Cellular Automata (QCA) are discussed in \cite{QCA_Algorithms, QCA_GameOfLife}. Magnetic QCA (MQCA) are discussed in \cite{MQCA_MajorityGate, MQCA_RoomTemp, MQCA_ImageRecognition}.
 
 
-- Logic states are signaled by the magnetization direction of the single-domain magnetic dots.~\cite{MQCA_RoomTemp}
-- Classical magnetostatic interactions are then used to propagate information along the chain.~\cite{MQCA_RoomTemp}
-- The 'Quantum' in MQCA is because of the exchange interactions forming a giant spin.~\cite{MQCA_RoomTemp}
+
+
+\subsection{Domains}
+In 1907, Weiss proposed the idea that a ferromagnetic material contains several uniformly magnetized domains, but that the magnetization of each domain individually is random, thus resulting in a macroscopic zero net magnetization of a large amount of material.~\cite{MuMax3_advances} The uniform alignment inside a single domain is due to the quantum mechanical Heisenberg-Dirac exchange interaction.~\cite{MuMax3_advances, heisenberg1928theorie} The magnetostatic energy makes it unfavorable for neighboring moments to align themselves parallel to one another, which competes with the exchange energy which tends to align neighboring moments in the same direction. Since the exchange energy only works on small length scales, domains are formed under the influence of the exchange energy, while different domains tend to cancel out their fields due to the magnetostatic energy. The typical size of these domains is on the order of several tens of micrometers. When the size of the material becomes on the order of micrometers, the domains form very symmetric patterns in order to minimize their energy, and on even smaller length scales only one domain remains.~\cite{NML_Carlton} So, if one makes a droplet of ferromagnetic material smaller than this typical size, the droplet will have a nearly uniform magnetization, with a magnitude equal to the saturation magnetization of the material.~\cite{NML_Carlton} Such a small droplet can for example be defined using electron beam lithography.~\cite{MQCA_RoomTemp, NML_Carlton} By introducing anisotropy in the droplet, which can be either magnetocrystalline or shape anisotropy, one or more axes can be made energetically favorable for the magnetization to align itself along. Magnetocrystalline anisotropy favors the crystal axes. Shape anisotropy can be realized by giving the droplet an elliptical shape instead of a perfect circle. In the uniaxial case, there is one stable magnetization axis, and the two directions `up' and `down' along this axis can be related to bits `0' and `1'.~\cite{MQCA_RoomTemp} This is not to be confused with unidirectional anisotropy, which only has one stable magnetization direction, and can be achieved using the exchange bias effect.~\cite{ExchangeBias_Mechanisms,ExchangeBias_nanostructures,ExchangeBias} A lot of research has been conducted to use uniaxial anisotropy for computation, and logic gates and wires have been proposed, which use classical magnetostatic interactions to propagate the information.~\cite{GYP-18,MQCA_MajorityGate,SwitchingForced_EnergyEfficient} The use of two favorable axes, i.e. biaxial anisotropy, allows for a higher logic density, as the four stable directions `up', `down', `right' and `left' can be related to `00', `01', `10' and `11'.~\cite{MQCA_ImageRecognition} This can occur for cubic crystals, and can also be realized by giving the shape of the droplet more symmetry, for example by making the shape the union of two ellipses.
+
+
+\subsection{Quantum Cellular Automata}
+Traditional digital logic technologies like CMOS use field-effect transistors to control the flow of electrons. This kind of architecture fundamentally only allows information to flow in one direction. Other architectures allowing communication between the output and input in both ways could allow certain computations to be executed faster. One approach to realizing such an architecture are the Quantum Cellular Automata (QCA), which use quantum effects, in a broad sense, to make logic gates. Such devices can be orders of magnitude smaller and more energy efficient than traditional CMOS technology.~\cite{MQCA_RoomTemp} There are several possibilities to realize QCA, which can generally be classified as either electronic or magnetic QCA. Electronic QCA (EQCA) make use of the forces between electrons, while magnetic QCA (MQCA) leverage the magnetic moments of atoms. EQCA is called ``quantum'' because it uses quantum mechanical tunneling of charge between quantum dots, MQCA are quantum because of the exchange interaction between individual atomic magnetic moments.~\cite{MQCA_RoomTemp} What all these QCA have in common, is that every fundamental building block (electrons, magnetic moments...) of these automata influences every other building block in the automaton, thus allowing the aforementioned two-way flow of information between what would traditionally be referred to as input and output. The MQCA are the main subject of this paper, but it is interesting to take a short look at EQCA as well, for both share some ideas and problems. \par
+% Small segue to quantum dot cellular automata
+One specific implementation of EQCA makes use of square cells, each with four quantum dots at the vertices of a square. These quantum dots can accomodate an electron, and each cell is made such that there are always two excess electrons present. It is then energetically favorable for these electrons to occupy two diagonal quantum dots.~\cite{QCA_DigitalLogicGate} The two diagonal configurations are then the `0' and `1' states. An extensively studied logic gate using this architecture is the three-input majority logic gate. It consists of five cells arranged in a plus-shape, with three inputs and one output. By fixing one of the inputs to 0 or 1, an AND or an OR operation can be realized, respectively. A drawback for these EQCA is that they require low electron temperatures in order to work reliably, as otherwise thermal smearing of the charge states of the dots becomes an issue.~\cite{QCA_DigitalLogicGate}
+
+
+\subsection{Signal Propagation in uniaxial case}
+% TODO: Uniaxial anisotropy: explain that it likes to be magnetized along the long axis (NML_Carlton p.9-10 and beyond can be a good introduction)
+
+% TODO: Section on propagation of information along nanomagnet chians, for uniaxial and biaxial situation (seems like biaxial is less easy to find information about than uniaxial so need to find some more papers for that)
+Interesting is the behavior of chains of nanomagnets, 
+Piezoelectric
+Spin transfer torque
+
+\subsection{Imaging the magnetization}
 - Magnetic Force Microscopy: images stray dipole fields~\cite{NML_Carlton}
 - Photoemission Electron Microscopy: directly images the magnetization direction, relies on X-ray Magnetic Circular Dichroism~\cite{NML_Carlton}
-- Electron beam litography~\cite{NML_Carlton}
+- Magneto-optical measurement: a linearly polarized laser beam is focused onto the networks, and the polarization state of the reflected light is measured in order to access the longitudinal Kerr effect.~\cite{MQCA_RoomTemp}
+
+- To define the features: Electron beam lithography~\cite{NML_Carlton}
 
 
 \section{Physics}
 % === THE FOLLOWING IS A NONCOMPREHENSIVE SUMMARY OF THE PHYSICS ===
 The main formulae are derived in \cite{abert2013discrete} or \cite{NML_Carlton} and in the \mumax{} advances \cite{MuMax3_advances}. \par
 In a crystalline material, the atoms are evenly spaced. Each atom has a discrete magnetic moment $\vb{m_i}$ associated with it. The interaction of many magnetic moments can give rise to macroscopic effects. Since every magnetic moment interacts with every other magnetic moment, the underlying problem is therefore a discrete N-body problem. Unfortunately, such a problem quickly becomes very hard if not impossible to solve analytically for even small $N$, hence restricting analytical calculations to very small systems.~\cite{abert2013discrete} Due to the lack of an analytical solution, many particular problems can only be solved approximately in a numerical manner.~\cite{abert2013discrete} Even with numerical techniques, the computational power or time required to solve an N-body problem increases rapidly with $N$, due to the number of interactions. For this reason, a continuum theory was developed, called the micromagnetic theory. In this formalism, the magnetization is represented by the continuous magnetization field, denoted by $\vb{M}(\vb{r}) = M_S \vb{m}(\vb{r})$. This is the magnetic moment per unit volume averaged over a small region of space, with $\vb{m}(\vb{r})$ a unit vector.~\cite{Gilbert1956}
-The size of this small region is characterized by the exchange length $\lambda$. It should be much smaller than the size of a single magnetic domain, yet much larger than a crystal unit cell, so on the order of several nanometres. It is clear that this continuum approximation is only applicable if every discrete magnetic moment in such a region is nearly parallel, i.e.
+The size of this small region is characterized by the exchange length $\lambda$. It should be much smaller than the size of a single magnetic domain, yet much larger than a crystal unit cell, so on the order of several nanometres. It is clear that this continuum approximation is only applicable if locally all discrete magnetic moments try to align themselves parallel to each other, i.e.
 \begin{equation}
     \vb{m_i} \approx \vb{m_j}~~\mathrm{if}~~\abs{\vb{r_i} - \vb{r_j}} < \lambda \mathrm{,}
 \end{equation}
-as is for example the case in ferromagnets. \par
+as is for example the case in ferromagnets.~\cite{abert2013discrete} \par
 In situations where this approximation holds, the continuum theory can provide a significant computational improvement, because one can now use numerical cells with typical dimensions on the order of $\lambda$, which significantly decreases the amount of variables compared to the original N-body problem, where every single atom had to be taken into account. The characteristic size of a simulation using micromagnetic theory is on the order of tens to hundreds of nanometres, using millions of cells with dimensions on the order of $\lambda$.~\cite{abert2013discrete} Thus, the micromagnetic theory works well on a macroscopic scale and can be solved numerically in a reasonable amount of time, which would be wholly impossible with an N-body approach.
 
 
-% TODO: Delete the following paragraph and salvage useful information from it
-A continuum approximation can be made in ferromagnets, where locally all spins try to align themselves parallel to each other.~\cite{abert2013discrete} The term `locally' can be characterized by the parameter $\lambda$ called the exchange length, and is determined by
-\begin{equation}
-    \vb{m_i} \approx \vb{m_j}~~\mathrm{if}~~\abs{\vb{r_i} - \vb{r_j}} < \lambda \mathrm{.}
-\end{equation}
-In the micromagnetic theory, the magnetization is represented by the continuous magnetization field, denoted by $\vb{M}(\vb{r}) = M_S \vb{m}(\vb{r})$. This is the magnetic moment per unit volume averaged over a lattice cell, with $\vb{m}(\vb{r})$ a unit vector.~\cite{Gilbert1956}
-
 \subsection{Energy contributions}
-The energy corresponding to a certain $\vb{m}(\vb{r})$ is the sum of several different contributions
+The energy corresponding to a certain continuous magnetization field $\vb{m}(\vb{r})$ is the sum of several different contributions
 \begin{equation}
     E = E_{exch} + E_{anis} + E_{demag} + E_{Zeeman} \mathrm{.} \label{eq:Energy_Terms}
 \end{equation}
-The physical nature of these different terms along with small derivations are presented in this section.
+The physical nature of these different terms along with small derivations to accomodate them to the continuum approximation are presented in this section.
 \subsubsection{Exchange energy}
-The exchange energy is of quantummechanical origin. It tries to align neighboring spins and takes on the simple form
+The exchange energy is of quantum mechanical origin. It tries to align neighboring spins and takes on the simple form
 \begin{equation}
     E_{i,j} = -J \vb{S_i} \vdot \vb{S_j} \mathrm{.}
     \label{eq:Energy_ExchangeEnergy_Discrete}
@@ -169,7 +183,7 @@ From this explicit expression for $\psi(\vb{r})$, one can determine $\vb{H_{dema
 There is an additional $\frac{1}{2}$ factor because each interaction is counted twice.
 
 \subsubsection{Zeeman energy}
-If an external field is applied, an additional energy term similar to the demagnetization energy appears,
+If an external field is applied, an additional energy term similar to the demagnetization energy appears, but now without the factor $\frac{1}{2}$ because the interaction comes from an external source:
 \begin{equation}
     E_{Zeeman} = -\mu_0 \int_\Omega \vb{M} \vdot \vb{H_{ext}} \, d\vb{r} \mathrm{.} \label{eq:Energy_Term_Zeeman}
 \end{equation}
@@ -338,23 +352,27 @@ Formula for $f_0$ derived from \eqref{eq:Switching_time}:
 with $\Delta t$ the simulation time and $N$ the number of switches.
 
 % TODO: This table is too wide, but currently serves as a sort of data storage
-\begin{table}[b!]
+\begin{adjustbox}{center}
+% \begin{table}[b!]
     \centering
-    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c}
-        Geometry [nm] & Barrier [eV] & T [K] & Grid [nm] & Time [ns] & (1) & (2) & (3) & f0 (1) & f0 (2) & f0 (3) \\
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c}
+        Geom [nm] & Barrier [meV] & T [K] & $\Delta t$ [ns] & (1) & (2) & (3) & f0 (1) & f0 (2) & f0 (3) \\
         \hline
-        49x100 & 0.0247152 & 300 & 2 & 100 & 57 & 37 & 6 & 2055546939 & 1334302398 & 216373362 \\
+        49x100 & 2nm: 24.7 & 300 & 100 & 57 & 37 & 6 & \SI{2.06e9}{} & \SI{1.33e9}{} & \SI{2.16e8}{} \\
         \hline
-        65x100 & 0.154979 & 273 & 4 & 1000 & 13 & 13 & 9 & 13086504432 & 13086504432 & 9059887684 \\
-        65x100 & 0.154979 & 300 & 4 & 1000 & 15 & 11 & 7 & 8346018192 & 6120413341 & 3894808490 \\
-        65x100 & 0.154979 & 350 & 4 & 1000 & 51 & 41 & 30 & 12051053484 & 9688101821 & 7088854991 \\
+        65x100 & 4nm: 155.0 & 273 & 1000 & 13 & 13 & 9 & \SI{1.31e10}{} & \SI{1.31e10}{} & \SI{9.06e9}{} \\
+        65x100 & 4nm: 155.0 & 300 & 1000 & 15 & 11 & 7 & \SI{8.35e9}{} & \SI{6.12e9}{} & \SI{3.89e9}{} \\
+        65x100 & 4nm: 155.0 & 350 & 1000 & 51 & 41 & 30 & \SI{1.21e10}{} & \SI{9.69e9}{} & \SI{7.09e9}{} \\
+        65x100 & 2nm: 286.0 & 350 & 500 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        65x100 & 3.125nm: TBD & 350 & 1000 & TBD & TBD & TBD & TBD & TBD & TBD \\
         \hline
-        100x100 & 0.241124 & 300 & 4 & 1000 & 0 & 0 & 0 & 0 & 0 & 0 \\
-        100x100 & 0.241124 & 350 & 4 & 1000 & 5 & 5 & 5 & 20552196672 & 20552196672 & 20552196672 
+        100x100 & 4nm: 241.1 & 300 & 1000 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        100x100 & 4nm: 241.1 & 350 & 1000 & 5 & 5 & 5 & \SI{2.06e10}{} & \SI{2.06e10}{} & \SI{2.06e10}{} 
     \end{tabular}
-    \caption{For $\alpha=0.01$.}
+    % \caption{For $\alpha=0.01$.}
     \label{tab:switching-summary}
-\end{table}
+% \end{table}
+\end{adjustbox}
 
 \begin{figure}
      \centering
