@@ -62,7 +62,6 @@
 \newpage
 \pagenumbering{arabic}
 
-\section{Introduction}
 This thesis makes use of the \mumax{} micromagnetic simulation tool~\cite{MuMax3}.
 Gilbert is \cite{Gilbert1956} and Lifdau is \cite{LANDAU1992}.
 
@@ -70,7 +69,10 @@ Interesting sources regarding the random thermal switching could be \cite{ThermF
 Exchange bias is explained in \cite{ExchangeBias, ExchangeBias_nanostructures, ExchangeBias_Mechanisms}.
 Quantum Cellular Automata (QCA) are discussed in \cite{QCA_Algorithms, QCA_GameOfLife}. Magnetic QCA (MQCA) are discussed in \cite{MQCA_MajorityGate, MQCA_RoomTemp, MQCA_ImageRecognition}.
 
-An atom may display what is called a magnetic dipole moment, partially due to the angular momentum of electrons around the nucleus, and partially due to the intrinsic spin of the elementary particles which make up the atom. The magnetic moment can be defined using the torque the atom experiences in a magnetic field.~\cite{IntroMagneticMaterials} In a material, many atoms are together, and the macroscopic sum of all their magnetic moments is called the magnetization of the material. In a crystalline material, the periodicity of the lattice can give rise to specific orderings of the magnetic moments, like for example ferromagnetism where all individual magnetic moments of neighboring atoms try to align themselves parallel to each other. \par 
+\section{Introduction}
+%\noindent \textit{Note: This section exists to explain nanomagnetic logic to the unfamiliar reader. \textbf{Biaxial island} begins the investigation of the dynamics of a single biaxial island, and is a suitable starting point for those already familiar with nanomagnetic logic.} \bigskip
+
+\noindent An atom may display what is called a \textbf{magnetic dipole moment}, partially due to the angular momentum of electrons around the nucleus, and partially due to the intrinsic spin of the elementary particles which make up the atom. The magnetic moment can be defined using the torque the atom experiences in a magnetic field.~\cite{IntroMagneticMaterials} In a material, many atoms are together, and the macroscopic sum of all their magnetic moments is called the magnetization of the material. In a crystalline material, the periodicity of the lattice can give rise to specific orderings of the magnetic moments, like for example ferromagnetism where all individual magnetic moments of neighboring atoms try to align themselves in the same direction. \par 
 Such a ferromagnetic material, like iron, nickel or cobalt, consists of many magnetic domains. Each domain, on the order of several tens of micrometers, has a nearly uniform magnetization pointing in a random direction. Because the direction of each domain is random, a ferromagnetic material does not display a macroscopic net magnetization. However, when one fabricates a very small island of several hundred nanometers made of such a ferromagnetic material, it will not be made up of several domains, but rather only one, and will thus have a nearly uniform magnetization. \par
 If this island has one or another form of anisotropy, be it due to the crystal structure or the shape of the island, the magnetization will have minimal energy if it lies along a certain axis, called the `easy axis'. Shape anisotropy originates from the observation that the magnetization preferably orients itself along the long axis of a structure. An example that is often used is a 2D ellipse, as this can easily be produced via electron beam lithography, for which the easy axis is equal to the long axis of the ellipse. 
 In general, if a structure has one easy axis (and thus two directions), we speak of uniaxial anisotropy. In the case of two easy axes (and thus four directions), as will be the main topic of this thesis, this is called biaxial anisotropy. Biaxial shape anisotropy can for example be achieved with a geometry that is invariant under \SI{90}{\degree} rotation. \par
@@ -85,23 +87,40 @@ In 1907, Weiss proposed the idea that a ferromagnetic material contains several 
 Traditional digital logic technologies like CMOS use field-effect transistors to control the flow of electrons. This kind of architecture fundamentally only allows information to flow in one direction. Other architectures allowing communication between the output and input in both ways could allow certain types of computations to be executed faster. One approach to realizing such an architecture are the Quantum Cellular Automata (QCA), which use quantum effects, in a broad sense, to make logic gates. A cellular automaton is a mathematical concept, proposed by Von Neumann~\cite{Sideinfo_SelfRepAutomata}, in which the universe is divided into a regular grid of cells, where each cell is influenced by its direct neighbors. The most famous example of such a mathematical cellular automaton is Conway's Game of life, which has been shown to be universal for computation, as any Turing machine can be encoded in it.~\cite{QCA_GameOfLife} Apart from the universality in the Turing sense, cellular automata provide an additional benefit because they are able to process algorithms in a distributed manner due to the spatial parallelism inherent to them.~\cite{QCA_GameOfLife} From a practical point of view, QCA can be orders of magnitude smaller and more energy efficient than traditional CMOS technology.~\cite{MQCA_RoomTemp} \par
 There are several possibilities to realize QCA, which can generally be classified as either electronic or magnetic QCA. Electronic QCA (EQCA) make use of the forces between electrons, while magnetic QCA (MQCA) leverage the magnetic moments of atoms. EQCA are called ``quantum'' because they use quantum mechanical tunneling of charge between quantum dots, MQCA are quantum because of the exchange interaction between individual atomic magnetic moments.~\cite{MQCA_RoomTemp} Apart from this quantum nature of the building blocks, QCA are essentially classical devices switching through either coulombic or magnetic interactions.~\cite{QCA_Algorithms} What all these QCA have in common, is that every fundamental building block (electrons, magnetic moments...) of these automata influences every other building block in the automaton, thus allowing the aforementioned two-way flow of information between what would traditionally be referred to as input and output. The MQCA are the main subject of this paper, but it is interesting to take a short look at EQCA as well, for both share some ideas and problems. \par
 % Small segue to quantum dot cellular automata
-One specific implementation of EQCA makes use of square cells, each with four quantum dots at the vertices of a square. These quantum dots can accomodate an electron, and each cell is made such that there are always two excess electrons present. It is then energetically favorable for these electrons to occupy two diagonal quantum dots.~\cite{QCA_DigitalLogicGate} The two diagonal configurations are then the `0' and `1' states. An extensively studied logic gate using this architecture is the three-input majority logic gate. It consists of five cells arranged in a plus-shape, with three inputs and one output. By fixing one of the inputs to 0 or 1, an AND or an OR operation can be realized, respectively. A drawback for these EQCA is that they require low electron temperatures in order to work reliably, as otherwise thermal smearing of the charge states of the dots becomes an issue.~\cite{QCA_DigitalLogicGate} \par
+One specific implementation of EQCA makes use of square cells, each with four quantum dots at the vertices of a square. These quantum dots can accomodate an electron, and each cell is made such that there are always two excess electrons present. It is then energetically favorable for these electrons to occupy two diagonal quantum dots.~\cite{QCA_DigitalLogicGate} The two diagonal configurations are then the `0' and `1' states. An extensively studied logic gate using this architecture is the three-input majority logic gate. It consists of five cells arranged in a plus-shape, with three inputs and one output. Just like the familiar NAND gate, the majority gate is universal for computation.~\cite{NML_Carlton} By fixing one of the inputs to 0 or 1, an AND or an OR operation can be realized, respectively. A drawback for these EQCA is that they require low electron temperatures in order to work reliably, as otherwise thermal smearing of the charge states of the dots becomes an issue.~\cite{QCA_DigitalLogicGate} \par
 QCA compute by relaxing to a configuration of minimal energy.~\cite{QCA_Algorithms} It is important that all these relaxed configurations are equal in energy level. This is what is meant by `balanced' QCA. A necessary condition for an automaton to be balanced is that the number of distinguished configurations with minimum energy should be equal to the number of input combinations the automaton handles.~\cite{QCA_Algorithms}
 
 
 \subsection{Nanomagnetic islands}
-As was mentioned before, the magnetization of a nanomagnetic island likes to align itself along the longest axis of the shape. We can understand this as follows. Consider a theoretically ideal island so small that it only consists of two atoms, and thus only two magnetic moments. Three different situations are then shown in~\cref{fig:Intro_IslandEllipticPreferredDirection}.
-The first configuration has both moments vertical and in the same direction, which makes their magnetic fields nicely lined up. This is hence a low energy state. The second configuration has the magnetic moments in opposite directions, such that their fields oppose each other, which is not a low energy configuration. The third configuration has both moments horizontal and oppositely directed, which once again has the magnetic fields nicely lined up in a low energy state. If they are pointed horizontal and in the same direction, the fields once again oppose each other and we do not have a low energy state. Thus, two of these four configurations are energetically favorable. Now note that we are only dealing with ferromagnetic materials, which have the property that neighboring moments like to align themselves in the same direction. This only leaves the first situation as a stable one, hence explaining the tendency for ferromagnetic materials to be magnetized along the long axis of a geometric structure.
+As was mentioned before, the magnetization of a nanomagnetic island likes to align itself along the longest axis of the shape. This can be understood as follows. Consider a theoretically ideal island so small that it only consists of two atoms, and thus only two magnetic moments. Three different situations are then shown in~\cref{fig:Intro_IslandEllipticPreferredDirection}.
+The first configuration has both moments vertical and in the same direction, which makes their magnetic fields nicely lined up, hence this is a low energy state. The second configuration has the magnetic moments in opposite directions, such that their fields oppose each other, which is not a low energy configuration. The third configuration has both moments horizontal and oppositely directed, which once again has the magnetic fields nicely lined up in a low energy state. In the fourth configuration they are pointed horizontal and in the same direction, so the fields once again oppose each other and we do not have a low energy state. Thus, only two of these four configurations are energetically favorable. Now note that we are only dealing with ferromagnetic materials, which have the property that neighboring moments like to align themselves in the same direction, due to the exchange energy (\cref{par:Energy_Exchange}). This only leaves the first situation as a stable one, hence explaining the \textbf{tendency for ferromagnetic materials to be magnetized along the long axis of a microscopic geometric structure}. In larger geometric structures however, the third configuration is a perfectly acceptable way for two separate domains to align themselves, but in this thesis we are only dealing with small single-domain islands. \par
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.9\columnwidth]{Figures/Introduction/NML_Carlton - Figure 1.9 adapted.png}
-    \caption{Theoretical situation where an island is made up of two magnetic moments, for four different configurations, explaining the tendency for ferromagnetic materials to be magnetized along the long axis of a geometric structure. Figure adapted from fig. 1.9 in \cite{NML_Carlton}.}
+    \caption{Theoretical situation where an island is made up of two magnetic moments, for four different configurations, explaining the tendency for ferromagnetic materials to be magnetized along the long axis of a microscopic geometric structure. Figure adapted from fig. 1.9 in \cite{NML_Carlton}.}
     \label{fig:Intro_IslandEllipticPreferredDirection}
 \end{figure}
+In case of higher symmetry, for example with biaxial shape anisotropy, it is no longer clear which symmetry axes will be the easy axes, and which the hard ones, as will be examined in more detail in \cref{par:Biaxial_island}.
 
 \subsection{Signal Propagation}
+Nanomagnetic logic gates need to be able to communicate with each other in order to form a larger and more useful circuit. For this, nanomagnets are placed next to each other, such that they form a sort of chain. Signal propagation through chains of nanomagnets does however come with some large complications. One of the advantages of nanomagnetic logic is that different islands influence each other, but this bidirectional interaction causes problems when trying to propagate signals. Let us start with examining the uniaxial case, as this has been studied most intensively, and then extend our knowledge to biaxial signal propagation.
 \subsubsection{Uniaxial}
+In the uniaxial case, a wire can be formed by placing elliptic islands next to each other, either along their hard axes (\cref{fig:Intro_IslandEllipticChainGeometries}, left) or along their easy axes (\cref{fig:Intro_IslandEllipticChainGeometries}, right). In the first case, neighboring islands will try to align in opposite directions, in the second case they want to align in the same direction. Let us consider the first case now, as the second case is very similar. % TODO: is the other case extremely similar? I guess so, but I want to see evidence of this because in NML they use additional stabilizers for that configuration, so best to talk about that later.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\columnwidth]{Figures/Introduction/Chains_geometries.pdf}
+    \caption{Two possible chain geometries for uniaxial islands. Left: chain along the islands' hard axis. Right: chain along the islands' easy axis.}
+    \label{fig:Intro_IslandEllipticChainGeometries}
+\end{figure}
+Suppose the wire has been initialized with a `1'. Then all following moments will be in alternating directions, as shown in the top of \cref{fig:Intro_SolitonRandomWalk}. Now the input bit is changed to a `0' and we wish to propagate this signal through the wire, as shown in the middle of \cref{fig:Intro_SolitonRandomWalk}. The second magnetic moment now wants to align itself up due to its left neighbor (the input bit), but also wants to align itself down due to its right neighbor. As such, the second bit will now randomly change. As soon as this second bit changes, the third bit is now in a similar situation, as shown at the bottom of \cref{fig:Intro_SolitonRandomWalk}. Now both the second and third bit have an equal chance of switching, and thus the signal has an equal chance of propagating forward to the output (third bit switches) or backward to the input (second bit switches). Thus, the signal will perform a random walk along the wire. If the input bit is forced to remain `0', the signal will thus reach the output after a time proportional to the square of the number of nanomagnets the chain consists of. It is clear that this is not ideal, and several techniques have been proposed to force the signal to propagate along the wire in one direction. 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\columnwidth]{Figures/Introduction/Soliton_random_walk_2steps.pdf}
+    \caption{Blue arrows are the input bits. Red arrows have no preferred direction due to competing interactions with their neighbors. Top: initial ordering of the wire for a `1' (up) input. Middle: input bit changes to `0' (down), causing no net force to act on the second island. Bottom: second island randomly switches, causing no net force to act on the third island anymore either.}
+    \label{fig:Intro_SolitonRandomWalk}
+\end{figure}
 
+One technique makes use of an external magnetic field to initialize each island along its hard axis whenever a new bit needs to be propagated. This can be seen as a form of clocking. The first island is initialized in either the `0' or `1' state and functions as an input bit. When the external field is removed, each subsequent island chooses a direction to fall onto its easy axis.
 % TODO: Uniaxial anisotropy: explain that it likes to be magnetized along the long axis (NML_Carlton p.9-10 and beyond can be a good introduction)
 
 % TODO: Section on propagation of information along nanomagnet chians, for uniaxial and biaxial situation (seems like biaxial is less easy to find information about than uniaxial so need to find some more papers for that)
@@ -154,6 +173,7 @@ The energy corresponding to a certain continuous magnetization field $\vb{m}(\vb
 \end{equation}
 The physical nature of these different terms along with small derivations to accomodate them to the continuum approximation are presented in this section.
 \subsubsection{Exchange energy}
+\label{par:Energy_Exchange}
 The exchange energy is of quantum mechanical origin. It tries to align neighboring spins and takes on the simple form
 \begin{equation}
     E_{i,j} = -J \vb{S_i} \vdot \vb{S_j} \mathrm{.}
@@ -238,53 +258,78 @@ In case there is stress present in the crystal lattice, an additional magneto-el
 with $\vb{s}(\vb{r})$ the displacement field of the lattice.
 
 \subsubsection{Other energy terms}
-Other energy terms and torque contributions still exist which describe other specific phenomena, though these will not be used in this work. An example of such an energy term is the Dzyaloshinskii-Moriya interaction~\cite{DzyaloshinskiiMoriya}, which tries to orient neighboring spins perpendicular to each other, and is responsible for the stabilisation of skyrmions, which are described in~\cite{skyrmions}. An example of an additional torque is the Zhang-Li spin-transfer torque~\cite{ZhangLiSpinTransferTorque}, which describes the interaction between a spin-polarised current and the magnetization.
+Other energy terms still exist which describe other specific phenomena, though these will not be used in this work. An example of such an energy term is the Dzyaloshinskii-Moriya interaction~\cite{DzyaloshinskiiMoriya}, which tries to orient neighboring spins perpendicular to each other, and is responsible for the stabilisation of skyrmions, which are described in~\cite{skyrmions}. \par Additional torques can also be taken into account, like the Zhang-Li or Slonczewski spin-transfer torques, which describe the interaction between a spin-polarised current and the magnetization~\cite{ZhangLiSpinTransferTorque, MuMax3, syllabus_PoAEaPD}. This effect can be used in information storage technologies like MRAM, magnetic field sensors, and many other applications.~\cite{syllabus_PoAEaPD}
 
 \subsection{Landau-Lifschitz-Gilbert equation}
 % TODO: Sort out the difference between LL eq. and LLG eq.
-The aforementioned energy terms can be used to define the potential energy of a magnetization state $\vb{m}(\vb{r})$. This can be used in a Lagrangian formalism together with the kinetic energy term $-M_S/\gamma \dot{\phi} \cos(\theta)$ to determine the dynamics of the system.~\cite{abert2013discrete} 
-The dynamics of a micromagnetic system characterized by the magnetization $\vb{m}(\vb{r})$ is captured in the Landau-Lifschitz equation. This is a partial differential equation given by~\cite{phd_leliaert}
+The aforementioned energy terms can be used to define the potential energy of a magnetization state $\vb{m}(\vb{r})$. Because $\vb{m}(\vb{r})$ is always a unit vector, its motion can be described by that of a rotating body, thus allowing the use of Lagrangian formalism with the kinetic energy term $-M_S/\gamma \dot{\phi} \cos(\theta)$ to determine the dynamics of the system.~\cite{abert2013discrete} Solving this Lagrangian problem yields the Landau-Lifschitz (LL) equation. This is a partial differential equation given by~\cite{phd_leliaert}
 \begin{equation}
-	\frac{\partial \vb{m}}{\partial t} = - \gamma_0 \vb{m} \cross \vb{H_{eff}} - \alpha \vb{m} \cross (\vb{m} \cross \vb{H_{eff}}) \mathrm{.}
+	\frac{\partial \vb{m}}{\partial t} = - \gamma_0 \vb{m} \cross \vb{H_{eff}} - \lambda \vb{m} \cross (\vb{m} \cross \vb{H_{eff}}) \mathrm{.}
 	\label{eq:LL}
 \end{equation}
-mumax3-workshop says
-\begin{equation}
-	\frac{\partial \vb{m}}{\partial t} = - \frac{\gamma}{1+\alpha^2} \big( \vb{m} \cross \vb{H_{eff}} - \alpha \vb{m} \cross (\vb{m} \cross \vb{H_{eff}}) \big) \mathrm{.}
-\end{equation}
+% mumax3-workshop says
+% \begin{equation}
+% 	\frac{\partial \vb{m}}{\partial t} = - \frac{\gamma}{1+\alpha^2} \big( \vb{m} \cross \vb{H_{eff}} - \alpha \vb{m} \cross (\vb{m} \cross \vb{H_{eff}}) \big) \mathrm{.}
+% \end{equation}
 In this equation, the so-called effective field $\vb{H_{eff}}$ is used, which is defined as
 \begin{equation}
 	\vb{H_{eff}} = - \frac{1}{\mu_0} \frac{\partial E}{\partial \vb{m}} \mathrm{,}
 	\label{eq:H_eff}
 \end{equation}
-with the energy $E$ the sum of several contributions as explained before. $\partial E/\partial \vb{M}$ means the vector whose components are $\partial E/\partial M_x$, etc.~\cite{ThermFluc_SingleDomain}
-The term $\vb{M} \cross \vb{H_{eff}}$ causes the magnetic moment to precess around the effective field. If only this term were present, the precession would occur forever, so Landau and Lifschitz included a phenomenological damping term $\vb{M} \cross (\vb{M} \cross \vb{H_{eff}})$ as well, which causes the moment $\vb{M}$ to slowly damp toward the effective field vector $\vb{H_{eff}}$.~\cite{NML_Carlton} The physical origins of this damping include eddy currents~\cite{phd_leliaert}, phonon excitation due to spin-lattice coupling~\cite{phd_leliaert}, %TODO: physical origins of damping
+with the energy $E$ the sum of several contributions as explained before. $\partial E/\partial \vb{M}$ means the vector whose components are $\partial E/\partial M_x$, etc.~\cite{ThermFluc_SingleDomain} 
+The term $\vb{M} \cross \vb{H_{eff}}$ causes the magnetic moment to precess around the effective field. The constant $\gamma_0 = \mu_0 \frac{ge}{2m_e}$, with $g$ the Landé factor, is related to the gyromagnetic ratio and determines the precession frequency $f=\frac{\gamma_0}{2\pi}\abs{\vb{H_{eff}}}$, then called the Larmor frequency.~\cite{phd_leliaert} If only this first term were present, the precession would occur forever, so Landau and Lifschitz included a phenomenological damping term $\vb{M} \cross (\vb{M} \cross \vb{H_{eff}})$ as well, which causes the moment $\vb{M}$ to slowly damp toward the effective field vector $\vb{H_{eff}}$.~\cite{NML_Carlton} The physical origins of this damping include eddy currents~\cite{phd_leliaert}, phonon excitation due to spin-lattice coupling~\cite{phd_leliaert}, %TODO: physical origins of damping
 
-Gilbert \cite{Gilbert1955anomalous} replaced the damping term with a term dependent on the time derivative of the magnetization~\cite{ThermFluc_SingleDomain, phd_leliaert, LEL-17b}:
+In order to obtain a physically more intuitive damping term, Gilbert \cite{Gilbert1955anomalous} replaced it with a term dependent on the time derivative of the magnetization, thus forming the Landau-Lifschitz-Gilbert (LLG) equation~\cite{ThermFluc_SingleDomain, phd_leliaert, LEL-17b}:
 \begin{equation}
 	\frac{\partial \vb{m}}{\partial t} = - \gamma_0\vb{m} \cross \vb{H_{eff}} + \alpha \vb{m} \cross \frac{\partial \vb{m}}{\partial t} \mathrm{,}
 	\label{eq:LLG}
 \end{equation}
-where $\alpha>0$ is a dimensionless damping constant and $\gamma$ the gyromagnetic ratio. If this equation is solved for $\partial \vb{m}/\partial t$, it is of the same form as the Landau-Lifschitz equation \eqref{eq:LL}.~\cite{ThermFluc_SingleDomain}  
+where $\alpha>0$ is a dimensionless damping constant. If this equation is solved for $\partial \vb{m}/\partial t$, it is of the same form as the LL equation \eqref{eq:LL}. These LL and LLG equations are hence equivalent, where a substitution of $\lambda$ and $\gamma_0$ in the LL equation by $\frac{\gamma_0 \alpha}{1+\alpha^2}$ and $\frac{\gamma_0}{1+\alpha^2}$, respectively, yields the LLG equation.~\cite{ThermFluc_SingleDomain,phd_leliaert} Remark that this substitution indicates that, in the LLG equation, the precession frequency is dependent on the damping, which means that the LL and LLG equations only represent the same physics in the limit of low damping. Since the LL equation treats the damping only phenomenologically, it will not describe the physics correctly for high damping, whereas the LLG equation will.~\cite{phd_leliaert}
 %TODO: Perhaps prove that modulus is preserved and that energy always decreases (see abert2013discrete)
 %TODO: The sort out what the factors in front should be because there are conflicting or at least confusing sources
+%TODO: tell that permalloy has alpha=0.01
 
-\section{Literature}
-- Biaxial signal propagation? Very different from uniaxial (NML)
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\columnwidth]{Figures/Introduction/abert2013discrete - Figure 2.2.pdf}
+    \caption{Motion of a magnetic moment as described by the LLG equation. The motion can be divided into the (a) precessional and (b) damping components. (c) Resulting motion including both precession and damping. Figure taken from~\cite{abert2013discrete}.}
+    \label{fig:LLG_motion_Heff}
+\end{figure}
 
+\subsubsection{Thermal fluctuations}
+% TODO: remove the line in this paragraph that just says where the references come from
+The literature in this section comes from the references \cite{LEL-17b}. \par
+The LLG equation only takes into account the fundamental physics of the magnetization dynamics at zero temperature. However, in our universe things exist at nonzero temperatures, and thermal fluctuations play an important role in magnetic logic devices. % TODO: when I know what the role is exactly, come back here and tell something small about it here
+In order to simulate nanomagnetic structures at nonzero temperatures, Brown~\cite{ThermFluc_SingleDomain} developed a theory to model thermal fluctuations in single-domain particles, by adding a stochastic thermal field $\vb{H_{therm}}$ to the effective field $\vb{H_{eff}}$ in the LLG equation. This thermal field has to fulfill certain statistical properties, namely
+\begin{align*}
+    \langle \vb{H_{therm}} \rangle &= 0 \mathrm{,} \\
+    \langle H_{therm,i}(t) H_{therm,j}(t') \rangle &= q \delta(t-t') \delta_{ij} \mathrm{,}
+\end{align*}
+where $q=(2 k_B T \alpha)/(M_S \gamma V)$, with $V$ the volume of the single-domain particle. The angled brackets denote either a time average or correlation. With these random and uncorrelated properties of the time-dependent additional field term, the LLG equation becomes a Langevin equation.~\cite{ThermFluc_SingleDomain} However, a nanomagnetic island is not a perfect single-domain particle with uniform magnetization, and different nanomagnetic islands can influence each other through magnetostatic interactions.
+Lyberatos~\cite{Lyberatos_1993} realized that every finite-difference cell in a numerical simulation can be seen as one such a single-domain particle, for which Brown's theory can then be applied.~\cite{phd_leliaert} More specifically, the thermal field was implemented in \mumax{}~\cite{LEL-17b,MuMax3} as
+\begin{equation}
+    \vb{H_{therm}} = \vec{\eta} \sqrt{\frac{2 \alpha k_B T}{M_S \gamma V \Delta t}} \mathrm{,}
+    \label{eq:H_therm}
+\end{equation}
+where $\vec{\eta}$ is a random vector, determined from a standard normal distribution, whose value is changed after every time step. This equation is such that the thermal fluctuations are independent of the spatial discretization (volume $V$ and time step $\Delta t$) used.
+% Adaptive time step in mumax problem? Solvers?
+There are many finite-difference solvers available in \mumax{}, for example different orders of Runge-Kutta solvers, some of which benefit from the first-same-as-last (FSAL) property. In such solvers, the last torque evaluation of the current step is the same as the first evaluation of the next step, which allows an increase in efficiency because this step only has to be evaluated once. However, the stochastic thermal field is not constant, and hence these solvers can no longer benefit from the FSAL property.~\cite{LEL-17b} Another complication is that the time step $\Delta t$ appears in the expression for $\vb{H_{therm}}$. Since some solvers in \mumax{} improve their efficiency by using an adaptive time step, one must take additional care that the thermal field is calculated correctly in such case. For a detailed description of the implementation of the stochastic thermal field in \mumax{}, we refer to~\cite{LEL-17b}.
+% TODO: Can still include something on jump noise process and Curie temperature (phd_leliaert) and a bit more on solvers (start of appendix in phd_leliaert)
+% TODO: Find a good place to talk about the advantages of running mumax on gpu, with parallelism etc. (see 'Micromagnetic simulations using Graphics Processing Units')
 
 \section{Tests}
 \subsection{Biaxial island}
-The first part of this thesis consists of investigating the properties of a single biaxial island, as this will be the fundamental building block of more complex circuits. The geometry of such an island is one of the main factors determining the energy barrier between stable states. The geometry under investigation here consists of two ellipses, rotated \SI{90}{\degree} with respect to each other, as shown in \cref{fig:biaxial_island:geometryTypical}. This gives the geometry two degrees of freedom, namely the long and short axis of the ellipse. We will define the roundness $\rho$ as the ratio between the long and short axis of the ellipses, and the `overall size' $L$ is simply equal to the long axis.
+\label{par:Biaxial_island}
+The first part of this thesis consists of investigating the properties of a single biaxial island, as this will be the fundamental building block of more complex circuits. The geometry of such an island is one of the main factors determining the energy barrier between stable states. The geometry under investigation here consists of two ellipses, rotated \SI{90}{\degree} with respect to each other, as shown in \cref{fig:biaxial_island:geometryTypical}. This is chosen because it should be reasonably easy to manufacture as it has no sharp corners. This geometry has two degrees of freedom, namely the long and short axis of the ellipse. We will define the roundness $\rho$ as the ratio between the long and short axis of the ellipses, and the `overall size' $L$ is simply equal to the long axis.
 \begin{figure}
     \centering
     \includegraphics[width=0.3\columnwidth]{Figures/biaxial_island/Geometry/geomPlus55.png}
-    \caption{Typical geometry of the biaxial island under investigation, in this specific case for 55x\SI{100}{\nano\metre} ellipses, i.e. $(\rho, L)=(0.55, \SI{100}{\nano\metre})$.}
+    \caption{Typical geometry of the biaxial island under investigation, in this specific case for 55x\SI{100}{\nano\metre} ellipses, i.e. $(\rho, L)=(0.55, \SI{100}{\nano\metre})$. White is ferromagnetic material, black is free space.}
     \label{fig:biaxial_island:geometryTypical}
 \end{figure}
 
 \subsubsection{Energy barrier}
-To determine the energy barrier $E_{barrier}$, the energy landscape as a function of magnetization angle must be calculated. If one were to simply set the magnetization $\vb{M}$ of the entire island in one direction and call it a day, the calculated energy landscape would be flat, due to the absence of the demagnetizing field caused by the shape anisotropy of the magnetic body.~\cite{Nonmonotonic_reversal} Thus the magnetization should first be relaxed, which can be done using the \mumax{} command \code{minimize()}. However, this would result in a complete relaxation to an energy minimum, hence not yielding any useful information on the energy barrier. To circumvent this issue, an external magnetic field is applied to keep the average magnetization $\frac{1}{A}\int_A \vb{M}\,dA$ close to the initial direction. \par
+To determine the energy barrier $E_{barrier}$, the energy landscape as a function of magnetization angle must be calculated. If one were to simply set the magnetization $\vb{M}$ of the entire island in one direction and call it a day, the calculated energy landscape would be flat, due to the absence of the demagnetizing field caused by the shape anisotropy of the magnetic body.~\cite{Nonmonotonic_reversal} Thus, the magnetization should first be relaxed, which can be done using the \mumax{} command \code{minimize()}. However, this would result in a complete relaxation to an energy minimum, hence not yielding any useful information on the energy barrier. To circumvent this issue, an external magnetic field is applied to keep the average magnetization $\frac{1}{A}\int_A \vb{M}\,dA$ close to the initial direction. \par
 The procedure is therefore as follows. First the magnetization of the entire island $\vb{M}$ is initialized under one specific angle $\theta$. Then an external magnetic field $B_{ext}$ is applied along that same direction, and the magnetization is relaxed using \code{minimize()}. The internal energy, responsible for the energy landscape, is then equal to $E_{total} - E_{Zeeman}$. This procedure is repeated for different angles $\theta$ to generate an energy profile from which the energy barrier can be deduced. The grid size for these numerical calculations is \SI{1}{\nano\metre} for maximum accuracy.
 
 \paragraph{Optimal simulated external field magnitude}
@@ -355,19 +400,7 @@ Everything taken into account, it seems that the optimal compromise between simu
 
 % FROM HERE ON THINGS ARE NOT VERY STRUCTURED
 \subsection{Random thermal switching}
-\subsubsection{Literature}
-% TODO: here they use B_eff, in formulas for LLG they use H_eff, have a good look at what this all should be
-The literature in this section comes from the references \cite{LEL-17b}. \par
-Thermal fluctuations play an important role in magnetic logic devices. The models describing thermal fluctuations in micromagnetic systems are often based on approximations that do not take into account that the magnetization in large particles may not be entirely uniform, or that particles might interact with each other through magnetostatic interactions. For this reason, it is instructive to use a theory which gives good numerical accuracy, as was implemented in \mumax{}.~\cite{LEL-17b} There, a stochastic thermal field $\vb{H_{therm}}$ was added to the effective field $\vb{H_{eff}}$. This thermal field has to fulfill certain conditions, as were determined by Brown for single-domain particles, namely %TODO: reference the paper of Brown (LEL-17b ref. 3)
-\begin{align*}
-    \langle \vb{H_{therm}} \rangle &= 0 \mathrm{,} \\
-    \langle H_{therm,i}(t) H_{therm,j}(t') \rangle &= q \delta(t-t') \delta_{ij} \mathrm{,}
-\end{align*}
-where $q=(2 k_B T \alpha)/(M_S \gamma V)$, with $V$ the volume of one finite difference cell. The angled brackets denote either a time average or correlation. These equations are such that the thermal fluctuations are independent of the spatial discretization used. The thermal field used in \mumax{}~\cite{LEL-17b,MuMax3,phd_leliaert} is implemented as
-\begin{equation}
-    \vb{H_{therm}} = \vb{\eta} \sqrt{\frac{2 \alpha k_B T}{M_S \gamma V \Delta t}} \mathrm{,}
-\end{equation}
-where $\vb{\eta}$ is a random vector, determined from a standard normal distribution, whose value is changed after every time step.
+
 
 \subsubsection{Preparation}
 \textbf{Step 1: find energy barrier} \\
