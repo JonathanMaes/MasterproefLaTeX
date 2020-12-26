@@ -3,6 +3,7 @@
 %% PACKAGES WITH OPTIONS
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage[utf8]{inputenc}
 \usepackage[version=4]{mhchem} % Chemistry and isotopes with \ce{} (other option: 'chemformula' \ch{})
 \usepackage[numbers]{natbib} % numbers: needed argument, otherwise error
@@ -58,7 +59,9 @@
 \newpage
 \pagenumbering{roman}
 
+{\hypersetup{linkcolor=black}
 \tableofcontents
+}
 \newpage
 \pagenumbering{arabic}
 
@@ -134,7 +137,7 @@ Because there are strong out-of-plane components on either end of a nanomagnet, 
 A disadvantage of MFM is that it does not image the magnetization directly, but rather the stray out-of-plane magnetic fields, which can make the results more difficult to interpret. It is however a cheaper technique that requires less safety measures than X-ray based techniques, which are discussed in the next section.
 
 \subsubsection{Photoemission Electron Microscopy using X-ray Magnetic Circular Dichroism}
-Photoemission Electron Microscopy (PEEM) is a microscopy technique which images secondary electrons emitted from the sample upon irradiated with X-rays. This kind of electron microscopy can achieve a high spatial resolution of less than \SI{50}{\nano\metre}, with a typical probing depth in metals of about \SI{2}{\nano\metre}.~\cite{PEEM} The technique can be used to simply image the chemical and elemental structure of the sample, but can be adapted to image the magnetization direction in ferromagnets by utilizing an effect called X-ray Magnetic Circular Dichroism (XMCD). This is a physical phenomenon where the number of electrons emitted from the sample upon irradiation with circularly polarized X-rays depends on the magnetization direction of the surface of the sample.~\cite{NML_Carlton} More specifically, the quantity that is measured is the angle $\phi$ between the magnetization direction $\vb{m(\vb{r})}$ of the sample and the photon spin $\vec{\sigma}$, which is aligned with the photon propagation direction and changes sign when the photon helicity is reversed.~\cite{PEEM} The intensity of emitted electrons is given by
+Photoemission Electron Microscopy (PEEM) images secondary electrons emitted from the sample upon irradiated with X-rays. This kind of electron microscopy can achieve a high spatial resolution of less than \SI{50}{\nano\metre}, with a typical probing depth in metals of about \SI{2}{\nano\metre}.~\cite{PEEM} The technique can be used to simply image the chemical and elemental structure of the sample, but can be adapted to image the magnetization direction in ferromagnets by utilizing an effect called X-ray Magnetic Circular Dichroism (XMCD). This is a physical phenomenon where the number of electrons emitted from the sample upon irradiation with circularly polarized X-rays depends on the magnetization direction of the surface of the sample.~\cite{NML_Carlton} More specifically, the quantity that is measured is the angle $\phi$ between the magnetization direction $\vb{m(\vb{r})}$ of the sample and the photon spin $\vec{\sigma}$, which is aligned with the photon propagation direction and changes sign when the photon helicity is reversed.~\cite{PEEM} The intensity of emitted electrons is given by
 \begin{equation}
     I_{\mathrm{XMCD}} \propto M_S \cos(\phi) \mathrm{.}
     \label{eq:XMCD}
