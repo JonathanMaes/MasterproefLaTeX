@@ -30,6 +30,7 @@
 
 %% PACKAGES SETUP COMMANDS
 \hypersetup{colorlinks=true,urlcolor=blue,citecolor=gray}
+\captionsetup{width=.8\linewidth}
 
 %% COMMANDS
 % Bold and italic vector symbols (preferably use \vb{} instead)
@@ -77,7 +78,7 @@ Quantum Cellular Automata (QCA) are discussed in \cite{QCA_Algorithms, QCA_GameO
 
 \noindent An atom may display what is called a \textbf{magnetic dipole moment}, on one hand due to the angular momentum of electrons around the nucleus, and on the other hand due to the intrinsic spin of the elementary particles which make up the atom. The magnetic moment can be defined using the torque the atom experiences in a magnetic field.~\cite{IntroMagneticMaterials} In a material, many atoms are together, and the macroscopic sum of all their magnetic moments is called the magnetization of the material. In a crystalline material, the periodicity of the lattice can give rise to specific orderings of the magnetic moments, like for example ferromagnetism where all individual magnetic moments of neighboring atoms try to align themselves in the same direction. \par 
 Such a ferromagnetic material, like iron, nickel or cobalt, consists of many \textbf{magnetic domains}. Each domain, on the order of several tens of micrometers, has a nearly uniform magnetization pointing in a random direction. Because the direction of each domain is random, a ferromagnetic material does not display a macroscopic net magnetization. However, when one fabricates a very small island of several hundred nanometers made of such a ferromagnetic material, it will not be made up of several domains, but rather only one, and will thus have a nearly uniform magnetization. \par
-If this island has one or another form of anisotropy, be it due to the crystal structure or the shape of the island, the magnetization will have minimal energy if it lies along a certain axis, called the `easy axis'. \textbf{Shape anisotropy} originates from the observation that the magnetization of a domain preferably orients itself along the long axis of a microscopic structure. An example that is often used is a 2D ellipse, as this can easily be produced via electron beam lithography, for which the easy axis is equal to the long axis of the ellipse. In general, if a structure has one easy axis (and thus two stable directions), we speak of uniaxial anisotropy. In the case of two easy axes (and thus four stable directions), as will be the main topic of this thesis, this is called biaxial anisotropy. Biaxial shape anisotropy can be achieved with a geometry that is invariant under rotation of \SI{90}{\degree}. \par
+If this island has one or another form of anisotropy, be it due to the crystal structure or the shape of the island, the magnetization will have minimal energy if it lies along a certain axis, called the `easy axis'. \textbf{Shape anisotropy} originates from the observation that the magnetization of a domain preferably orients itself along the long axis of a microscopic structure. An example that is often used is a 2D ellipse, as this can easily be produced via electron beam lithography, for which the easy axis is equal to the long axis of the ellipse. In general, if a structure has one easy axis (and thus two stable directions), we speak of uniaxial anisotropy. In the case of two easy axes (and thus four stable directions), as will be the main topic of this thesis, this is called biaxial anisotropy. Biaxial shape anisotropy can be achieved with a geometry that is invariant under rotation over \SI{90}{\degree}. \par
 In the uniaxial case, there are two stable directions, which can be related to a `0' or `1' bit. Hence, these nanomagnetic islands can be used to create a \textbf{digital logic circuit}. There have been examples in literature where majority logic gates and NAND gates have been created using nanomagnets.~\cite{GYP-18} Biaxial nanomagnets can be used to encode two bits in one island, because those have 4 stable magnetization directions. This should allow for smaller logic gates due to the increased integration density as compared to uniaxial islands. The goal of this thesis is to create a half adder using biaxial nanomagnets. Because a half adder takes two bits as input and yields two bits as output, it almost feels natural to design it using biaxial nanomagnets instead of uniaxial ones.
 % TODO: talk about making logic devices with this
 In the following sections, the nature of magnetism and magnetic domains, quantum cellular automata, signal propagation and techniques for imaging the magnetization will be explained in more detail.
@@ -103,7 +104,17 @@ The first configuration has both moments vertical and in the same direction, whi
     \caption{Theoretical situation where an island is made up of two magnetic moments, for four different configurations, explaining the tendency for ferromagnetic materials to be magnetized along the long axis of a microscopic geometric structure. Figure adapted from fig. 1.9 in \cite{NML_Carlton}.}
     \label{fig:Intro_IslandEllipticPreferredDirection}
 \end{figure}
-In case of higher symmetry, for example with biaxial shape anisotropy, it is no longer clear which symmetry axes will be the easy axes, and which the hard ones, as will be examined in more detail in \cref{par:Biaxial_island}.
+In case of higher symmetry, for example with biaxial shape anisotropy, it is no longer clear which symmetry axes will be the easy axes, and which the hard ones, as will be examined in more detail in \cref{par:Biaxial_island}. \par
+% TODO: Make this discussion of exchange bias clearer, because it is all over the place now
+When constructing a logic gate, it can be useful to include islands whose magnetization is permanently fixed, as opposed to the free-switching islands discussed before. The magnetization direction can be fixed using a phenomenon called exchange bias.~\cite{ExchangeBias_Mechanisms,ExchangeBias_nanostructures,ExchangeBias,syllabus_PoAEaPD} This is a phenomenon associated with the exchange anisotropy created at the interface between an anti-ferromagnetic (AFM) and a ferromagnetic (FM) material as illustrated in \cref{fig:Intro_ExchangeBias}.
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\columnwidth]{Figures/Introduction/Syallabus_PoAEaPD - Figure 2.7.png}
+    \caption{The exchange bias effect in ferromagnet/antiferromagnet bilayers with exchange field on the ferromagnetic layer, $H_{ex}$, originating from the interface. Figure taken from \cite{syllabus_PoAEaPD}.}
+    \label{fig:Intro_ExchangeBias}
+\end{figure}
+An AFM material consists of magnetic moments which alternate direction in each atomic plane, while a FM material has magnetic moments all in the same direction. The top layer of the AFM material thus wants the bottom layer of the FM to align anti-parallel (as shown in the figure), while the FM layer wants the top layer of the AFM to align parallel (not the case in the figure). Often, the anti-parallel alignment of the magnetic moments at the FM/AFM interface wins, hence creating a preferential direction for the FM material. Only the FM material is susceptible to external magnetic fields, as the AFM has zero net magnetization due to the alternating moments. Thus, by manufacturing a nanomagnetic island on top of an AFM material, the island can be made to have a single preferential direction. \par
+One might wonder how to define the direction of such an anti-ferromagnetically coupled island. By choosing a material where the N\'{e}el temperature $T_N$ of the AFM layer is lower than the Curie temperature $T_C$ of the FM layer, one can operate at a temperature $T$ for which $T_N < T < T_C$. In this regime, the FM layer will follow an applied magnetic field, while the AFM layer is paramagnetic. When the temperature is then lowered below $T_N$, the AFM material will settle in such a way that it fixes the FM layer in the direction it is in.~\cite{ExchangeBias_Mechanisms}
 
 \subsection{Signal Propagation}
 Nanomagnetic logic gates need to be able to communicate with each other in order to form a larger and more useful circuit. For this, nanomagnets are placed next to each other, such that they form a sort of chain. Signal propagation through chains of nanomagnets does however come with some large complications. One of the advantages of nanomagnetic logic is that different islands influence each other, but this bidirectional interaction causes problems when trying to propagate signals. Let us start with examining the uniaxial case, as this has been studied most intensively, and then extend our knowledge to biaxial signal propagation.
@@ -316,10 +327,9 @@ There are many finite-difference solvers available in \mumax{}, for example diff
 % TODO: Can still include something on jump noise process and Curie temperature (phd_leliaert) and a bit more on solvers (start of appendix in phd_leliaert)
 % TODO: Find a good place to talk about the advantages of running mumax on gpu, with parallelism etc. (see 'Micromagnetic simulations using Graphics Processing Units')
 
-\section{Tests}
-\subsection{Biaxial island}
+\section{Biaxial island}
 \label{par:Biaxial_island}
-The first part of this thesis consists of investigating the properties of a single biaxial island, as this will be the fundamental building block of more complex circuits. The geometry of such an island is one of the main factors determining the energy barrier between stable states. The geometry under investigation here consists of two ellipses, rotated \SI{90}{\degree} with respect to each other, as shown in \cref{fig:biaxial_island:geometryTypical}. This is chosen because it should be reasonably easy to manufacture as it has no sharp corners. This geometry has two degrees of freedom, namely the long and short axis of the ellipse. We will define the roundness $\rho$ as the ratio between the long and short axis of the ellipses, and the `overall size' $L$ is simply equal to the long axis.
+The first part of this thesis consists of investigating the properties of a single biaxial island, as this will be the fundamental building block of more complex circuits. The geometry of such an island is one of the main factors determining the energy barrier between stable states. The geometry under investigation here is the union of two perpendicular ellipses, as shown in \cref{fig:biaxial_island:geometryTypical}. This geometry was chosen because it should be reasonably easy to manufacture due to the lack of sharp corners. This geometry has two `degrees of freedom', namely the long and short axis of the ellipse. We will define the roundness $\rho$ as the ratio between the long and short axis of the ellipses, and the `overall size' $L$ as simply being equal to the long axis.
 \begin{figure}
     \centering
     \includegraphics[width=0.3\columnwidth]{Figures/biaxial_island/Geometry/geomPlus55.png}
@@ -327,11 +337,11 @@ The first part of this thesis consists of investigating the properties of a sing
     \label{fig:biaxial_island:geometryTypical}
 \end{figure}
 
-\subsubsection{Energy barrier}
+\subsection{Energy barrier}
 To determine the energy barrier $E_{barrier}$, the energy landscape as a function of magnetization angle must be calculated. If one were to simply set the magnetization $\vb{M}$ of the entire island in one direction and call it a day, the calculated energy landscape would be flat, due to the absence of the demagnetizing field caused by the shape anisotropy of the magnetic body.~\cite{Nonmonotonic_reversal} Thus, the magnetization should first be relaxed, which can be done using the \mumax{} command \code{minimize()}. However, this would result in a complete relaxation to an energy minimum, hence not yielding any useful information on the energy barrier. To circumvent this issue, an external magnetic field is applied to keep the average magnetization $\frac{1}{A}\int_A \vb{M}\,dA$ close to the initial direction. \par
 The procedure is therefore as follows. First the magnetization of the entire island $\vb{M}$ is initialized under one specific angle $\theta$. Then an external magnetic field $B_{ext}$ is applied along that same direction, and the magnetization is relaxed using \code{minimize()}. The internal energy, responsible for the energy landscape, is then equal to $E_{total} - E_{Zeeman}$. This procedure is repeated for different angles $\theta$ to generate an energy profile from which the energy barrier can be deduced. The grid size for these numerical calculations is \SI{1}{\nano\metre} for maximum accuracy.
 
-\paragraph{Optimal simulated external field magnitude}
+\subsubsection{Optimal simulated external field magnitude}
 The procedure as described above makes use of an external magnetic field. It is important to know what the magnitude of this external field should optimally be to determine the energy barrier. To this end, a simulation is carried out in which both the angle $\theta$ and the external magnetic field $B_{ext}$ are varied. In \cref{fig:barrierLandscape-sweepBext} the relaxed magnetization angle is plotted for different magnitudes of the external magnetic field $\abs{\vb{B_{ext}}}$, with the angle of this magnetic field taken at 64 equally spaced values from \SIrange{0}{90}{\degree}.
 \begin{figure}
     \centering
@@ -350,13 +360,13 @@ Interesting findings:
 
 - Fourthly or finally idk, for lower magnetic fields the energy barrier lowers until it reaches a limit value. This is because high external magnetic fields prevent the relaxation of the edges of the geometry, instead keeping them pointed in roughly the same direction. It is the relaxation of the magnetization angle in a non-uniform way which causes the anisotropy, so forcing the magnetization in a certain direction (like with a high external field) will prevent this from happening, thus increasing the energy and lowering the fictional variant of the energy barrier.
 
-\paragraph{Energy barrier as function of roundness}
+\subsubsection{Energy barrier as function of roundness}
 See \cref{fig:barrier-cell_size-1nm} blue curve for \SI{128}{\nano\metre}.
 
-\paragraph{Energy barrier as function of overall size}
+\subsubsection{Energy barrier as function of overall size}
 See \cref{fig:barrier-cell_size-1nm} all different curves
 
-\paragraph{Numerical error: influence of cell size on energy barrier}
+\subsubsection{Numerical error: influence of cell size on energy barrier}
 When performing longer simulations, it is advantageous to use as large a cell size as possible, to minimize the total amount of cells in the simulation. Increasing the size of the cells does however also increase the numerical error originating from the discretization of the grid. The size of this numerical error was examined by determining the energy barrier for different shapes (varying roundness and overall size) and for different cell sizes of \SI{4}{\nano\metre}, \SI{2}{\nano\metre} and \SI{1}{\nano\metre}. The results of this calculation are shown in \cref{fig:barrier-cell_size}.
 \begin{figure}
      \centering
@@ -393,12 +403,12 @@ The figure obtained with cells of \SI{1}{\nano\metre} is quite smooth, so it is 
 It may also be noted that for the \SI{4}{\nano\metre} cells, there are no values for the lowest roundnesses for long ellipse axes of \SI{16}{\nano\metre} or \SI{32}{\nano\metre}, because for these situations the short axis is smaller than the grid size, which yields an empty simulation geometry and thus no results. \par
 Everything taken into account, it seems that the optimal compromise between simulation speed and accuracy, is a \SI{2}{\nano\metre} cell size, which will be used to perform longer simulations. For the 65x100nm geometry, a \SI{4}{\nano\metre} cell size is probably still acceptable since the energy barrier is similar, and since this will result in a 4x speed increase this will be used. For the perfectly round situation, the difference is very large so it is instructive to use \SI{2}{\nano\metre} or even \SI{1}{\nano\metre}.
 
+\subsubsection{Energy landscape in presence of an external magnetic field}
 
 
 
-
-% FROM HERE ON THINGS ARE NOT VERY STRUCTURED
-\subsection{Random thermal switching}
+% TODO: From here on things are not very structured
+\subsection{Thermal switching}
 
 
 \subsubsection{Preparation}
@@ -454,12 +464,19 @@ Formula for $f_0$ derived from \eqref{eq:Switching_time}:
 \end{equation*}
 with $\Delta t$ the simulation time and $N$ the number of switches.
 
+There exists an analytical formula for $f_0$, as found in \cite{LEL-17b, MuMax3}:
+\begin{equation}
+    f_0 = \gamma_{LL} \frac{\alpha}{1+\alpha^2} \sqrt{\frac{8 K^3 V}{2 \pi M_S^2 k_B T}}
+\end{equation}
+I believe $K$, the anisotropy constant, is equal to $E_{barrier}/V$. Using this, I find a value of \SI{6e6}{\per\second}, which is not in line with \cref{tab:Switching_f0}.
+
 Formula in \cite{MuMax3} works for the limit of a high barrier compared to the
 thermal energy, so perhaps 49x100 is not very representative.
 
 % TODO: This table is too wide, but currently serves as a sort of data storage
+% TODO: The footnote is maybe quite long
 The \cref{tab:Switching_f0} is for $\alpha=0.01$:
-
+% TODO: the caption still has a python code in it
 \ctable[
     cap = Switching Rates,
     caption = {Switching rates and corresponding $f_0$ values for different geometries and grid discretizations, all for $\alpha=0.01$.\\Python: \code{f0 = lambda N, dt, barrier, T: N*math.log(4)/dt*math.exp(barrier/1380649*16021766340/T)}},
@@ -471,9 +488,9 @@ The \cref{tab:Switching_f0} is for $\alpha=0.01$:
     }{
     \tnote[a]{The switching rate ($\approx \SI{2}{\nano\second}$) is on the same timescale as the LLG dynamics, hence the exponential relationship of the Arrhenius law is no longer entirely applicable, causing the corresponding values for $f_0$ to be inaccurate. Furthermore, the energy barrier is no longer high compared to the thermal energy, which also reduces the accuracy of the Arrhenius law.}
     }{
-        Geom [nm] & Barrier [meV] & Cell [nm] & T [K] & $\Delta t$ [ns] & (1) & (2) & (3) & f0 (1) & f0 (2) & f0 (3) \\
+        Geom [nm] & Barrier [meV] & Cell [nm] & T [K] & $\Delta t$ [ns] & (1) & (2) & (3) & $f_0$ (1) & $f_0$ (2) & $f_0$ (3) \\
         \hline
-        49x100 \tmark[a] & 24.7 & 2 & 300 & 100 & 57 & 37 & 6 & \SI{2.06e9}{} & \SI{1.33e9}{} & \SI{2.16e8}{} \\
+        49x100 & 24.7 \tmark[a] & 2 & 300 & 100 & 57 & 37 & 6 & \SI{2.06e9}{} & \SI{1.33e9}{} & \SI{2.16e8}{} \\
         \hline
         65x100 & 155.0 & 4 & 273 & 1000 & 13 & 13 & 9 & \SI{1.31e10}{} & \SI{1.31e10}{} & \SI{9.06e9}{} \\
         65x100 & 155.0 & 4 & 300 & 1000 & 15 & 11 & 7 & \SI{8.35e9}{} & \SI{6.12e9}{} & \SI{3.89e9}{} \\
