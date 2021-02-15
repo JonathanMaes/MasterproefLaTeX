@@ -78,13 +78,13 @@ Quantum Cellular Automata (QCA) are discussed in \cite{QCA_Algorithms, QCA_GameO
 
 \noindent An atom may display what is called a \textbf{magnetic dipole moment}, on one hand due to the angular momentum of electrons around the nucleus, and on the other hand due to the intrinsic spin of the elementary particles which make up the atom. The magnetic moment can be defined using the torque the atom experiences in a magnetic field.~\cite{IntroMagneticMaterials} In a material, many atoms are together, and the macroscopic sum of all their magnetic moments is called the magnetization of the material. In a crystalline material, the periodicity of the lattice can give rise to specific orderings of the magnetic moments, like for example ferromagnetism where all individual magnetic moments of neighboring atoms try to align themselves in the same direction. \par 
 Such a ferromagnetic material, like iron, nickel or cobalt, consists of many \textbf{magnetic domains}. Each domain, on the order of several tens of micrometers, has a nearly uniform magnetization pointing in a random direction. Because the direction of each domain is random, a ferromagnetic material does not display a macroscopic net magnetization. However, when one fabricates a very small island of several hundred nanometers made of such a ferromagnetic material, it will not be made up of several domains, but rather only one, and will thus have a nearly uniform magnetization. \par
-If this island has one or another form of anisotropy, be it due to the crystal structure or the shape of the island, the magnetization will have minimal energy if it lies along a certain axis, called the `easy axis'. \textbf{Shape anisotropy} originates from the observation that the magnetization of a domain preferably orients itself along the long axis of a microscopic structure. An example that is often used is a 2D ellipse, as this can easily be produced via electron beam lithography, for which the easy axis is equal to the long axis of the ellipse. In general, if a structure has one easy axis (and thus two stable directions), we speak of uniaxial anisotropy. In the case of two easy axes (and thus four stable directions), as will be the main topic of this thesis, this is called biaxial anisotropy. Biaxial shape anisotropy can be achieved with a geometry that is invariant under rotation over \SI{90}{\degree}. \par
-In the uniaxial case, there are two stable directions, which can be related to a `0' or `1' bit. Hence, these nanomagnetic islands can be used to create a \textbf{digital logic circuit}. There have been examples in literature where majority logic gates and NAND gates have been created using nanomagnets.~\cite{GYP-18} Biaxial nanomagnets can be used to encode two bits in one island, because those have 4 stable magnetization directions. This should allow for smaller logic gates due to the increased integration density as compared to uniaxial islands. The goal of this thesis is to create a half adder using biaxial nanomagnets. Because a half adder takes two bits as input and yields two bits as output, it almost feels natural to design it using biaxial nanomagnets instead of uniaxial ones.
+If this island has one or another form of anisotropy, be it due to the crystal structure or the shape of the island, the magnetization will have minimal energy if it lies along a certain axis, called the `easy axis'. \textbf{Shape anisotropy} originates from the observation that the magnetization of a domain preferably orients itself along the long axis of a microscopic structure. An example that is often used is a 2D ellipse, for which the easy axis is equal to the long axis of the ellipse. In general, if a structure has one easy axis (and thus two stable directions), we speak of uniaxial anisotropy. In the case of two easy axes (and thus four stable directions), as will be the main topic of this thesis, this is called biaxial anisotropy. Biaxial shape anisotropy can be achieved with a geometry that is invariant under rotation over \SI{90}{\degree}. \par
+In the uniaxial case, there are two stable directions, which can be related to a `0' or `1' bit. Hence, these nanomagnetic islands can be used to create a \textbf{digital logic circuit}. There have been examples in literature where majority logic gates and NAND gates have been created using nanomagnets.~\cite{GYP-18} Biaxial nanomagnets can be used to encode two bits in one island, because those have 4 stable magnetization directions. This should allow for smaller logic gates due to the increased integration density as compared to uniaxial islands. The main goal of this thesis is to realize a half adder using biaxial nanomagnets. A half adder takes two bits as input and yields two bits as output, so it almost feels natural to design it using biaxial nanomagnets instead of uniaxial ones.
 % TODO: talk about making logic devices with this
-In the following sections, the nature of magnetism and magnetic domains, quantum cellular automata, signal propagation and techniques for imaging the magnetization will be explained in more detail.
+In the following sections, the nature of magnetism and magnetic domains, the concept of quantum cellular automata, signal propagation and techniques for imaging the magnetization will be explained in more detail.
 
 \subsection{Domains}
-In 1907, Weiss proposed the idea that a ferromagnetic material contains several uniformly magnetized domains, but that the magnetization of each domain individually is random, thus resulting in a macroscopic zero net magnetization of a large amount of material.~\cite{MuMax3_advances} These domains should not be confused with grains, which are only related to the crystallography. The uniform alignment inside a single domain is due to the quantum mechanical Heisenberg-Dirac exchange interaction.~\cite{MuMax3_advances, heisenberg1928theorie} The magnetostatic energy makes it unfavorable for neighboring moments to align themselves parallel to one another, which competes with the exchange energy which tends to align neighboring moments in the same direction. Since the exchange energy only works on small length scales, domains are formed under the influence of the exchange energy, while different domains tend to cancel out their fields due to the magnetostatic energy. The typical size of these domains is on the order of several tens of micrometers. When the size of the material becomes on the order of micrometers, the domains form very symmetric patterns in order to minimize their energy, and on even smaller length scales only one domain remains.~\cite{NML_Carlton} So, if one makes a droplet of ferromagnetic material smaller than this typical size, the droplet will have a nearly uniform magnetization, with a magnitude equal to the saturation magnetization of the material.~\cite{NML_Carlton} Such a small droplet can for example be defined using electron beam lithography.~\cite{MQCA_RoomTemp, NML_Carlton} By introducing anisotropy in the droplet, which can be either magnetocrystalline or shape anisotropy, one or more axes can be made energetically favorable for the magnetization to align itself along. Magnetocrystalline anisotropy favors the crystal axes. Shape anisotropy can be realized by giving the droplet an elliptical shape instead of a perfect circle. In the uniaxial case, there is one stable magnetization axis, and the two directions `up' and `down' along this axis can be related to bits `0' and `1'.~\cite{MQCA_RoomTemp} This is not to be confused with unidirectional anisotropy, which only has one stable magnetization direction, and can be achieved using the exchange bias effect.~\cite{ExchangeBias_Mechanisms,ExchangeBias_nanostructures,ExchangeBias} A lot of research has been conducted to use uniaxial anisotropy for computation, and logic gates and wires have been proposed, which use classical magnetostatic interactions to propagate the information.~\cite{GYP-18,MQCA_MajorityGate,SwitchingForced_EnergyEfficient} The use of two favorable axes, i.e. biaxial anisotropy, allows for a higher logic density, as the four stable directions `up', `down', `right' and `left' can be related to `00', `01', `10' and `11'.~\cite{MQCA_ImageRecognition} This can occur for cubic crystals, and can also be realized by giving the shape of the droplet more symmetry, for example by making the shape the union of two ellipses.
+In 1907, Weiss proposed the idea that a ferromagnetic material contains several uniformly magnetized domains, but that the magnetization of each domain individually is random, thus resulting in a macroscopic zero net magnetization of a large amount of material.~\cite{MuMax3_advances} These domains should not be confused with grains, which are only related to the crystallography. The uniform alignment inside a single domain is due to the quantum mechanical Heisenberg-Dirac exchange interaction.~\cite{MuMax3_advances, heisenberg1928theorie} The magnetostatic energy makes it unfavorable for neighboring moments to align themselves parallel to one another, which competes with the exchange energy which tends to align neighboring moments in the same direction. Since the exchange energy only works on small length scales, domains are formed under the influence of the exchange energy, while different domains tend to cancel out their fields due to the magnetostatic energy. The typical size of these domains is on the order of several tens of micrometers. When the size of the material becomes on the order of micrometers, the domains form very symmetric patterns in order to minimize their energy, and on even smaller length scales only one domain remains.~\cite{NML_Carlton} So, if one makes a droplet of ferromagnetic material smaller than this typical size, the droplet will have a nearly uniform magnetization, with a magnitude equal to the saturation magnetization of the material.~\cite{NML_Carlton} Such a small droplet can for example be produced using electron beam lithography.~\cite{MQCA_RoomTemp, NML_Carlton} By introducing anisotropy in the droplet, which can be either magnetocrystalline or shape anisotropy, one or more axes can be made energetically favorable for the magnetization to align itself along. Magnetocrystalline anisotropy favors the crystal axes. Shape anisotropy can be realized by giving the droplet an elliptical shape instead of a perfect circle. In the uniaxial case, there is one stable magnetization axis, and the two directions `up' and `down' along this axis can be related to bits `0' and `1'.~\cite{MQCA_RoomTemp} This is not to be confused with unidirectional anisotropy, which only has one stable magnetization direction, and can be achieved using the exchange bias effect.~\cite{ExchangeBias_Mechanisms,ExchangeBias_nanostructures,ExchangeBias} A lot of research has been conducted to use uniaxial anisotropy for computation, and logic gates and wires have been proposed, which use classical magnetostatic interactions to propagate the information.~\cite{GYP-18,MQCA_MajorityGate,SwitchingForced_EnergyEfficient} The use of two favorable axes, i.e. biaxial anisotropy, allows for a higher logic density, as the four stable directions `up', `down', `right' and `left' can be related to `00', `01', `10' and `11'.~\cite{MQCA_ImageRecognition} This can occur for cubic crystals, and can also be realized by giving the shape of the droplet more symmetry, for example by making the shape the union of two ellipses.
 
 
 \subsection{Quantum Cellular Automata}
@@ -104,17 +104,20 @@ The first configuration has both moments vertical and in the same direction, whi
     \caption{Theoretical situation where an island is made up of two magnetic moments, for four different configurations, explaining the tendency for ferromagnetic materials to be magnetized along the long axis of a microscopic geometric structure. Figure adapted from fig. 1.9 in \cite{NML_Carlton}.}
     \label{fig:Intro_IslandEllipticPreferredDirection}
 \end{figure}
-In case of higher symmetry, for example with biaxial shape anisotropy, it is no longer clear which symmetry axes will be the easy axes, and which the hard ones, as will be examined in more detail in \cref{par:Biaxial_island}. \par
+In case of higher symmetry, for example with biaxial shape anisotropy, it is no longer clear which symmetry axes will be the easy axes, and which the hard ones, as will be examined in more detail in \cref{par:Biaxial_island}.  \par
 % TODO: Make this discussion of exchange bias clearer, because it is all over the place now
-When constructing a logic gate, it can be useful to include islands whose magnetization is permanently fixed, as opposed to the free-switching islands discussed before. The magnetization direction can be fixed using a phenomenon called exchange bias.~\cite{ExchangeBias_Mechanisms,ExchangeBias_nanostructures,ExchangeBias,syllabus_PoAEaPD} This is a phenomenon associated with the exchange anisotropy created at the interface between an anti-ferromagnetic (AFM) and a ferromagnetic (FM) material as illustrated in \cref{fig:Intro_ExchangeBias}.
+When constructing a logic gate, it can be useful to include islands whose magnetization direction is permanently fixed, as opposed to the free-switching islands discussed before. One way to realize such a fixed island is through a phenomenon called `exchange bias'.~\cite{ExchangeBias_Mechanisms,ExchangeBias_nanostructures,ExchangeBias,syllabus_PoAEaPD} This phenomenon arises at the interface between an anti-ferromagnetic (AFM) and a ferromagnetic (FM) material due to their exchange anisotropy as illustrated in \cref{fig:Intro_ExchangeBias}.
+% TODO: move the mention of 'exchange anisotropy' somewhere else
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.9\columnwidth]{Figures/Introduction/Syallabus_PoAEaPD - Figure 2.7.png}
     \caption{The exchange bias effect in ferromagnet/antiferromagnet bilayers with exchange field on the ferromagnetic layer, $H_{ex}$, originating from the interface. Figure taken from \cite{syllabus_PoAEaPD}.}
     \label{fig:Intro_ExchangeBias}
 \end{figure}
-An AFM material consists of magnetic moments which alternate direction in each atomic plane, while a FM material has magnetic moments all in the same direction. The top layer of the AFM material thus wants the bottom layer of the FM to align anti-parallel (as shown in the figure), while the FM layer wants the top layer of the AFM to align parallel (not the case in the figure). Often, the anti-parallel alignment of the magnetic moments at the FM/AFM interface wins, hence creating a preferential direction for the FM material. Only the FM material is susceptible to external magnetic fields, as the AFM has zero net magnetization due to the alternating moments. Thus, by manufacturing a nanomagnetic island on top of an AFM material, the island can be made to have a single preferential direction. \par
-One might wonder how to define the direction of such an anti-ferromagnetically coupled island. By choosing a material where the N\'{e}el temperature $T_N$ of the AFM layer is lower than the Curie temperature $T_C$ of the FM layer, one can operate at a temperature $T$ for which $T_N < T < T_C$. In this regime, the FM layer will follow an applied magnetic field, while the AFM layer is paramagnetic. When the temperature is then lowered below $T_N$, the AFM material will settle in such a way that it fixes the FM layer in the direction it is in.~\cite{ExchangeBias_Mechanisms}
+An AFM material consists of magnetic moments which alternate direction in each atomic plane, while in a FM material all these moments point in the same direction. In the situation as illustrated in the figure, the top layer of the AFM material thus also wants the bottom layer of the FM to align anti-parallel, while the FM layer on the contrary prefers a parallel alignment. One of these two competing effects will be stronger than the other, which often results in an anti-parallel alignment of the magnetic moments at the FM/AFM interface. The AFM material is not affected by external fields since it consists of alternating magnetic moments which leads to a zero net magnetization. The AFM layer will thus remain fixed at temperatures below its N\'{e}el temperature $T_N$, which in turn fixes the FM layer. At strong enough fields, however, the FM layer will follow the external field anyway, though this will occur at significantly higher fields than for the case where there would be no AFM material. Thus, by manufacturing a FM island on top of an AFM material, the island can be made to have a single preferential direction. \par
+One might wonder how to define the specific magnetization direction of such an anti-ferromagnetically coupled island in the first place. By choosing a material where the N\'{e}el temperature $T_N$ of the AFM layer is lower than the Curie temperature $T_C$ of the FM layer, one can operate at a temperature $T$ for which $T_N < T < T_C$. In this regime, the FM layer will follow an applied magnetic field, while the AFM layer is paramagnetic due to the high temperature and hence does not influence the hysteresis of the FM layer. When the temperature is then lowered below $T_N$, the AFM material will settle in such a way that its top layer is correctly aligned as to fix the FM layer.~\cite{ExchangeBias_Mechanisms} \par
+In general, it will be required to fix different islands in different directions. This can not be achieved by heating the whole substrate and applying an external field, so one has to use a local heating process, for example a focused laser beam. By separately heating each island above $T_N$ and allowing it to cool below $T_N$ before heating the next island, one can still make use of an external field, synchronized with the laser, to control the orientation of each fixed island separately. \par
+The switching between stable states of a free FM island without exchange bias can be interpreted as a simple hysteresis of the magnetization $\vb{M}$ as function of the external magnetic field $\vb{H}$. The exchange bias effect shifts this hysteresis loop along the $\vb{H}$-axis, as shown in \cref{fig:Intro_ExchangeBias}. % TODO: talk about how hysteresis of a non-exchange-bias-coupled island before this somewhere
 
 \subsection{Signal Propagation}
 Nanomagnetic logic gates need to be able to communicate with each other in order to form a larger and more useful circuit. For this, nanomagnets are placed next to each other, such that they form a sort of chain. Signal propagation through chains of nanomagnets does however come with some large complications. One of the advantages of nanomagnetic logic is that different islands influence each other, but this bidirectional interaction causes problems when trying to propagate signals. Let us start with examining the uniaxial case, as this has been studied most intensively, and then extend our knowledge to biaxial signal propagation.
@@ -139,34 +142,46 @@ However, thermal fluctuations can cause some islands to fall in the wrong direct
 
 \subsubsection{Biaxial}
 % TODO: Section on biaxial situation (seems like biaxial is less easy to find information about than uniaxial so need to find some more papers for that)
+One way to extract the information from a biaxial island and transmit it along a wire, is to have two wires; one for each component of the orientation.
+It is of utmost importance to understand the influence of the wire on the gates, since both influence each other.
+
+Other option is to use elongated biaxial nanomagnets such that the anisotropy caused by the elongated shape in one direction balances the tendency to align in the direction of the wire.
 
 \subsection{Imaging the magnetization}
 If one wishes to not only perform theoretical, but also practical studies on nanomagnetic islands, specialized microscopy techniques can be useful for imaging the magnetization direction. Three often encountered techniques are presented in this section, each with certain advantages and disadvantages.
 \subsubsection{Magnetic Force Microscopy}
 Magnetic Force Microscopy (MFM) is a form of scanning probe microscopy that can measure out-of-plane magnetic fields. For this, a cantilever with a magnetic tip is used which is scanned across the sample at a very low height. One must take care that this magnetic tip does not significantly influence the magnetization of the sample itself.~\cite{Probing_MagnetoOptics} Also, if this tip were to simply scan over the surface, both the magnetic forces as well as the atomic forces would be measured. As we want to determine only the magnetic field, the topography of the sample is first determined using conventional Atomic Force Microscopy.~\cite{PEEM, NML_Carlton} Once the topography is known, the magnetic tip can scan the sample while maintaining a constant distance above it using the known topography. This decouples the measurement of magnetic forces from the atomic forces and allows one to determine just the magnetic field. Important to note is that the force measured is only the out-of-plane component of the magnetic field, because the cantilever can only move vertically and is thus only sensitive to the vertical component of the magnetic field.~\cite{NML_Carlton} \par
-Because there are strong out-of-plane components on either end of a nanomagnet, when imaged using MFM one such island will manifest itself in the output as the combination of a region with positive and a region with negative out-of-plane magnetic field, because the stray magnetic field of a dipole curls back on itself.~\cite{NML_Carlton} \par % TODO: show nice example of MFM image
+Because there are strong out-of-plane components on either end of a nanomagnet, when imaged using MFM one such island will manifest itself in the output as the combination of a region with positive and a region with negative out-of-plane magnetic field, because the stray magnetic field of a dipole curls back on itself.~\cite{NML_Carlton} An example of an MFM image of a chain of nanomagnets is shown at the top of~\cref{fig:Intro_Imaging}. \par
 A disadvantage of MFM is that it does not image the magnetization directly, but rather the stray out-of-plane magnetic fields, which can make the results more difficult to interpret. It is however a cheaper technique that requires less safety measures than X-ray based techniques, which are discussed in the next section.
 
 \subsubsection{Photoemission Electron Microscopy using X-ray Magnetic Circular Dichroism}
 Photoemission Electron Microscopy (PEEM) images secondary electrons emitted from the sample upon irradiated with X-rays. This kind of electron microscopy can achieve a high spatial resolution of less than \SI{50}{\nano\metre}, with a typical probing depth in metals of about \SI{2}{\nano\metre}.~\cite{PEEM} The technique can be used to simply image the chemical and elemental structure of the sample, but can be adapted to image the magnetization direction in ferromagnets by utilizing an effect called X-ray Magnetic Circular Dichroism (XMCD). This is a physical phenomenon where the number of electrons emitted from the sample upon irradiation with circularly polarized X-rays depends on the magnetization direction of the surface of the sample.~\cite{NML_Carlton} More specifically, the quantity that is measured is the angle $\phi$ between the magnetization direction $\vb{m(\vb{r})}$ of the sample and the photon spin $\vec{\sigma}$, which is aligned with the photon propagation direction and changes sign when the photon helicity is reversed.~\cite{PEEM} The intensity of emitted electrons is given by
 \begin{equation}
-    I_{\mathrm{XMCD}} \propto M_S \cos(\phi) \mathrm{.}
+    I_{\mathrm{XMCD}} \propto M_{sat} \cos(\phi) \mathrm{.}
     \label{eq:XMCD}
 \end{equation}
 This way, PEEM can directly measure the in-plane magnetization direction, which makes it easier to interpret than an MFM image. A slightly more detailed description of the geometry and image acquisition of this kind of electron microscope can be found in~\cite{PEEM}. % TODO: QUESTION: Is this an expensive method? I suppose MFM is relatively cheap, but this requires a synchrotron which many papers do at the so-called 'Swiss Light Source', which I suppose is one of the few places where they have this equipment?
-% TODO: Show nice example of PEEM image
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.8\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/Introduction/NML_Carlton - Figure 1.15 cropped.png}
+     \end{subfigure}
+     \begin{subfigure}[b]{0.8\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/Introduction/NML_Carlton - Figure 1.17 cropped.png}
+     \end{subfigure}
+     \caption{Typical MFM (top) and PEEM (bottom) image of the same chain of elliptical nanomagnets. Figures taken from \cite{NML_Carlton}.}
+     \label{fig:Intro_Imaging}
+\end{figure} % TODO: perhaps refer to the geometry of the chain as well, this was already mentioned before in the 'signal propagation' part so a quick reference should suffice
 
 \subsubsection{Magneto-Optical Kerr Effect}
 The Magneto-Optical Kerr Effect (MOKE) can also be used to determine the magnetization, albeit the average over a larger area on the order of several tens of \SI{}{\micro\metre\squared}. A linearly polarized laser beam is focused onto the sample, and the polarization state of the reflected light is measured in order to access the longitudinal Kerr effect.~\cite{MQCA_RoomTemp} The longitudinal Kerr effect says that, depending on the angle between the magnetization and the incoming light, the reflected light will become elliptically polarized to a certain degree.~\cite{KerrFaraday_book} This effect is small, but the ellipticity is directly proportional to the cosine of the angle, which can be used to derive the magnetization direction. There also exists the transversal Kerr effect, but this is not often used as it results in a change in reflectivity, which is more difficult to detect. \par 
 The low resolution of this technique is due to the diffraction limit of the laser used, and for structures smaller than this diffraction limit the signal strength diminishes.~\cite{Probing_MagnetoOptics} One must take care that the focused laser beam does not excessively heat up the sample, as this could cause the measurement to influence the magnetization of the sample. The temperature rise for a \SI{2.5}{\milli\watt} laser was however found to be negligible.~\cite{Probing_MagnetoOptics} This measurement technique can be easier or cheaper to set up than the X-ray technique, but the (very) low resolution does not allow the imaging of individual nanomagnets in complex structures.
-
 % TODO: To define the features: Electron beam lithography~\cite{NML_Carlton}, but i dont think there is a lot to say about that
 
-
 \section{Physics}
-% === THE FOLLOWING IS A NONCOMPREHENSIVE SUMMARY OF THE PHYSICS ===
-The main formulae are derived in \cite{abert2013discrete} or \cite{NML_Carlton} and in the \mumax{} advances \cite{MuMax3_advances}. \par
-In a crystalline material, the atoms are evenly spaced. Each atom has a discrete magnetic moment $\vb{m_i}$ associated with it. The interaction of many magnetic moments can give rise to macroscopic effects. Since every magnetic moment interacts with every other magnetic moment, the underlying problem is therefore a discrete N-body problem. Unfortunately, such a problem quickly becomes very hard if not impossible to solve analytically for even small $N$, hence restricting analytical calculations to very small systems.~\cite{abert2013discrete} Due to the lack of an analytical solution, many particular problems can only be solved approximately in a numerical manner.~\cite{abert2013discrete} Even with numerical techniques, the computational power or time required to solve an N-body problem increases rapidly with $N$, due to the number of interactions. For this reason, a continuum theory was developed, called the micromagnetic theory. In this formalism, the magnetization is represented by the continuous magnetization field, denoted by $\vb{M}(\vb{r}) = M_S \vb{m}(\vb{r})$. This is the magnetic moment per unit volume averaged over a small region of space, with $\vb{m}(\vb{r})$ a unit vector, and $M_S$ called the saturation magnetization.~\cite{Gilbert1956}
+In a crystalline material, the atoms are evenly spaced. Each atom has a discrete magnetic moment $\vb{m_i}$ associated with it. The interaction of many magnetic moments can give rise to macroscopic effects. Since every magnetic moment interacts with every other magnetic moment, the underlying problem is therefore a discrete N-body problem. Unfortunately, such a problem quickly becomes very hard if not impossible to solve analytically for even small $N$, hence restricting analytical calculations to very small systems.~\cite{abert2013discrete} Due to the lack of an analytical solution, many particular problems can only be solved approximately in a numerical manner.~\cite{abert2013discrete} Even with numerical techniques, the computational power or time required to solve an N-body problem increases rapidly with $N$, due to the number of interactions. For this reason, a continuum theory was developed, called the micromagnetic theory. In this formalism, the magnetization is represented by the continuous magnetization field, denoted by $\vb{M}(\vb{r}) = M_{sat} \vb{m}(\vb{r})$. This is the magnetic moment per unit volume averaged over a small region of space, with $\vb{m}(\vb{r})$ a unit vector, and $M_{sat}$ called the saturation magnetization.~\cite{Gilbert1956}
 The size of this small region is characterized by the exchange length $\lambda$, a formula for which is given by \cref{eq:Energy_ExchangeEnergy_ExchangeLength}. It should be much smaller than the size of a single magnetic domain, yet much larger than a crystal unit cell, so on the order of several nanometres. It is clear that this continuum approximation is only applicable if locally all discrete magnetic moments try to align themselves parallel to each other, i.e.
 \begin{equation}
     \vb{m_i} \approx \vb{m_j}~~\mathrm{if}~~\abs{\vb{r_i} - \vb{r_j}} < \lambda \mathrm{,}
@@ -194,9 +209,7 @@ Summing over all contributions gives
     \label{eq:Energy_ExchangeEnergy_SumDiscrete}
 \end{equation}
 with $\vb{S_i} = S \vb{n_i}$ and $\abs{n_i} = 1$. 
-The sign of $J$ determines whether the spins align parallel ($J>0$) or anti-parallel ($J<0$). A parallel alignment results in a so-called ferromagnetic material, while an anti-parallel alignment is characteristic of an anti-ferromagnetic material.
-% TODO: Exchange bias? Hier misschien niet op zijn plaats maar heeft wel te maken met FM/AFM
-
+The sign of $J$ determines whether the spins align parallel ($J>0$) or anti-parallel ($J<0$). A parallel alignment results in a so-called ferromagnetic material, while an anti-parallel alignment is characteristic of an anti-ferromagnetic material. \par
 Micromagnetic theory makes use of the magnetization field $\vb{m}(\vb{r})$, while \cref{eq:Energy_ExchangeEnergy_Discrete} is discrete. Two particles $i$ and $j$ only feel the exchange interaction when they are close to each other. This allows us to expand $\vb{m}(\vb{r}) \cdot \vb{m}(\vb{r} + \Delta\vb{r})$ in first order~\cite{abert2013discrete} to
 \begin{align*}
     \vb{m}(\vb{r}) \cdot \vb{m}(\vb{r} + \Delta\vb{r}) &= 1 - \frac{1}{2}(\vb{m}(\vb{r}) - \vb{m}(\vb{r} + \Delta\vb{r}))^2 \\
@@ -211,11 +224,12 @@ which by substitution of \cref{eq:Energy_ExchangeEnergy_DotApprox} finally yield
     E_{exch} = A_{ex} \int_\Omega \sum_i (\gradient{m_i}(\vb{r}))^2 \, d\vb{r} \mathrm{.} \label{eq:Energy_Term_Exchange}
 \end{equation}
 $A_{ex}$ is called the exchange stiffness constant.~\cite{Gilbert1956} The physical interpretation of this energy term is that the magnetization tries to align itself as smoothly as possible.
-The exhange length $\lambda$ can now be calculated as
+The exchange length $\lambda$ can now be calculated as
 \begin{equation}
-    \lambda = \sqrt{\frac{2 A_{ex}}{\mu_0 M_S^2}} \mathrm{.}
+    \lambda = \sqrt{\frac{2 A_{ex}}{\mu_0 M_{sat}^2}} \mathrm{.}
     \label{eq:Energy_ExchangeEnergy_ExchangeLength}
-\end{equation} % TODO: find a reference which mentions this
+\end{equation} % TODO: find a reference which mentions this (mumax3, ExchangeLength)
+% TODO: mention that the exchange length is just a rule of thumb (see pdf of ExchangeLength reference)
 
 \subsubsection{Anisotropy energy}
 A material may exhibit anisotropy due to its crystal structure. The most often encountered types of anisotropy are uniaxial and cubic anisotropy. Uniaxial anisotropy is common in hexagonal or tetragonal crystal structures, while cubic anisotropy is often present in FCC or BCC structures.~\cite{Gilbert1956, abert2013discrete} \par
@@ -268,11 +282,11 @@ In case there is stress present in the crystal lattice, an additional magneto-el
 with $\vb{s}(\vb{r})$ the displacement field of the lattice.
 
 \subsubsection{Other energy terms}
-Other energy terms still exist which describe other specific phenomena, though these will not be used in this work. An example of such an energy term is the Dzyaloshinskii-Moriya interaction~\cite{DzyaloshinskiiMoriya}, which tries to orient neighboring spins perpendicular to each other, and is responsible for the stabilisation of skyrmions, which are described in~\cite{skyrmions}. \par Additional torques can also be taken into account, like the Zhang-Li or Slonczewski spin-transfer torques, which describe the interaction between a spin-polarised current and the magnetization~\cite{ZhangLiSpinTransferTorque, MuMax3, syllabus_PoAEaPD}. This effect can be used in information storage technologies like MRAM, magnetic field sensors, and many other applications.~\cite{syllabus_PoAEaPD}
+Other energy terms still exist to describe other specific phenomena, though these will not be used in this work. An example of such an energy term is the Dzyaloshinskii-Moriya interaction~\cite{DzyaloshinskiiMoriya}, which tries to orient neighboring spins perpendicular to each other, and is responsible for the stabilisation of skyrmions as described in~\cite{skyrmions}. \par Additional torques can also be taken into account, like the Zhang-Li or Slonczewski spin-transfer torques, which describe the interaction between a spin-polarised current and the magnetization~\cite{ZhangLiSpinTransferTorque, MuMax3, syllabus_PoAEaPD}. This effect can be used in information storage technologies like MRAM, magnetic field sensors, among many other applications.~\cite{syllabus_PoAEaPD}
 
 \subsection{Landau-Lifschitz-Gilbert equation}
 % TODO: Sort out the difference between LL eq. and LLG eq.
-The aforementioned energy terms can be used to define the potential energy of a magnetization state $\vb{m}(\vb{r})$. Because $\vb{m}(\vb{r})$ is always a unit vector, its motion can be described by that of a rotating body, thus allowing the use of Lagrangian formalism with the kinetic energy term $-M_S/\gamma \dot{\phi} \cos(\theta)$ to determine the dynamics of the system.~\cite{abert2013discrete} Solving this Lagrangian problem yields the Landau-Lifschitz (LL) equation. This is a partial differential equation given by~\cite{phd_leliaert}
+The aforementioned energy terms can be used to define the potential energy of a magnetization state $\vb{m}(\vb{r})$. Because $\vb{m}(\vb{r})$ is always a unit vector, its motion can be described by that of a rotating body, thus allowing the use of Lagrangian formalism with the kinetic energy term $-M_{sat}/\gamma \dot{\phi} \cos(\theta)$ to determine the dynamics of the system.~\cite{abert2013discrete} Solving this Lagrangian problem yields the Landau-Lifschitz (LL) equation. This is a partial differential equation given by~\cite{phd_leliaert}
 \begin{equation}
 	\frac{\partial \vb{m}}{\partial t} = - \gamma_0 \vb{m} \cross \vb{H_{eff}} - \lambda \vb{m} \cross (\vb{m} \cross \vb{H_{eff}}) \mathrm{.}
 	\label{eq:LL}
@@ -315,10 +329,10 @@ In order to simulate nanomagnetic structures at nonzero temperatures, Brown~\cit
     \langle \vb{H_{therm}} \rangle &= 0 \mathrm{,} \\
     \langle H_{therm,i}(t) H_{therm,j}(t') \rangle &= q \delta(t-t') \delta_{ij} \mathrm{,}
 \end{align*}
-where $q=(2 k_B T \alpha)/(M_S \gamma V)$, with $V$ the volume of the single-domain particle. The angled brackets denote either a time average or correlation. With these random and uncorrelated properties of the time-dependent additional field term, the LLG equation becomes a Langevin equation.~\cite{ThermFluc_SingleDomain} However, a nanomagnetic island is not a perfect single-domain particle with uniform magnetization, and different nanomagnetic islands can influence each other through magnetostatic interactions.
+where $q=(2 k_B T \alpha)/(M_{sat} \gamma V)$, with $V$ the volume of the single-domain particle. The angled brackets denote either a time average or correlation. With these random and uncorrelated properties of the time-dependent additional field term, the LLG equation becomes a Langevin equation.~\cite{ThermFluc_SingleDomain} However, a nanomagnetic island is not a perfect single-domain particle with uniform magnetization, and different nanomagnetic islands can influence each other through magnetostatic interactions.
 Lyberatos~\cite{Lyberatos_1993} realized that every finite-difference cell in a numerical simulation can be seen as one such a single-domain particle, for which Brown's theory can then be applied.~\cite{phd_leliaert} More specifically, the thermal field was implemented in \mumax{}~\cite{LEL-17b,MuMax3} as
 \begin{equation}
-    \vb{H_{therm}} = \vec{\eta} \sqrt{\frac{2 \alpha k_B T}{M_S \gamma V \Delta t}} \mathrm{,}
+    \vb{H_{therm}} = \vec{\eta} \sqrt{\frac{2 \alpha k_B T}{M_{sat} \gamma V \Delta t}} \mathrm{,}
     \label{eq:H_therm}
 \end{equation}
 where $\vec{\eta}$ is a random vector, determined from a standard normal distribution, whose value is changed after every time step. This equation is such that the thermal fluctuations are independent of the spatial discretization (volume $V$ and time step $\Delta t$) used.
@@ -329,123 +343,139 @@ There are many finite-difference solvers available in \mumax{}, for example diff
 
 \section{Biaxial island}
 \label{par:Biaxial_island}
-The first part of this thesis consists of investigating the properties of a single biaxial island, as this will be the fundamental building block of more complex circuits. The geometry of such an island is one of the main factors determining the energy barrier between stable states. The geometry under investigation here is the union of two perpendicular ellipses, as shown in \cref{fig:biaxial_island:geometryTypical}. This geometry was chosen because it should be reasonably easy to manufacture due to the lack of sharp corners. This geometry has two `degrees of freedom', namely the long and short axis of the ellipse. We will define the roundness $\rho$ as the ratio between the long and short axis of the ellipses, and the `overall size' $L$ as simply being equal to the long axis.
+The first part of this thesis consists of investigating the properties of a single biaxial island, as this will be the fundamental building block of more complex circuits. The geometry of such an island is one of the main factors determining the energy barrier between stable states. The geometry used in this thesis is the union of two perpendicular identical ellipses, as shown in \cref{fig:biaxial_island:geometryTypical}, where \SI{0}{\degree} is defined as the direction pointing to the right, as usual in mathematics. This geometry was chosen because it should be reasonably easy to manufacture due to the lack of sharp corners. This geometry has two `degrees of freedom', namely the long and short axis of the ellipse. We will define the roundness $\rho$ as the ratio of the short over the long axis of the ellipses, and the `overall size' $L$ as simply being equal to the long axis. For example, $(\rho, L)=(0.55, \SI{100}{\nano\metre})$ means that the long axis of each ellipse is \SI{100}{\nano\metre} while the short axis is \SI{55}{\nano\metre}.
 \begin{figure}
     \centering
     \includegraphics[width=0.3\columnwidth]{Figures/biaxial_island/Geometry/geomPlus55.png}
-    \caption{Typical geometry of the biaxial island under investigation, in this specific case for 55x\SI{100}{\nano\metre} ellipses, i.e. $(\rho, L)=(0.55, \SI{100}{\nano\metre})$. White is ferromagnetic material, black is free space.}
+    \caption{Typical geometry of the biaxial island under investigation, in this specific case for 55x\SI{100}{\nano\metre} ellipses, i.e. $(\rho, L)=(0.55, \SI{100}{\nano\metre})$. White represents ferromagnetic material, black is free space.}
     \label{fig:biaxial_island:geometryTypical}
 \end{figure}
 
 \subsection{Energy barrier}
-To determine the energy barrier $E_{barrier}$, the energy landscape as a function of magnetization angle must be calculated. If one were to simply set the magnetization $\vb{M}$ of the entire island in one direction and call it a day, the calculated energy landscape would be flat, due to the absence of the demagnetizing field caused by the shape anisotropy of the magnetic body.~\cite{Nonmonotonic_reversal} Thus, the magnetization should first be relaxed, which can be done using the \mumax{} command \code{minimize()}. However, this would result in a complete relaxation to an energy minimum, hence not yielding any useful information on the energy barrier. To circumvent this issue, an external magnetic field is applied to keep the average magnetization $\frac{1}{A}\int_A \vb{M}\,dA$ close to the initial direction. \par
-The procedure is therefore as follows. First the magnetization of the entire island $\vb{M}$ is initialized under one specific angle $\theta$. Then an external magnetic field $B_{ext}$ is applied along that same direction, and the magnetization is relaxed using \code{minimize()}. The internal energy, responsible for the energy landscape, is then equal to $E_{total} - E_{Zeeman}$. This procedure is repeated for different angles $\theta$ to generate an energy profile from which the energy barrier can be deduced. The grid size for these numerical calculations is \SI{1}{\nano\metre} for maximum accuracy.
+Due to symmetry reasons, all of $\theta = k\frac{\pi}{4} , k\in\mathbb{Z}$ are equilibria. However, not all are stable; some are energy minima while some are energy maxima. To determine the energy barrier $E_{barrier}$ for random switching between stable states, the energy landscape as a function of magnetization angle must be calculated. If one were to simply set the magnetization $\vb{M}$ of the entire island in one specific direction and calculate the energy, one finds that the energy is the same for all such directions. This is due to the absence of the demagnetizing field caused by the shape anisotropy of the magnetic body.~\cite{Nonmonotonic_reversal} Thus, the magnetization should first be relaxed to accommodate for the shape of the island, which can be done using the \mumax{} command \code{minimize()}. However, this would result in a complete relaxation to an energy minimum, hence not yielding any useful information on the energy barrier which is the difference between an energy minimum and maximum. To circumvent this issue, an external magnetic field is applied to keep the average magnetization $\frac{1}{A}\int_A \vb{M}\,dA$ close to the initial direction. Practically, this `virtual' external field $B_{ext,v}$ is realized through the custom field functionality in \mumax{}, using \code{AddFieldTerm} and \code{AddEdensTerm}. \par
+The procedure is therefore as follows. First the magnetization of the entire island $\vb{M}$ is initialized uniformly under an angle $\theta$ and an external magnetic field is applied along that same direction. Then, the magnetization is relaxed using \code{minimize()}. The internal energy, responsible for the energy landscape, is then equal to $E_{total} - E_{Zeeman}$. This procedure is repeated for different angles $\theta$ to generate an energy profile from which the energy barrier can be deduced.
 
-\subsubsection{Optimal simulated external field magnitude}
-The procedure as described above makes use of an external magnetic field. It is important to know what the magnitude of this external field should optimally be to determine the energy barrier. To this end, a simulation is carried out in which both the angle $\theta$ and the external magnetic field $B_{ext}$ are varied. In \cref{fig:barrierLandscape-sweepBext} the relaxed magnetization angle is plotted for different magnitudes of the external magnetic field $\abs{\vb{B_{ext}}}$, with the angle of this magnetic field taken at 64 equally spaced values from \SIrange{0}{90}{\degree}.
+\subsubsection{Optimal virtual external field magnitude}
+The procedure as described above makes use of an external magnetic field. This is merely out of necessity to make sure that a magnetization initialized in an unstable maximum energy state stays there and does not relax to the energy minimum, which would prevent the determination of the height of the energy barrier. In reality, there is no such field, so this `virtual' external field should ideally be of small magnitude. To investigate the influence of this magnitude on the energy landscape, a simulation is carried out in which both the angle and the magnitude of the external magnetic field are varied. In \cref{fig:barrierLandscape-sweepBext} the relaxed magnetization angle $\theta$ and corresponding energy are plotted for different magnitudes of the external magnetic field $\abs{\vb{B_{ext,v}}}$, with the angle of this field taken at 64 equally spaced values from \SIrange{0}{90}{\degree}. Note that the average relaxed magnetization angle is not necessarily equal to the external magnetic field angle, as the relaxation process will tend to more or less cant the magnetization towards the closest intrinsic energy minimum.
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{Figures/biaxial_island/BarrierLandscape/Plus_65_B25-0.001-div4_a128Pi_plotOptimized.pdf}
-    \caption{Energy landscape between \SIrange{0}{90}{\degree} for various external magnetic field magnitudes $\abs{\vb{B_{ext}}}$. The external field angle was varied uniformly from \SIrange{0}{90}{\degree} in 64 steps.}
+    \caption{Energy landscape between \SIrange{0}{90}{\degree} for various external magnetic field magnitudes $\abs{\vb{B_{ext,v}}}$ as shown in the legend. The external field angle was varied uniformly from \SIrange{0}{90}{\degree} in 64 steps for each magnitude, and each dot corresponds to one such angle. The horizontal axis denotes the average angle of the magnetization over the whole island after relaxation. Note that this is not necessarily equal to the external field angle, especially for low field magnitudes. The geometry used here is $(\rho, L)=(0.65, \SI{100}{\nano\metre})$.}
     \label{fig:barrierLandscape-sweepBext}
 \end{figure}
 
-Interesting findings:
+At very high magnetic fields, the magnetization of the entire island will be nearly uniform and will not follow the shape of the island along the edges. As mentioned before, this causes the energy to be the same for all angles, since it is the relaxation of the magnetization in a non-uniform way which causes the anisotropy, due to the absence of the demagnetizing field.~\cite{Nonmonotonic_reversal} This is the case in the figure for the extremely high field $\abs{\vb{B_{ext,v}}}=\SI{25}{\tesla}$. \par
+The lower the magnetic field, the more the magnetization relaxes to the minimum, as evident from the spacing of the dots for each external field magnitude. This is to be expected, as lower magnetic fields will have more difficulty keeping the magnetization pointed in the same direction, against the shape anisotropy. This could cause a problem when trying to determine the value of the unstable energy maximum. This is however not the case, as evident from the single data-point at \SI{45}{\degree}, which stays at the equilibrium even after relaxation. \par
+When initializing the magnetization and external field at an angle of \SI{45}{\degree}, the average magnetization angle of the island stays at this unstable maximum after relaxation, for all examined field magnitudes. Since the energy barrier is simply the difference between this unstable maximum and the stable minimum, a low external field of \SI{1}{\milli\tesla} is enough if one is solely interested in the barrier height, and not the whole energy landscape. In case one is interested in the whole energy landscape, a field of about \SI{0.1}{\tesla} is needed as seen in the figure. This does, however, come at the cost of a less accurate calculation of the energy barrier itself. \par
 
-- Firstly, at very high magnetic fields, the energy landscape is nearly flat as explained earlier.~\cite{Nonmonotonic_reversal}
-
-- Secondly, at an angle of exactly \SI{45}{\degree}, the magnetization remains at the maximum of the energy landscape, which is an unstable equilibrium.
-
-- Thirdly, for lower and lower magnetic field values, the situations for angles very close to \SI{45}{\degree}, the magnetization relaxes to an angle closer to that of the energy minimum. This is to be expected, because lower magnetic fields will have more difficulty keeping the magnetization pointed in the same direction, against the anisotropy.
-
-- Fourthly or finally idk, for lower magnetic fields the energy barrier lowers until it reaches a limit value. This is because high external magnetic fields prevent the relaxation of the edges of the geometry, instead keeping them pointed in roughly the same direction. It is the relaxation of the magnetization angle in a non-uniform way which causes the anisotropy, so forcing the magnetization in a certain direction (like with a high external field) will prevent this from happening, thus increasing the energy and lowering the fictional variant of the energy barrier.
-
-\subsubsection{Energy barrier as function of roundness}
-See \cref{fig:barrier-cell_size-1nm} blue curve for \SI{128}{\nano\metre}.
-
-\subsubsection{Energy barrier as function of overall size}
-See \cref{fig:barrier-cell_size-1nm} all different curves
-
-\subsubsection{Numerical error: influence of cell size on energy barrier}
-When performing longer simulations, it is advantageous to use as large a cell size as possible, to minimize the total amount of cells in the simulation. Increasing the size of the cells does however also increase the numerical error originating from the discretization of the grid. The size of this numerical error was examined by determining the energy barrier for different shapes (varying roundness and overall size) and for different cell sizes of \SI{4}{\nano\metre}, \SI{2}{\nano\metre} and \SI{1}{\nano\metre}. The results of this calculation are shown in \cref{fig:barrier-cell_size}.
+\subsubsection{Energy barrier as function of geometry}
+The geometry is the most important factor determining the energy barrier. Shown in \cref{fig:barrier-cell_size} is the dependence of the energy barrier on the roundness $\rho$, for different total sizes $L$. \par 
+The behavior as a function of the roundness $\rho$ is most clear by only looking at the blue curve of this figure, i.e. for $L=\SI{128}{\nano\metre}$. Interesting is that the sign of the energy barrier is dependent on $\rho$. The energy barrier is calculated as $E_{barrier} = E(\theta=\pi/4) - E(\theta=0)$, so a positive value corresponds to the long axes of the ellipses being the easy axes, while a negative value indicates that an average diagonal magnetization at \SI{45}{\degree} is favored. For $\rho \approx 0.48$, the energy barrier is zero.
+% TODO: change this explanation to: In general, the magnetization likes to be horizontal and vertical as these are the longest directions. However, as the 'lobes' become thinner, it is no longer energetically favorable for the whole island to be magnetized nearly uniformly, as this becomes problematic in at least two of the lobes.
+This can be understood by looking at the detailed magnetization pattern corresponding to \SI{0}{\degree} and \SI{45}{\degree} in both regimes as shown in \cref{fig:barrier-magnetization}. For the high-roundness shapes as for example in the top row of the figure, the geometry resembles a square. It is known that the stable directions of a square are its diagonals as these are the longest directions of the geometry, and hence also the stable directions of a high-roundness geometry are the long axes of its constituent ellipses. The low-roundness shapes are more clearly consisting of two long ellipses. As explained in the introduction, the magnetization preferably orients itself along the length of such an ellipse. Hence, the sum of the stable states of two orthogonal ellipses is on average a diagonal magnetization. mentioned in the introduction, the magnetization will tend to align itself along the longest axis of a given geometry. Thus, it is logical that the situation in the top left of \cref{fig:barrier-magnetization} is not stable while the one on the right is. In conclusion, the magnetization preferably lies horizontally or vertically at any point in the island regardless of the roundness, though the shape of the island causes the average of these horizontal and vertical parts to either be horizontal and vertical itself, or diagonal.
 \begin{figure}
      \centering
-     \begin{subfigure}[b]{0.75\textwidth}
+     \begin{subfigure}[b]{0.2\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{Figures/biaxial_island/Barrier/Plus_16-128_0.1-1_aPi4_B0.001_cell1nm.pdf}
-         \caption{\SI{1}{\nano\metre}}
-         \label{fig:barrier-cell_size-1nm}
+         \includegraphics[width=\textwidth]{Figures/biaxial_island/BarrierMagnetization/mPlus_roundness0.60_a0.00.png}
+         \caption*{Stable}
+         \label{fig:barrier-magnetization-60x100_ortho}
      \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.75\textwidth}
+     \begin{subfigure}[b]{0.2\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{Figures/biaxial_island/Barrier/Plus_16-128_0.1-1_aPi4_B0.001_cell2nm.pdf}
-         \caption{\SI{2}{\nano\metre}}
-         \label{fig:barrier-cell_size-2nm}
+         \includegraphics[width=\textwidth]{Figures/biaxial_island/BarrierMagnetization/mPlus_roundness0.60_a0.79.png}
+         \caption*{Unstable}
+         \label{fig:barrier-magnetization-60x100_diag}
      \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.75\textwidth}
+     \vskip1em
+     \begin{subfigure}[b]{0.2\textwidth}
          \centering
-         \includegraphics[width=\textwidth]{Figures/biaxial_island/Barrier/Plus_16-128_0.1-1_aPi4_B0.001_cell4nm.pdf}
-         \caption{\SI{4}{\nano\metre}}
-         \label{fig:barrier-cell_size-4nm}
+         \includegraphics[width=\textwidth]{Figures/biaxial_island/BarrierMagnetization/mPlus_roundness0.20_a0.00.png}
+         \caption*{Unstable}
+         \label{fig:barrier-magnetization-20x100_ortho}
      \end{subfigure}
-        \caption{Energy barrier for different cell sizes. The legend represents the length of the long axis of the ellipses.}
-        \label{fig:barrier-cell_size}
+     \begin{subfigure}[b]{0.2\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/biaxial_island/BarrierMagnetization/mPlus_roundness0.20_a0.79.png}
+         \caption*{Stable}
+         \label{fig:barrier-magnetization-20x100_diag}
+     \end{subfigure}
+        \caption{Relaxed magnetization for two different geometries with $L=\SI{100}{\nano\metre}$. Top: $\rho=0.6$. Bottom: $\rho=0.2$. Left: average magnetization angle \SI{0}{\degree}. Right: \SI{45}{\degree}.}
+        \label{fig:barrier-magnetization}
+\end{figure}
+The energy barrier also depends on the total size $L$; when halving $L$, the energy barrier becomes approximately 4 times smaller. This indicates that the energy barrier is proportional to the volume of the island, as its thickness was kept constant.
+
+The energy barrier goes to zero for $\rho \rightarrow 1$, as one would expect for a perfectly round geometry. However, due to numerical error, the barrier is not calculated as exactly zero, which will be discussed in the next section.
+
+\subsubsection{Numerical error: influence of cell size on the energy barrier}
+When performing more resource-intensive simulations, it is advantageous to use as large a cell size as possible in order to minimize the total amount of cells in the simulation. Increasing the size of the cells does however also increase the numerical error originating from the discretization of the grid. The size of this numerical error was examined by determining the energy barrier for different shapes (varying roundness and overall size) and for different cell sizes of \SI{4}{\nano\metre}, \SI{2}{\nano\metre} and \SI{1}{\nano\metre}. The results of this calculation are shown in \cref{fig:barrier-cell_size}.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\columnwidth]{Figures/biaxial_island/Barrier/Plus_32-128_0.1-1_aPi4_B0.001_cell1nm.pdf}
+    \caption{Energy barrier as a function of roundness $\rho$, for different total sizes $L$ as listed in the legend. Cell size \SI{1}{\nano\metre}.}
+    \label{fig:barrier-cell_size}
 \end{figure}
 \begin{figure}
     \centering
     \includegraphics[width=0.9\columnwidth]{Figures/biaxial_island/Barrier/Plus_100_0.1-1_aPi4_B0.001.pdf}
-    \caption{Energy barrier for different cell sizes, for a long ellipse axis of \SI{100}{\nano\metre}.}
+    \caption{Energy barrier as a function of roundness $\rho$, for different cell sizes as listed in the legend. Long ellipse axis $L=\SI{100}{\nano\metre}$.}
     \label{fig:barrier-cell_size-100nm}
 \end{figure}
-The figure obtained with cells of \SI{1}{\nano\metre} is quite smooth, so it is justified that this size was used in the previous paragraphs. For \SI{2}{\nano\metre} cells, the curve becomes rougher, but the overall shape remains very similar to that of \SI{1}{\nano\metre} cells. Cells of \SI{4}{\nano\metre}, however, yield a very rough and almost stair-like energy landscape, which clearly indicates that this size is too large. \par
-It may also be noted that for the \SI{4}{\nano\metre} cells, there are no values for the lowest roundnesses for long ellipse axes of \SI{16}{\nano\metre} or \SI{32}{\nano\metre}, because for these situations the short axis is smaller than the grid size, which yields an empty simulation geometry and thus no results. \par
-Everything taken into account, it seems that the optimal compromise between simulation speed and accuracy, is a \SI{2}{\nano\metre} cell size, which will be used to perform longer simulations. For the 65x100nm geometry, a \SI{4}{\nano\metre} cell size is probably still acceptable since the energy barrier is similar, and since this will result in a 4x speed increase this will be used. For the perfectly round situation, the difference is very large so it is instructive to use \SI{2}{\nano\metre} or even \SI{1}{\nano\metre}.
+The figure obtained with cells of \SI{1}{\nano\metre} is quite smooth, so it is justified that this size was used in the previous paragraphs. For \SI{2}{\nano\metre} cells, the curve becomes rougher, but the overall shape remains very similar to that of \SI{1}{\nano\metre} cells. Cells of \SI{4}{\nano\metre}, however, yield a very rough and almost stair-like energy landscape, which clearly indicates that this cell size is too large. \par
+It is clear that in reality there should be no preferential direction for a round geometry. Because of the cartesian grid, however, a preferential orientation is created in the simulation. For large cells, the energy barrier for a round geometry becomes very large.
+The smaller the grid, the more the simulation will resemble reality.
+Everything taken into account, it seems that the optimal compromise between simulation speed and accuracy, is a \SI{2}{\nano\metre} cell size. However, if one is solely interested in the behavior corresponding to a specific value of the energy barrier, any cell size can be used as long as the corresponding energy barrier for that discretization is known.
 
 \subsubsection{Energy landscape in presence of an external magnetic field}
+% TODO: external field but there is not a lot of interesting things to say about this
+The `virtual' external field $B_{ext,v}$ used in the previous paragraphs was solely there to make sure the magnetization remains in the energy maximum in order to determine the value of this maximum. Of course, it is also possible to put the biaxial island in a real external field, denoted with $B_{ext}$. This will make the energy term in \cref{eq:Energy_Term_Zeeman} nonzero, hence adding a cosine function to the energy landscape. In order to calculate the energy landscape, the virtual external field is still necessary to stabilize the magnetization in the desired direction, away from the global minimum. This can be done in \mumax{} by using a custom field for the virtual external field and using the normal external field functionality for the real external field, hence decoupling the calculation of their energies and allowing the virtual field to be ignored in the energy calculation. The energy landscape for a situation where the external field is applied at $3\pi/8$ is shown in \cref{fig:barrierLandscape_extField}.
+% TODO: mention that there is a second external field
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\columnwidth]{Figures/biaxial_island/BarrierLandscape/Ext_K0.1Ms2_Bext1e-2-1e-4_a3Pi8.pdf}
+    \caption{Energy landscape as function of magnetization angle after relaxation, for different external field magnitudes $\abs{\vb{B_{ext}}}$ as listed in the legend, with the external field applied at an angle $3\pi/8$.}
+    \label{fig:barrierLandscape_extField}
+\end{figure}
 
-
-
-% TODO: From here on things are not very structured
 \subsection{Thermal switching}
+Real nanomagnets exist at nonzero temperatures. These thermal fluctuations cause the magnetization of every atom to feel an additional random torque. When these fluctuations randomly add up to a large enough torque, the magnetization can overcome the energy barrier and switch between two stable states. One of the main subjects of interest is the thermal switching frequency that accompanies a certain energy barrier.
 
 
-\subsubsection{Preparation}
-\textbf{Step 1: find energy barrier} \\
-The procedure used is to set both $m$ and $B_{ext}$ at a certain angle and then \code{minimize()}. Both the magnetic field $B_{ext}$ and the angle $\theta$ are then varied, with $B_{ext}$ going from very high to very low values, and $\theta=0\dots\pi/2$ in steps of $\pi/4$. One could increase the amount of $\theta$-steps, but it is observed that an angle of $\pi/4$ remains magnetized at that angle regardless of the external field, at the very least until $B_{ext} = \SI{0.00153}{\tesla}$. It is however an unstable equilibrium and any slight deviation from this angle will quickly relax to either \SI{0}{\degree} or \SI{90}{\degree} at low fields.
-One could even omit the part where theta goes from $\pi/4$ to $\pi/2$ due to symmetry reasons.
-All of $\theta = k\frac{\pi}{4} , k\in\mathbb{Z}$ are stable.
-At high fields everything is stable and just uniform, which makes the energy landscape flat.
-
-\textbf{Step 2: random switching over \SI{100}{\nano\second}} \\
-In GYP-18~\cite{GYP-18} the formula
+\subsubsection{Theory}
+Thermal switching is a random process, where the time between two switches is given by the relationship
 \begin{equation}
-    t_i = -\frac{1}{f_0} \exp(\frac{\Delta E_i}{k_B T}) \ln(1-P_i)
+    t_i = -\frac{1}{f_0} \exp(\frac{E_{barrier}}{k_B T}) \ln(1-P_i) \mathrm{,}
     \label{eq:Switching_time}
 \end{equation}
-appears, with $f_0 = \SI{e12}{\hertz}$ attempt frequency, and $P_i$ random between 0 and 1. The average value of $-\ln(1-P_i)$ is then $\ln(4) \approx 1.4$.
-
-To get an average $t_i = \SI{100}{\nano\second}$ at $T=\SI{300}{\kelvin}$, one should therefore have
+valid in the regime where $E_{barrier} \gg k_B T$.~\cite{GYP-18} Here, $P_i$ is a uniformly random number between 0 and 1. The average value of $-\ln(1-P_i)$ is then $\ln(4)$, which makes the average time between two switches
 \begin{equation}
-    \Delta E_i = k_B T \ln(\frac{f_0 t_i}{\ln(4)}) = 11.19 k_B T = \SI{0.310}{\electronvolt} \mathrm{.}
+    t_i = \frac{\ln(4)}{f_0} \exp(\frac{E_{barrier}}{k_B T})  \mathrm{.}
+    \label{eq:Switching_time_average}
 \end{equation}
-The barrier height of a \SI{65}{\nano\metre} elliptic plus-sign geometry is \SI{0.346}{\electronvolt}.
-Idea: perhaps attempt frequency is the sinusoidal pattern in the long simulations, with period of about \SI{0.5}{\nano\second}. Observation: This worked with the previous method where $B_{ext}$ was not varied, but with the new (correct) method the $f_0 = \SI{e12}{\hertz}$ works very well again.
-Also there is another formula in mumax3~\cite{MuMax3} for uniaxial anisotropy.
+Conversely, if one needs to achieve a specific switching time $t_i$, the required energy barrier is given by
+\begin{equation}
+    E_{barrier} = k_B T \ln(\frac{f_0 t_i}{\ln(4)}) \mathrm{.}
+\end{equation}
+The main unknown in all previous equations is the attempt frequency $f_0$. As this parameter is crucial to achieve a correct estimate for the switching time, it will be determined both theoretically and through numerical simulations on the biaxial geometry. Theoretical formulae are given in \cite{f0_alternative_Jonathan, MuMax3, LEL-17b}...
+In the case of uniaxial anisotropy~\cite{MuMax3, LEL-17b, f0_mumax3_reference}, $f_0$ is given in [\SI{}{\radian\per\second}] by
+\begin{equation}
+    f_0 = \gamma_{LL} \frac{\alpha}{1+\alpha^2} \sqrt{\frac{8 K_{u1}^3 V}{2 \pi M_{sat}^2 k_B T}} \mathrm{,}
+    \label{eq:f0_theoretical_uniaxial}
+\end{equation}
+with $\gamma_{LL}$ [\SI{}{\radian\per\tesla\per\second}] the gyromagnetic ratio, $\alpha$ the dimensionless damping parameter, $V$ the volume of the nanomagnet, $K_{u1}$ and $M_{sat}$ the uniaxial anisotropy constant and saturation magnetization as defined in the Physics section. The anisotropy constant in general is simply the energy barrier divided by the volume of the particle, so \cref{eq:f0_theoretical_uniaxial} can be adapted to a general anisotropic situation by substituting $K_{u1} \rightarrow E_{barrier}/V$.
+An alternative formula can be found in \cite{f0_alternative_Jonathan}, which after simplification boils down to
+\begin{equation}
+    f_0 = \gamma_{LL} \frac{\alpha}{1+\alpha^2} \frac{4}{M_S V} \sqrt{\frac{E_{barrier}^3}{\pi k_B T}} \mathrm{.}
+\end{equation}
+
+
+%Idea: perhaps attempt frequency is the sinusoidal pattern in the long simulations, with period of about \SI{0.5}{\nano\second}.
 % TODO: The gyromagnetic resonance frequency and response time (see ThermFluc_SingleDomain bottom of first page)
+\subsubsection{Simulations}
+From \eqref{eq:f0_theoretical_uniaxial}, it can be seen that the switching frequency depends on the damping constant $\alpha$, the temperature $T$, the energy barrier
+
 
 \subsubsection{Results}
-Step 1: find energy barrier \\
-With perfectly circular geometry (i.e. \\
-\code{geometry := Ellipse(100e-9, 100e-9)} \\
-\code{geometry = geometry.Add(Ellipse(100e-9, 100e-9).RotZ(Pi/2))}) \\
-there is still shape anisotropy, but with opposite sign (what are maxima in actual plus-figures are now minima)
-
-Findings (for \SI{100}{\nano\metre} long axis ellipse plus-sign):
-at \SI{45}{\nano\metre} the preferred directions switch from the axes (\SI{0}{\degree}) to in between the axes (\SI{45}{\degree}),
-at \SI{65}{\nano\metre} the anisotropy with preferred \SI{0}{\degree} direction is the strongest
-
 After running for \SI{1}{\micro\second} at \SI{300}{\kelvin}, with shape \SI{65}{\nano\metre} by \SI{100}{\nano\metre} ellipses in plus shape, the following angles were observed (\cref{fig:switching-alpha}):
 
 
@@ -464,11 +494,8 @@ Formula for $f_0$ derived from \eqref{eq:Switching_time}:
 \end{equation*}
 with $\Delta t$ the simulation time and $N$ the number of switches.
 
-There exists an analytical formula for $f_0$, as found in \cite{LEL-17b, MuMax3}:
-\begin{equation}
-    f_0 = \gamma_{LL} \frac{\alpha}{1+\alpha^2} \sqrt{\frac{8 K^3 V}{2 \pi M_S^2 k_B T}}
-\end{equation}
-I believe $K$, the anisotropy constant, is equal to $E_{barrier}/V$. Using this, I find a value of \SI{6e6}{\per\second}, which is not in line with \cref{tab:Switching_f0}.
+
+I believe $K$, the anisotropy constant, is equal to $E_{barrier}/V$. Using this, I find a value of \SI{1e6}{\per\second}, which is not in line with \cref{tab:Switching_f0}.
 
 Formula in \cite{MuMax3} works for the limit of a high barrier compared to the
 thermal energy, so perhaps 49x100 is not very representative.
@@ -586,6 +613,24 @@ The \cref{tab:Switching_f0} is for $\alpha=0.01$:
     \caption{Energy landscape for different external field angles (plots a, b, c), and different external field strengths (legend).}
     \label{fig:barrierLandscape-externalAngle}
 \end{figure}
+
+\section{Interaction between islands}
+\subsection{Two islands}
+The interaction can be decoupled in to the shape anisotropy energy and the interaction energy. Since we already determined the shape anisotropy in the previous part, the only thing left to do is determine the interaction energy. This can be a function of the distance between two particles, their size, and of course their inner magnetization angle.
+
+\subsubsection{Interaction energy as function of magnetization angle}
+Distance between the two particles is \SI{128}{\nano\metre}, their size is \SI{100}{\nano\metre} in this subsubsection. The effect of changing either of these two parameters will be examined in the next subsubsections.
+
+Observations for islands without biaxial anisotropy ($\rho = 0.49$):
+- There is one 'racetrack' in the energy landscape, it is basically all diagonal troughs and ridges
+- The global minima are for magnetization in each other's direction (0 or 180 deg) which is understandable because the magnetization prefers to lay among the longest direction of a geometric structure
+- The configuration (90 deg, 270 deg) is unstable and will like to relax to the global minimum (0, 0) or (180, 180).
+
+Observations for islands with biaxial anisotropy ($\rho = 0.66$):
+- Of course, an additional energy grid of sine functions with period 90 degrees is now added to the anisotropyless landscape, which creates local minima and maxima
+- The configuration (90 deg, 270 deg) is now stable for a positive energy barrier
+
+If one rotates one of the islands, then the corresponding 90 degree spaced lines (horizontal or vertical in the plot depending on which island is rotated) will move up down left or right in the plot.
 
 
 \newpage
