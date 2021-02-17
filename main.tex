@@ -181,7 +181,7 @@ The low resolution of this technique is due to the diffraction limit of the lase
 % TODO: To define the features: Electron beam lithography~\cite{NML_Carlton}, but i dont think there is a lot to say about that
 
 \section{Physics}
-In a crystalline material, the atoms are evenly spaced. Each atom has a discrete magnetic moment $\vb{m_i}$ associated with it. The interaction of many magnetic moments can give rise to macroscopic effects. Since every magnetic moment interacts with every other magnetic moment, the underlying problem is therefore a discrete N-body problem. Unfortunately, such a problem quickly becomes very hard if not impossible to solve analytically for even small $N$, hence restricting analytical calculations to very small systems.~\cite{abert2013discrete} Due to the lack of an analytical solution, many particular problems can only be solved approximately in a numerical manner.~\cite{abert2013discrete} Even with numerical techniques, the computational power or time required to solve an N-body problem increases rapidly with $N$, due to the number of interactions. For this reason, a continuum theory was developed, called the micromagnetic theory. In this formalism, the magnetization is represented by the continuous magnetization field, denoted by $\vb{M}(\vb{r}) = M_{sat} \vb{m}(\vb{r})$. This is the magnetic moment per unit volume averaged over a small region of space, with $\vb{m}(\vb{r})$ a unit vector, and $M_{sat}$ called the saturation magnetization.~\cite{Gilbert1956}
+In a crystalline material, the atoms are evenly spaced. Each atom has a discrete magnetic moment $\vb{m_i}$ associated with it. The interaction of many magnetic moments can give rise to macroscopic effects. Since every magnetic moment interacts with every other magnetic moment, the underlying problem is therefore a discrete N-body problem. Unfortunately, such a problem quickly becomes very hard if not impossible to solve analytically for even small $N$, hence restricting analytical calculations to very small systems.~\cite{abert2013discrete} Due to the lack of an analytical solution, many particular problems can only be solved approximately in a numerical manner.~\cite{abert2013discrete} Even with numerical techniques, the computational power or time required to solve an N-body problem increases rapidly with $N$, due to the number of interactions. For this reason, a continuum theory was developed, called the micromagnetic theory. In this formalism, the magnetization is represented by the continuous magnetization field, denoted by $\vb{M}(\vb{r}) = M_{sat} \vb{m}(\vb{r})$. This is the magnetic moment per unit volume averaged over a small region of space, with $\vb{m}(\vb{r})$ a unit vector, and $M_{sat}$ [\SI{}{\ampere\per\metre}] called the saturation magnetization.~\cite{Gilbert1956}
 The size of this small region is characterized by the exchange length $\lambda$, a formula for which is given by \cref{eq:Energy_ExchangeEnergy_ExchangeLength}. It should be much smaller than the size of a single magnetic domain, yet much larger than a crystal unit cell, so on the order of several nanometres. It is clear that this continuum approximation is only applicable if locally all discrete magnetic moments try to align themselves parallel to each other, i.e.
 \begin{equation}
     \vb{m_i} \approx \vb{m_j}~~\mathrm{if}~~\abs{\vb{r_i} - \vb{r_j}} < \lambda \mathrm{,}
@@ -224,12 +224,12 @@ which by substitution of \cref{eq:Energy_ExchangeEnergy_DotApprox} finally yield
     E_{exch} = A_{ex} \int_\Omega \sum_i (\gradient{m_i}(\vb{r}))^2 \, d\vb{r} \mathrm{.} \label{eq:Energy_Term_Exchange}
 \end{equation}
 $A_{ex}$ is called the exchange stiffness constant.~\cite{Gilbert1956} The physical interpretation of this energy term is that the magnetization tries to align itself as smoothly as possible.
-The exchange length $\lambda$ can now be calculated as
+The exchange length $\lambda$, which characterizes the length scale over which the magnetization can still be approximated as nearly uniform is defined in SI units \cite{ExchangeLength, ExchangeLength_original, MuMax3} as
 \begin{equation}
     \lambda = \sqrt{\frac{2 A_{ex}}{\mu_0 M_{sat}^2}} \mathrm{.}
     \label{eq:Energy_ExchangeEnergy_ExchangeLength}
-\end{equation} % TODO: find a reference which mentions this (mumax3, ExchangeLength)
-% TODO: mention that the exchange length is just a rule of thumb (see pdf of ExchangeLength reference)
+\end{equation}
+It can be used as a rule of thumb for the cell size of micromagnetic simulations, which should be smaller than $\lambda$ such that sampling at that length scale is sufficient to capture all relevant details.~\cite{ExchangeLength}
 
 \subsubsection{Anisotropy energy}
 A material may exhibit anisotropy due to its crystal structure. The most often encountered types of anisotropy are uniaxial and cubic anisotropy. Uniaxial anisotropy is common in hexagonal or tetragonal crystal structures, while cubic anisotropy is often present in FCC or BCC structures.~\cite{Gilbert1956, abert2013discrete} \par
@@ -237,6 +237,7 @@ In the uniaxial case, the energy is minimal when the magnetization lies along a 
 \begin{equation}
     E_{anis,u} = - \int_\Omega \big(K_{u1} (\vb{m} \cdot \vb{u})^2 + K_{u2} (\vb{m} \cdot \vb{u})^4 + \dots\big) \, d\vb{r} \mathrm{.} \label{eq:Energy_Term_AnisUniaxial}
 \end{equation}
+The coefficients $K_{ui}$ [\SI{}{\joule\per\metre\squared}] are called the uniaxial anisotropy constants.
 For cubic anisotropy, one can use a similar symmetry reasoning~\cite{abert2013discrete} to find
 \begin{equation}
     E_{anis,c} = \int_\Omega \big(K_{c1} (m_1^2m_2^2 + m_2^2m_3^2 + m_3^2m_1^2) + K_{c2} m_1^2m_2^2m_3^2\big) \, d\vb{r} \mathrm{,} \label{eq:Energy_Term_AnisCubic}
@@ -438,8 +439,7 @@ The `virtual' external field $B_{ext,v}$ used in the previous paragraphs was sol
 \end{figure}
 
 \subsection{Thermal switching}
-Real nanomagnets exist at nonzero temperatures. These thermal fluctuations cause the magnetization of every atom to feel an additional random torque. When these fluctuations randomly add up to a large enough torque, the magnetization can overcome the energy barrier and switch between two stable states. One of the main subjects of interest is the thermal switching frequency that accompanies a certain energy barrier.
-
+Real nanomagnets exist at nonzero temperatures. These thermal fluctuations cause the magnetization of every atom to feel an additional random torque. When these fluctuations randomly add up to a sufficiently large torque, the magnetization can overcome the energy barrier and switch between two stable states. One of the main subjects of interest is the thermal switching frequency that accompanies a certain energy barrier.
 
 \subsubsection{Theory}
 Thermal switching is a random process, where the time between two switches is given by the relationship
@@ -447,7 +447,7 @@ Thermal switching is a random process, where the time between two switches is gi
     t_i = -\frac{1}{f_0} \exp(\frac{E_{barrier}}{k_B T}) \ln(1-P_i) \mathrm{,}
     \label{eq:Switching_time}
 \end{equation}
-valid in the regime where $E_{barrier} \gg k_B T$.~\cite{GYP-18} Here, $P_i$ is a uniformly random number between 0 and 1. The average value of $-\ln(1-P_i)$ is then $\ln(4)$, which makes the average time between two switches
+valid in the regime where $E_{barrier} \gg k_B T$.~\cite{GYP-18} Here, $P_i$ is a uniformly random number between 0 and 1. The average value of $-\ln(1-P_i)$ is then $\ln(4)$, which reduces \cref{eq:Switching_time} to
 \begin{equation}
     t_i = \frac{\ln(4)}{f_0} \exp(\frac{E_{barrier}}{k_B T})  \mathrm{.}
     \label{eq:Switching_time_average}
@@ -456,80 +456,31 @@ Conversely, if one needs to achieve a specific switching time $t_i$, the require
 \begin{equation}
     E_{barrier} = k_B T \ln(\frac{f_0 t_i}{\ln(4)}) \mathrm{.}
 \end{equation}
-The main unknown in all previous equations is the attempt frequency $f_0$. As this parameter is crucial to achieve a correct estimate for the switching time, it will be determined both theoretically and through numerical simulations on the biaxial geometry. Theoretical formulae are given in \cite{f0_alternative_Jonathan, MuMax3, LEL-17b}...
-In the case of uniaxial anisotropy~\cite{MuMax3, LEL-17b, f0_mumax3_reference}, $f_0$ is given in [\SI{}{\radian\per\second}] by
+The main unknown in all previous equations is the attempt frequency $f_0$. As this parameter is crucial to achieve a correct estimate for the switching time, it will be determined both theoretically and through numerical simulations with the biaxial geometry. \par
+A theoretical formula for $f_0$ [\SI{}{\radian\per\second}] in the case of uniaxial anisotropy~\cite{MuMax3, LEL-17b, f0_mumax3_reference} is given by
 \begin{equation}
-    f_0 = \gamma_{LL} \frac{\alpha}{1+\alpha^2} \sqrt{\frac{8 K_{u1}^3 V}{2 \pi M_{sat}^2 k_B T}} \mathrm{,}
+    f_0 = \gamma_{LL} \frac{\alpha}{1+\alpha^2} \sqrt{\frac{4 K_{u1}^3 V}{\pi M_{sat}^2 k_B T}} \mathrm{,}
     \label{eq:f0_theoretical_uniaxial}
 \end{equation}
-with $\gamma_{LL}$ [\SI{}{\radian\per\tesla\per\second}] the gyromagnetic ratio, $\alpha$ the dimensionless damping parameter, $V$ the volume of the nanomagnet, $K_{u1}$ and $M_{sat}$ the uniaxial anisotropy constant and saturation magnetization as defined in the Physics section. The anisotropy constant in general is simply the energy barrier divided by the volume of the particle, so \cref{eq:f0_theoretical_uniaxial} can be adapted to a general anisotropic situation by substituting $K_{u1} \rightarrow E_{barrier}/V$.
-An alternative formula can be found in \cite{f0_alternative_Jonathan}, which after simplification boils down to
+with $\gamma_{LL}$ the gyromagnetic ratio equal to \SI{1.7595e11}{\radian\per\tesla\per\second}, $\alpha$ the dimensionless damping constant, $V$ the volume of the nanomagnet, and $K_{u1}$ and $M_{sat}$ the uniaxial anisotropy constant and saturation magnetization as defined in the Physics section. The anisotropy constant in general is simply the energy barrier corresponding to said anisotropy, divided by the volume of the particle. Hence, \cref{eq:f0_theoretical_uniaxial} can be adapted to a general anisotropic situation by substituting $K_{u1} \rightarrow E_{barrier}/V$, yielding
 \begin{equation}
-    f_0 = \gamma_{LL} \frac{\alpha}{1+\alpha^2} \frac{4}{M_S V} \sqrt{\frac{E_{barrier}^3}{\pi k_B T}} \mathrm{.}
+    f_0 = \gamma_{LL} \frac{\alpha}{1+\alpha^2} \frac{2}{M_{sat} V} \sqrt{\frac{E_{barrier}^3}{\pi k_B T}} \mathrm{.}
+    \label{eq:f0_theoretical_general}
 \end{equation}
+An alternative formula is found in \cite{f0_alternative_Jonathan}, which after simplification in the absence of an external field simply boils down to twice the value obtained from \cref{eq:f0_theoretical_general}, and thus yields the same order of magnitude. \par
+Let us now estimate $f_0$ theoretically using \cref{eq:f0_theoretical_general} at \SI{300}{\kelvin} for a \SI{5}{\nano\metre} thick biaxial island with $L=\SI{100}{\nano\metre}$ made of Permalloy, a material for which $M_{sat}=\SI{8e5}{\ampere\per\metre}$.~\cite{MuMax3} The roundness is chosen such that $E_{barrier}=\SI{155}{\milli\electronvolt}$, as this is one of the barriers that will be used in the simulations later. Since the formulae for $f_0$ merely estimate its order of magnitude, the volume $V$ must not precisely be known and can hence be approximated by the volume of a circular ($\rho=1$) geometry, i.e. $V\approx\SI{4e-23}{\metre\cubed}$. The damping constant is taken as $\alpha=0.01$. \par
+This yields a theoretical estimate of $f_0 = \SI{6e6}{\per\second}$. We will compare this to the experimental values obtained through simulations with \mumax{} in the next section.
 
-
-%Idea: perhaps attempt frequency is the sinusoidal pattern in the long simulations, with period of about \SI{0.5}{\nano\second}.
-% TODO: The gyromagnetic resonance frequency and response time (see ThermFluc_SingleDomain bottom of first page)
 \subsubsection{Simulations}
-From \eqref{eq:f0_theoretical_uniaxial}, it can be seen that the switching frequency depends on the damping constant $\alpha$, the temperature $T$, the energy barrier
+Given the total simulation time $\Delta t$ and the number of switches $N$ during this time interval, an estimate for $f_0$ can be derived from \cref{eq:Switching_time} as
+\begin{equation}
+    f_0 = \frac{N \ln(4)}{\Delta t} \exp(\frac{E_{barrier}}{k_B T}) \mathrm{.}
+    \label{eq:f0_experimental}
+\end{equation}
+Several simulations were carried out for $\Delta t$ up to \SI{1}{\micro\second}, where the temperature $T$, the energy barrier and other parameters were varied. Examples of such simulations are shown in \cref{fig:switching-alpha}, \cref{fig:switching-temp} and \cref{fig:switching-49x100-300}. \par
 
-
-\subsubsection{Results}
-After running for \SI{1}{\micro\second} at \SI{300}{\kelvin}, with shape \SI{65}{\nano\metre} by \SI{100}{\nano\metre} ellipses in plus shape, the following angles were observed (\cref{fig:switching-alpha}):
-
-
-\subsubsection{Counting switches}
-Since the counting of switches is ambiguous, several different ways of counting them were performed:
-
-1) Counting every crossing of a \SI{90}{\degree} line, e.g. a \SI{270}{\degree} switch is counted as 3 individual switches.
-
-2) Counting every visible switch, with switches larger than \SI{90}{\degree} counted as 1 switch.
-
-3) Looking every \SI{5}{\nano\second} and seeing if the magnetization direction changed without looking at the detailed magnetization in between those timestamps. This excludes 'spikes'.
-
-Formula for $f_0$ derived from \eqref{eq:Switching_time}:
-\begin{equation*}
-    f_0 = \frac{N \ln(4)}{\Delta t} \exp(\frac{E_{barrier}}{k_B T})
-\end{equation*}
-with $\Delta t$ the simulation time and $N$ the number of switches.
-
-
-I believe $K$, the anisotropy constant, is equal to $E_{barrier}/V$. Using this, I find a value of \SI{1e6}{\per\second}, which is not in line with \cref{tab:Switching_f0}.
-
-Formula in \cite{MuMax3} works for the limit of a high barrier compared to the
-thermal energy, so perhaps 49x100 is not very representative.
-
-% TODO: This table is too wide, but currently serves as a sort of data storage
-% TODO: The footnote is maybe quite long
-The \cref{tab:Switching_f0} is for $\alpha=0.01$:
-% TODO: the caption still has a python code in it
-\ctable[
-    cap = Switching Rates,
-    caption = {Switching rates and corresponding $f_0$ values for different geometries and grid discretizations, all for $\alpha=0.01$.\\Python: \code{f0 = lambda N, dt, barrier, T: N*math.log(4)/dt*math.exp(barrier/1380649*16021766340/T)}},
-    label = {tab:Switching_f0},
-    pos = ht,
-    sideways
-    ]{
-    c|c|c|c|c|c|c|c|c|c|c
-    }{
-    \tnote[a]{The switching rate ($\approx \SI{2}{\nano\second}$) is on the same timescale as the LLG dynamics, hence the exponential relationship of the Arrhenius law is no longer entirely applicable, causing the corresponding values for $f_0$ to be inaccurate. Furthermore, the energy barrier is no longer high compared to the thermal energy, which also reduces the accuracy of the Arrhenius law.}
-    }{
-        Geom [nm] & Barrier [meV] & Cell [nm] & T [K] & $\Delta t$ [ns] & (1) & (2) & (3) & $f_0$ (1) & $f_0$ (2) & $f_0$ (3) \\
-        \hline
-        49x100 & 24.7 \tmark[a] & 2 & 300 & 100 & 57 & 37 & 6 & \SI{2.06e9}{} & \SI{1.33e9}{} & \SI{2.16e8}{} \\
-        \hline
-        65x100 & 155.0 & 4 & 273 & 1000 & 13 & 13 & 9 & \SI{1.31e10}{} & \SI{1.31e10}{} & \SI{9.06e9}{} \\
-        65x100 & 155.0 & 4 & 300 & 1000 & 15 & 11 & 7 & \SI{8.35e9}{} & \SI{6.12e9}{} & \SI{3.89e9}{} \\
-        65x100 & 155.0 & 4 & 350 & 1000 & 51 & 41 & 30 & \SI{1.21e10}{} & \SI{9.69e9}{} & \SI{7.09e9}{} \\
-        65x100 & 286.0 & 2 & 350 & 500 & 0 & 0 & 0 & 0 & 0 & 0 \\
-        65x100 & 207.9 & 3.125 & 350 & 1000 & 12 & 9 & 7 & \SI{1.64e10}{} & \SI{1.23e10}{} & \SI{9.56e9}{} \\
-        \hline
-        100x100 & 241.1 & 4 & 300 & 1000 & 0 & 0 & 0 & 0 & 0 & 0 \\
-        100x100 & 241.1 & 4 & 350 & 1000 & 5 & 5 & 5 & \SI{2.06e10}{} & \SI{2.06e10}{} & \SI{2.06e10}{} 
-    }
-
-
+\paragraph{Effect of damping constant $\alpha$}
+The effect of changing the damping parameter $\alpha$ is shown in \cref{fig:switching-alpha}. There is a clear qualitative difference between $\alpha=0.1$ and $\alpha=0.01$. For higher $\alpha$, there are only single switches, i.e. \SI{90}{\degree} between adjacent energy minima. For lower $\alpha$, and hence lower damping, switching may occur over more than \SI{90}{\degree}, for example there are three switches over \SI{180}{\degree} in \cref{fig:switching-alpha-0.01}. This is understandable since less damping implies that the magnetization, which can be seen as a rotating body as described earlier in the Physics section, will more easily keep its angular velocity after overcoming the first energy maximum and can hence overcome multiple energy barriers in quick succession. Concerning $f_0$, there does not seem to be a significant dependence of the switching rate on the damping constant $\alpha$, contrary to the inverse proportionality predicted by the theory.
 \begin{figure}
      \centering
      \begin{subfigure}[b]{0.75\textwidth}
@@ -549,74 +500,102 @@ The \cref{tab:Switching_f0} is for $\alpha=0.01$:
         \label{fig:switching-alpha}
 \end{figure}
 
+\paragraph{Effect of temperature and energy barrier}
+It is expected that there is an exponential dependency on the ratio between energy barrier and temperature. To investigate this, simulations spanning \SI{1}{\micro\second} were carried out for two different temperatures and two different energy barriers. The different energy barriers correspond to $\rho=0.65$ and $\rho=1$ geometries at a cell size of \SI{4}{\nano\metre}. These have energy barriers of \SI{155.0}{\milli\electronvolt} and \SI{241.1}{\milli\electronvolt}, respectively, with opposite easy and hard axes. This is clearly visible in the figures, as the \SI{155.0}{\milli\electronvolt} case is stable around $\SI{45}{\degree} + n\SI{90}{\degree}$, while \SI{241.1}{\milli\electronvolt} is stable around $n\SI{90}{\degree}$. The exponential dependence on the temperature is qualitatively clear from the difference between \cref{fig:switching-temp-300-65x100} and \ref{fig:switching-temp-350-65x100}, where the latter has a lot more switches for only a \SI{16}{\percent} increase in temperature. The exponential dependence on the energy barrier can be seen in the difference between \cref{fig:switching-temp-300-65x100} and \ref{fig:switching-temp-350-100x100}, where the latter has not a single switch due to the \SI{55}{\percent} higher energy barrier. 
 \begin{figure}
      \centering
      \begin{subfigure}[b]{0.49\textwidth}
          \centering
          \includegraphics[width=\textwidth]{Figures/biaxial_island/Switching/65x100_300K_alpha0.01_1µs_4nm.pdf}
-         \caption{\SI{300}{\kelvin}, 65x100}
+         \caption{\SI{300}{\kelvin}, \SI{155.0}{\milli\electronvolt}}
          \label{fig:switching-temp-300-65x100}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.49\textwidth}
          \centering
          \includegraphics[width=\textwidth]{Figures/biaxial_island/Switching/65x100_350K_alpha0.01_1µs_4nm.pdf}
-         \caption{\SI{350}{\kelvin}, 65x100}
+         \caption{\SI{350}{\kelvin}, \SI{155.0}{\milli\electronvolt}}
          \label{fig:switching-temp-350-65x100}
      \end{subfigure}
      \begin{subfigure}[b]{0.49\textwidth}
          \centering
          \includegraphics[width=\textwidth]{Figures/biaxial_island/Switching/100x100_300K_alpha0.01_1µs_4nm.pdf}
-         \caption{\SI{300}{\kelvin}, 100x100}
+         \caption{\SI{300}{\kelvin}, \SI{241.1}{\milli\electronvolt}}
          \label{fig:switching-temp-300-100x100}
      \end{subfigure}
      \hfill
      \begin{subfigure}[b]{0.49\textwidth}
          \centering
          \includegraphics[width=\textwidth]{Figures/biaxial_island/Switching/100x100_350K_alpha0.01_1µs_4nm.pdf}
-         \caption{\SI{350}{\kelvin}, 100x100}
+         \caption{\SI{350}{\kelvin}, \SI{241.1}{\milli\electronvolt}}
          \label{fig:switching-temp-350-100x100}
      \end{subfigure}
-    \caption{Switching for different temperatures, with grid discritization of \SI{4}{\nano\metre} and $\alpha = 0.01$.}
+    \caption{Switching for different energy barriers and temperatures, with grid discritization of \SI{4}{\nano\metre} and $\alpha = 0.01$. The energy barrier of \SI{155.0}{\milli\electronvolt} corresponds to a geometry with $\rho=0.65$, and \SI{241.1}{\milli\electronvolt} to $\rho=1$.}
     \label{fig:switching-temp}
 \end{figure}
+
+\paragraph{Limit of low barrier}
+In the limit where the energy barrier is comparable to the thermal energy $k_B T$, the theoretical formulae above no longer apply. An example of a \SI{100}{\nano\second} simulation for an energy barrier of \SI{24.7}{\milli\electronvolt} is shown in \cref{fig:switching-49x100-300}. The switching frequency is very high in this case, and the magnetization direction seems to perform some sort of random walk.
 \begin{figure}
     \centering
     \includegraphics[width=0.9\columnwidth]{Figures/biaxial_island/Switching/49x100_300K_alpha0.01_100ns_2nm.pdf}
-    \caption{Switching for a long ellipse axis of \SI{49}{\nano\metre}, which has a very low energy barrier, with grid discretization of \SI{2}{\nano\metre} at \SI{300}{\kelvin} and $\alpha = 0.01$.}
+    \caption{Switching for $L=\SI{49}{\nano\metre}$ island, for which $E_{barrier}=\SI{24.7}{\milli\electronvolt}$ at a grid discretization of \SI{2}{\nano\metre}. Temperature \SI{300}{\kelvin} and $\alpha = 0.01$.}
     \label{fig:switching-49x100-300}
 \end{figure}
 
-\subsection{External field}
-\begin{figure}
-     \centering
-     \begin{subfigure}[b]{0.65\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{Figures/biaxial_island/BarrierLandscape/Ext_K0.1Ms2_Bext1e-2-1e-4_aPi4.pdf}
-         \caption{External angle $\pi/4$}
-         \label{fig:barrierLandscape-externalAngle-pi4}
-     \end{subfigure}
-     \hfill
-     \begin{subfigure}[b]{0.65\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{Figures/biaxial_island/BarrierLandscape/Ext_K0.1Ms2_Bext1e-2-1e-4_a3Pi8.pdf}
-         \caption{External angle $3\pi/8$}
-         \label{fig:barrierLandscape-externalAngle-3pi8}
-     \end{subfigure}
-     \begin{subfigure}[b]{0.65\textwidth}
-         \centering
-         \includegraphics[width=\textwidth]{Figures/biaxial_island/BarrierLandscape/Ext_K0.1Ms2_Bext1e-2-1e-4_aPi2.pdf}
-         \caption{External angle $\pi/2$}
-         \label{fig:barrierLandscape-externalAngle-pi2}
-     \end{subfigure}
-     \hfill
-    \caption{Energy landscape for different external field angles (plots a, b, c), and different external field strengths (legend).}
-    \label{fig:barrierLandscape-externalAngle}
-\end{figure}
+\paragraph{Conclusion (table etc.)}
+There exists some ambiguity as to how one can count the amount of switches during a time interval. Here, not every crossing of the magnetization direction through an energy maximum is counted as a switch; switches larger than \SI{90}{\degree} are counted as one single switch. As soon as the magnetization starts turning in the opposite direction, any subsequent \SI{90}{\degree} turn or higher is counted as another switch.
+
+%1) Counting every crossing of a \SI{90}{\degree} line, e.g. a \SI{270}{\degree} switch is counted as 3 individual switches.
+
+%2) Counting every visible switch, with switches larger than \SI{90}{\degree} counted as 1 switch.
+
+%3) Looking every \SI{5}{\nano\second} and seeing if the magnetization direction changed without looking at the detailed magnetization in between those timestamps. This excludes 'spikes'.
+
+% TODO: This table is too wide, but currently serves as a sort of data storage
+% TODO: The footnote is maybe quite long
+The \cref{tab:Switching_f0} is for $\alpha=0.01$:
+\ctable[
+    cap = Switching Rates,
+    caption = {Switching rates and corresponding $f_0$ values for different geometries and grid discretizations, all for $\alpha=0.01$.},
+    label = {tab:Switching_f0},
+    pos = ht,
+    sideways
+    ]{
+    c|c|c|c|c|c|c|c|c|c|c
+    }{
+    \tnote[a]{The energy barrier in this situation is of similar size as the thermal energy $k_B T$, and hence the exponential law from \cref{eq:f0_experimental} no longer holds. For such low barrier, the switching rate ($\approx \SI{2}{\nano\second}$) is on the same timescale as the LLG dynamics. Hence the exponential relationship of the Arrhenius law is no longer entirely applicable, causing the corresponding values for $f_0$ to be inaccurate.}
+    }{
+        Geom [nm] & Barrier [meV] & Cell [nm] & T [K] & $\Delta t$ [ns] & (1) & (2) & (3) & $f_0$ (1) & $f_0$ (2) & $f_0$ (3) \\
+        \hline
+        49x100 & 24.7 \tmark[a] & 2 & 300 & 100 & 57 & 37 & 6 & \SI{2.06e9}{} & \SI{1.33e9}{} & \SI{2.16e8}{} \\
+        \hline
+        65x100 & 155.0 & 4 & 273 & 1000 & 13 & 13 & 9 & \SI{1.31e10}{} & \SI{1.31e10}{} & \SI{9.06e9}{} \\
+        65x100 & 155.0 & 4 & 300 & 1000 & 15 & 11 & 7 & \SI{8.35e9}{} & \SI{6.12e9}{} & \SI{3.89e9}{} \\
+        65x100 & 155.0 & 4 & 350 & 1000 & 51 & 41 & 30 & \SI{1.21e10}{} & \SI{9.69e9}{} & \SI{7.09e9}{} \\
+        65x100 & 286.0 & 2 & 350 & 500 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        65x100 & 207.9 & 3.125 & 350 & 1000 & 12 & 9 & 7 & \SI{1.64e10}{} & \SI{1.23e10}{} & \SI{9.56e9}{} \\
+        \hline
+        100x100 & 241.1 & 4 & 300 & 1000 & 0 & 0 & 0 & 0 & 0 & 0 \\
+        100x100 & 241.1 & 4 & 350 & 1000 & 5 & 5 & 5 & \SI{2.06e10}{} & \SI{2.06e10}{} & \SI{2.06e10}{} 
+    }
+
+Parameters that can affect $f_0$ according to formula:
+- Alpha: doesnt seem to have a significant effect in the simulation, but should according to formula :l
+- Msat: didnt change that in sim
+- Volume: approximate
+- Energy barrier: haha yes
+- Temperature: haha yes
+
+%Idea: perhaps attempt frequency is the sinusoidal pattern in the long simulations, with period of about \SI{0.5}{\nano\second}.
+% TODO: The gyromagnetic resonance frequency and response time (see ThermFluc_SingleDomain bottom of first page)
+
 
 \section{Interaction between islands}
 \subsection{Two islands}
 The interaction can be decoupled in to the shape anisotropy energy and the interaction energy. Since we already determined the shape anisotropy in the previous part, the only thing left to do is determine the interaction energy. This can be a function of the distance between two particles, their size, and of course their inner magnetization angle.
+
+Care needs to be taken that each island is placed on the grid in the correct manner, i.e. that the energy barrier is the same for both. For example, when determining the energy as function of the distance between the islands, the energy will fluctuate wildly if the islands are not placed at integer cell sizes away from each other.
 
 \subsubsection{Interaction energy as function of magnetization angle}
 Distance between the two particles is \SI{128}{\nano\metre}, their size is \SI{100}{\nano\metre} in this subsubsection. The effect of changing either of these two parameters will be examined in the next subsubsections.
