@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper]{article}
+\documentclass[12pt,a4paper,english]{article}
 
 %%%% PACKAGES WITH OPTIONS
 \usepackage[english]{babel}
@@ -9,7 +9,8 @@
 \usepackage[version=4]{mhchem} % Chemistry and isotopes with \ce{} (other option: 'chemformula' \ch{})
 \usepackage[numbers]{natbib} % numbers: needed argument, otherwise error
 \usepackage[section]{placeins} % Place floats in their own section
-\usepackage[onehalfspacing]{setspace}
+\usepackage[onehalfspacing]{setspace} % Space vertically between lines
+\usepackage[raggedright,noindentafter]{titlesec} % Change section/title layout
 \usepackage[nottoc,notlot,notlof]{tocbibind} % Include bibliography in table of contents
 
 %%%% PACKAGES WITHOUT OPTIONS
@@ -21,7 +22,7 @@
 \usepackage{float} % [H] modifier for floats etc.
 \usepackage{graphicx}
 \usepackage{hyperref, cleveref} % Creates links (boxes in various colors around words)
-\usepackage{indentfirst} % Always indent the first line of a section
+%\usepackage{indentfirst} % Always indent the first line of a section
 \usepackage{listings} % Typesetting source code
 \usepackage{pdfpages} % Include other pdf
 \usepackage{physics} % Vector calculus etc.
@@ -40,6 +41,8 @@
     labelsep=endash,
     justification=centerlast,
     labelfont={bf}}
+\titleformat{\paragraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{0.5em}
 
 %%%% (RE)NEWCOMMAND
 % Bold and italic vector symbols (preferably use \vb{} instead)
@@ -63,6 +66,10 @@
 \shipout\null % Blank page
 \includepdf[pages={1}]{Frontpage.pdf} % (download from plato.ea.ugent.be)
 
+% TODO op het einde: spellingcheck
+% - ization ipv isation
+% - centre ipv center
+% - island ipv droplet
 \newpage
 \pagenumbering{roman}
 % TODO: Toelating tot bruikleen
@@ -92,7 +99,7 @@ In the following sections, the nature of magnetism and magnetic domains, the con
 \subsection{Domains}
 In 1907, Weiss proposed the idea that a ferromagnetic material contains several uniformly magnetized domains, but that the magnetization of each domain individually is random, thus resulting in a macroscopic zero net magnetization of a large amount of material.~\cite{MuMax3_advances} These domains should not be confused with grains, which are only related to the crystallography. The uniform alignment inside a single domain is due to the quantum mechanical Heisenberg-Dirac exchange interaction.~\cite{MuMax3_advances, heisenberg1928theorie} The magnetostatic energy makes it unfavorable for neighboring moments to align themselves parallel to one another, which competes with the exchange energy which tends to align neighboring moments in the same direction. Since the exchange energy only acts on small length scales, domains are formed under the influence of the exchange energy, while different domains tend to cancel out each other's fields due to the magnetostatic energy. \par
 The typical size of these domains is on the order of several tens of micrometers. When the size of the material becomes on the order of micrometers, the domains form very symmetric patterns in order to minimize their energy, and on even smaller length scales only one single domain remains.~\cite{NML_Carlton} So, if one makes a droplet of ferromagnetic material smaller than this typical size, the droplet will have a nearly uniform magnetization, with a magnitude equal to the saturation magnetization of the material.~\cite{NML_Carlton} Such a small droplet can for example be produced using electron beam lithography.~\cite{MQCA_RoomTemp, NML_Carlton} \par
-By introducing anisotropy in the droplet, either magnetocrystalline or shape anisotropy, one or more axes can be made energetically favorable for the magnetization. Magnetocrystalline anisotropy favors the crystallographic axes. Shape anisotropy can be realized by giving the droplet an elongated shape, for example an ellipse instead of a perfect circle. In the uniaxial case, there is one stable magnetization axis, so the two directions `up' and `down' along this axis can be related to bits `0' and `1'.~\cite{MQCA_RoomTemp} This is not to be confused with unidirectional anisotropy, which only has one stable magnetization direction, and can be achieved using the exchange bias effect.~\cite{ExchangeBias_Mechanisms,ExchangeBias_nanostructures,ExchangeBias} A lot of research has been conducted to use uniaxial anisotropy for computation, and logic gates and wires have been proposed, which use classical magnetostatic interactions to propagate the information.~\cite{GYP-18,MQCA_MajorityGate,SwitchingForced_EnergyEfficient} The use of two favorable axes, i.e. biaxial anisotropy, allows for a higher logic density, as the four stable directions `up', `down', `right' and `left' can be related to `00', `01', `10' and `11'.~\cite{MQCA_ImageRecognition} This can occur for cubic crystals, and can also be realized by giving the shape of the droplet more symmetry, for example by making the shape the union of two ellipses.
+By introducing anisotropy in the droplet, one or more axes can be made energetically favorable for the magnetization. This anisotropy can have two origins: magnetocrystalline anisotropy favors the crystallographic axes, while shape anisotropy can be realized by giving the droplet an elongated shape, for example an ellipse instead of a perfect circle. In the uniaxial case, there is one stable magnetization axis, so the two directions `up' and `down' along this axis can be related to bits `0' and `1'.~\cite{MQCA_RoomTemp} This is not to be confused with unidirectional anisotropy, which only has one stable magnetization direction, and can be achieved using the exchange bias effect.~\cite{ExchangeBias_Mechanisms,ExchangeBias_nanostructures,ExchangeBias} A lot of research has been conducted to use uniaxial anisotropy for computation, and logic gates and wires have been proposed, which use classical magnetostatic interactions to propagate the information.~\cite{GYP-18,MQCA_MajorityGate,SwitchingForced_EnergyEfficient} The use of two favorable axes, i.e. biaxial anisotropy, allows for a higher logic density, as the four stable directions `up', `down', `right' and `left' can be related to `00', `01', `10' and `11'.~\cite{MQCA_ImageRecognition} This can occur for cubic crystals, and can also be realized by giving the shape of the droplet more symmetry, for example by making the shape the union of two ellipses.
 
 
 \subsection{Quantum Cellular Automata}
@@ -105,6 +112,7 @@ QCA compute by relaxing to a configuration of minimal energy.~\cite{QCA_Algorith
 
 
 \subsection{Nanomagnetic islands}
+\label{par:Intro_nanomagnetic-islands}
 As was mentioned before, the magnetization of a nanomagnetic island likes to align itself along the longest axis of a given geometry. This can be understood as follows. Consider a theoretically ideal island so small that it only consists of two atoms, and thus only two magnetic moments. Three different situations are then shown in~\cref{fig:Intro_IslandEllipticPreferredDirection}.
 The first configuration has both moments vertical and in the same direction, which makes their magnetic fields nicely lined up, hence this is a low energy state. The second configuration has the magnetic moments in opposite directions, such that their fields oppose each other, which is not a low energy configuration. The third configuration has both moments horizontal and oppositely directed, which once again has the magnetic fields nicely lined up in a low energy state. In the fourth configuration they are pointed horizontal and in the same direction, so the fields once again oppose each other and we do not have a low energy state. Thus, only two of these four configurations are energetically favorable. Now note that we are only dealing with ferromagnetic materials, which have the property that neighboring moments like to align themselves in the same direction, due to the exchange energy (\cref{par:Energy_Exchange}). This only leaves the first situation as a stable one, hence explaining the \textbf{tendency for ferromagnetic materials to be magnetized along the long axis of a microscopic geometric structure}. In larger geometric structures however, the third configuration is a perfectly acceptable way for two separate domains to align themselves, but in this thesis we are only dealing with small single-domain islands. \par
 \begin{figure}[t]
@@ -169,7 +177,7 @@ When imaging a nanomagnet, it will manifest itself in the output as the combinat
 The main disadvantage of MFM is that it does not image the magnetization directly, but rather the stray out-of-plane magnetic fields, which can make the results more difficult to interpret. It can however achieve a very high resolution due to its resemblance to AFM. Furthermore, it is a relatively cheap and commonly available technique compared to X-ray based techniques, which are discussed in the next section.
 
 \subsubsection{X-ray Magnetic Circular Dichroism: PEEM and MTXM}
-Photoelectron Emission Microscopy (PEEM) and Magnetic Transmission X-ray Microscopy (MTXM) are two techniques which both rely on a physical phenomenon called X-ray Magnetic Circular Dichroism (XMCD). This effect states that the number of electrons emitted from the sample upon irradiation with circularly polarized X-rays depends on the magnetization direction of the surface of the sample.~\cite{NML_Carlton} More specifically, the measured quantity is the angle $\phi$ between the magnetization direction $\vb{m(\vb{r})}$ of the sample and the photon spin $\vec{\sigma}$, which is aligned with the photon propagation direction and changes sign when the photon helicity is reversed.~\cite{PEEM} The intensity of emitted electrons is given by
+Both Photoelectron Emission Microscopy (PEEM) and Magnetic Transmission X-ray Microscopy (MTXM) are techniques which rely on a physical phenomenon called X-ray Magnetic Circular Dichroism (XMCD). This effect states that the number of electrons emitted from the sample upon irradiation with circularly polarized X-rays depends on the magnetization direction of the surface of the sample.~\cite{NML_Carlton} More specifically, the measured quantity is the angle $\phi$ between the magnetization direction $\vb{m(\vb{r})}$ of the sample and the photon spin $\vec{\sigma}$, which is aligned with the photon propagation direction and changes sign when the photon helicity is reversed.~\cite{PEEM} The intensity of emitted electrons is given by
 \begin{equation}
     I_{\mathrm{XMCD}} \propto M_{sat} \cos(\phi) \mathrm{.}
     \label{eq:XMCD}
@@ -377,6 +385,7 @@ The first part of this thesis consists of investigating the properties of a sing
 \end{figure}
 
 \subsection{Energy barrier}
+\label{par:Biaxial_EnergyBarrier}
 Due to symmetry reasons, all of $\theta = k\frac{\pi}{4} , k\in\mathbb{Z}$ are equilibria. However, not all are stable; some are energy minima while some are energy maxima. To determine the energy barrier $E_{barrier}$ for random switching between stable states, the energy landscape as a function of magnetization angle must be calculated. If one were to simply set the magnetization $\vb{M}$ of the entire island in one specific direction and calculate the energy, one finds that the energy is the same for all such directions. This is due to the absence of the demagnetizing field caused by the shape anisotropy of the magnetic body.~\cite{Nonmonotonic_reversal} Thus, the magnetization should first be relaxed to accommodate for the shape of the island, which can be done using the \mumax{} command \code{minimize()}. However, this would result in a complete relaxation to an energy minimum, hence not yielding any useful information on the energy barrier which is the difference between an energy minimum and maximum. To circumvent this issue, an external magnetic field is applied to keep the average magnetization $\frac{1}{A}\int_A \vb{M}\,dA$ close to the initial direction. Practically, this `virtual' external field $B_{ext,v}$ is realized through the custom field functionality in \mumax{}, using \code{AddFieldTerm} and \code{AddEdensTerm}. \par
 The procedure is therefore as follows. First the magnetization of the entire island $\vb{M}$ is initialized uniformly under an angle $\theta$ and an external magnetic field is applied along that same direction. Then, the magnetization is relaxed using \code{minimize()}. The internal energy, responsible for the energy landscape, is then equal to $E_{total} - E_{Zeeman}$. This procedure is repeated for different angles $\theta$ to generate an energy profile from which the energy barrier can be deduced.
 
@@ -388,7 +397,6 @@ The procedure as described above makes use of an external magnetic field. This i
     \caption{Energy landscape between \SIrange{0}{90}{\degree} for various external magnetic field magnitudes $\abs{\vb{B_{ext,v}}}$ as shown in the legend. The external field angle was varied uniformly from \SIrange{0}{90}{\degree} in 64 steps for each magnitude, and each dot corresponds to one such angle. The horizontal axis denotes the average angle of the magnetization over the whole island after relaxation. Note that this is not necessarily equal to the external field angle, especially for low field magnitudes. The geometry used here is $(\rho, L)=(0.65, \SI{100}{\nano\metre})$.}
     \label{fig:barrierLandscape-sweepBext}
 \end{figure}
-
 At very high magnetic fields, the magnetization of the entire island will be nearly uniform and will not follow the shape of the island along the edges. As mentioned before, this causes the energy to be the same for all angles, since it is the relaxation of the magnetization in a non-uniform way which causes the anisotropy, due to the absence of the demagnetizing field.~\cite{Nonmonotonic_reversal} This is the case in the figure for the extremely high field $\abs{\vb{B_{ext,v}}}=\SI{25}{\tesla}$. \par
 The lower the magnetic field, the more the magnetization relaxes to the minimum, as evident from the spacing of the dots for each external field magnitude. This is to be expected, as lower magnetic fields will have more difficulty keeping the magnetization pointed in the same direction, against the shape anisotropy. This could cause a problem when trying to determine the value of the unstable energy maximum. This is however not the case, as evident from the single data-point at \SI{45}{\degree}, which stays at the equilibrium even after relaxation. \par
 When initializing the magnetization and external field at an angle of \SI{45}{\degree}, the average magnetization angle of the island stays at this unstable maximum after relaxation, for all examined field magnitudes. Since the energy barrier is simply the difference between this unstable maximum and the stable minimum, a low external field of \SI{1}{\milli\tesla} is enough if one is solely interested in the barrier height, and not the whole energy landscape. In case one is interested in the whole energy landscape, a field of about \SI{0.1}{\tesla} is needed as seen in the figure. This does, however, come at the cost of a less accurate calculation of the energy barrier itself. \par
@@ -501,10 +509,38 @@ Given the total simulation time $\Delta t$ and the number of switches $N$ during
     f_0 = \frac{N \ln(4)}{\Delta t} \exp(\frac{E_{barrier}}{k_B T}) \mathrm{.}
     \label{eq:f0_experimental}
 \end{equation}
-Several simulations were carried out for $\Delta t$ up to \SI{1}{\micro\second}, where the temperature $T$, the energy barrier and damping constant $\alpha$ were varied. Examples of such simulations are shown in \cref{fig:switching-alpha}, \cref{fig:switching-temp} and \cref{fig:switching-49x100-300}. \par
+There exists some ambiguity as to how one can count the amount of switches during a time interval. The method applied here counts every monotone rotation of the magnetization over more than \SI{90}{\degree} in either direction as a switch. Hence, not every crossing of an energy maximum is counted as a separate switch; when the magnetization rotates through multiple energy maxima in quick succession, such switches larger than \SI{90}{\degree} are counted as one single switch. As soon as the magnetization starts turning in the opposite direction, any subsequent \SI{90}{\degree} turn or larger is counted as another switch. \par 
+\ctable[
+    cap = Switching Rates,
+    caption = {Switching rates and corresponding $f_0$ values for different energy barriers (determined by the roundness $\rho$ and grid discretization), temperatures and values of the damping constant. $L=\SI{100}{\nano\metre}$ and $M_{sat}=\SI{8e5}{\ampere\per\metre}$ for all entries.},
+    label = {tab:Switching_f0},
+    pos = ht,
+    %sideways
+    ]{
+    c|c||c|c|c|c|c||c
+    }{
+    \tnote[a]{This energy barrier is comparable to the thermal energy $k_B T$. Hence, the switching rate ($\approx \SI{2}{\nano\second}$) is on the same timescale as the LLG dynamics, which causes the estimate for $f_0$ using \cref{eq:f0_theoretical_general} to be inaccurate.}
+    }{
+        $\rho$ & Grid [nm] & Barrier [meV] & T [K] & $\alpha$ & $\Delta t$ [ns] & $N$ & $f_0$ \\
+        \hline
+        0.49 & 2 & 24.7\tmark[a] & 300 & 0.01 & 100 & 37 & \SI{1.33e9}{} \\
+        \hline
+        0.65 & 4 & 155.0 & 273 & 0.01 & 1000 & 13 & \SI{1.31e10}{} \\
+        0.65 & 4 & 155.0 & 300 & 0.1 & 1000 & 12 & \SI{6.68e9}{} \\
+        0.65 & 4 & 155.0 & 300 & 0.01 & 1000 & 11 & \SI{6.12e9}{} \\
+        0.65 & 4 & 155.0 & 350 & 0.01 & 1000 & 41 & \SI{9.69e9}{} \\
+        0.65 & 2 & 286.0 & 350 & 0.01 & 500 & 0 & 0 \\
+        0.65 & 3.125 & 207.9 & 350 & 0.01 & 1000 & 9 & \SI{1.23e10}{} \\
+        \hline
+        1 & 4 & 241.1 & 300 & 0.01 & 1000 & 0 & 0 \\
+        1 & 4 & 241.1 & 350 & 0.01 & 1000 & 5 & \SI{2.06e10}{} 
+    }
+Several simulations were carried out for $\Delta t$ up to \SI{1}{\micro\second}, where the temperature $T$, the energy barrier and damping constant $\alpha$ were varied. Examples of such simulations are shown in \cref{fig:switching-alpha,fig:switching-temp,fig:switching-49x100-300}, and a summary of all conducted simulations is given in \cref{tab:Switching_f0}. For each simulation, a theoretical value for $f_0$ was estimated using \cref{eq:f0_experimental} as listed in the last column of the table. 
+Nearly all simulations for which the energy barrier is significantly higher than the thermal energy yield a value around $f_0=\SI{e10}{\per\second}$, apart from some outliers which did not switch within $\Delta t$. Unfortunately, this estimate is three orders of magnitude larger than the theoretical estimate determined in the previous section. This indicates that the theoretical \cref{eq:f0_theoretical_general} is not applicable. The reason for this is unclear; perhaps because the magnetization is not perfectly uniform in the simulation, which is one of the assumptions underlying the theoretical formula. \par
+The value obtained through the simulations is, however, on the same order of magnitude as the intrinsic resonance frequency of the small sinus of the energy minimum.
+Apart from the quantitative measure for $f_0$, some qualitative aspects of changing the parameters will now be addressed.
 
 \paragraph{Effect of damping constant $\alpha$}
-The effect of changing the damping parameter $\alpha$ is shown in \cref{fig:switching-alpha}. There is a clear qualitative difference between $\alpha=0.1$ and $\alpha=0.01$. For higher $\alpha$, there are only single switches, i.e. \SI{90}{\degree} between adjacent energy minima. For lower $\alpha$, and hence lower damping, switching may occur over more than \SI{90}{\degree}, for example there are three switches over \SI{180}{\degree} in \cref{fig:switching-alpha-0.01}. This is understandable since less damping implies that the magnetization, which can be seen as a rotating body as described earlier in the Physics section, will more easily keep its angular velocity after overcoming the first energy maximum and can hence overcome multiple energy barriers in quick succession. Concerning $f_0$, there does not seem to be a significant dependence of the switching rate on the damping constant $\alpha$, contrary to the inverse proportionality predicted by the theory of \cref{eq:f0_theoretical_general}. % TODO: talk about the inset plots: alpha couples to thermal bath, basic frequency (which i still need to find the correct name for), ...
 \begin{figure}
      \centering
      \begin{subfigure}[b]{0.8\textwidth}
@@ -523,9 +559,12 @@ The effect of changing the damping parameter $\alpha$ is shown in \cref{fig:swit
         \caption{Switching for two different values of the damping constant $\alpha$, with a grid discritization of \SI{4}{\nano\metre} at \SI{300}{\kelvin}, for $(\rho, L) = (0.65, \SI{100}{\nano\metre})$.}
         \label{fig:switching-alpha}
 \end{figure}
+The effect of changing the damping constant $\alpha$ is shown in \cref{fig:switching-alpha}. There is a clear qualitative difference between $\alpha=0.1$ (\cref{fig:switching-alpha-0.1}) and $\alpha=0.01$ (\cref{fig:switching-alpha-0.01}). For higher $\alpha$, only single switches occur, i.e. \SI{90}{\degree} between adjacent energy minima. For lower damping, switching may occur over more than \SI{90}{\degree}; as an example, there are three switches over \SI{180}{\degree} visible in \cref{fig:switching-alpha-0.01}. This is understandable since the magnetization can be seen as a rotating body as described earlier in the Physics section, so less damping implies that the magnetization will more easily retain its angular velocity after overcoming the first energy maximum and can hence overcome multiple energy barriers in quick succession. \par
+From \cref{eq:H_therm}, which gives an expression for the thermal field, it is clear that the magnitude of this thermal field is proportional to the square root of the damping constant. The effect of this is noticeable in the inset figures of \cref{fig:switching-alpha}. For $\alpha=0.01$, the magnetization rotates in a smooth manner, simply oscillating quasi-harmonically in one of the four energy valleys. Because the coupling to the thermal field is weak, the thermal field only introduces randomness in the amplitude of this oscillation, and does not significantly distort the sinusoidal pattern itself. For a higher $\alpha=0.1$, the rotation exhibits more jagged behavior, on the one hand due to the higher damping, on the other hand due to the larger coupling with the thermal field. \par
+Quantitatively, the effect of $\alpha$ on $f_0$ can be examined by comparing rows 3 and 4 of \cref{tab:Switching_f0}. There does not seem to be a significant dependence on the damping constant $\alpha$, contrary to the inverse proportionality predicted by the theory of \cref{eq:f0_theoretical_general}, further indicating that the theoretical formula does not apply. Note, however, that the estimate $f_0\approx\SI{e10}{\per\second}$ is quite close to the frequency of the intrinsic oscillation visible in the inset figures (\cref{fig:switching-alpha-0.01}), which has a period of \SI{0.5}{\nano\second}. It would be logical that these two are related, as one can see this oscillation as an `attempt' to leave the energy minimum once every half-period. 
+% TODO: The gyromagnetic resonance frequency and response time (see ThermFluc_SingleDomain bottom of first page)
 
 \paragraph{Effect of temperature and energy barrier}
-It is expected that $f_0$ exhibits an exponential dependency on the ratio between energy barrier and temperature. To confirm this, simulations spanning \SI{1}{\micro\second} were carried out for two different temperatures and two different energy barriers. The different energy barriers correspond to $\rho=0.65$ and $\rho=1$ geometries at a cell size of \SI{4}{\nano\metre}. These have numerical energy barriers of \SI{155.0}{\milli\electronvolt} and \SI{241.1}{\milli\electronvolt}, respectively, with opposite easy and hard axes. This is clearly visible in the figures, as the \SI{155.0}{\milli\electronvolt} case is stable around $n\SI{90}{\degree}$, while \SI{241.1}{\milli\electronvolt} is stable around $\SI{45}{\degree} + n\SI{90}{\degree}$. The exponential dependence on the temperature is qualitatively clear from the difference between \cref{fig:switching-temp-300-65x100} and \ref{fig:switching-temp-350-65x100}, where the latter switches significantly more for only a \SI{16}{\percent} increase in temperature. The exponential dependence on the energy barrier can be seen in the difference between \cref{fig:switching-temp-300-65x100} and \ref{fig:switching-temp-350-100x100}, where the latter has not a single switch due to the \SI{55}{\percent} higher energy barrier. 
 \begin{figure}
      \centering
      \begin{subfigure}[b]{0.49\textwidth}
@@ -557,71 +596,61 @@ It is expected that $f_0$ exhibits an exponential dependency on the ratio betwee
     \caption{Switching for different energy barriers and temperatures, with grid discritization of \SI{4}{\nano\metre} and $\alpha = 0.01$. The energy barrier of \SI{155.0}{\milli\electronvolt} corresponds to a geometry with $\rho=0.65$, and \SI{241.1}{\milli\electronvolt} to $\rho=1$.}
     \label{fig:switching-temp}
 \end{figure}
+It is expected that $f_0$ exhibits an exponential dependency on the ratio between energy barrier and temperature. To confirm this, simulations spanning \SI{1}{\micro\second} were carried out for two different temperatures and two different energy barriers. The different energy barriers correspond to $\rho=0.65$ and $\rho=1$ geometries at a cell size of \SI{4}{\nano\metre}. These have numerical energy barriers of \SI{155.0}{\milli\electronvolt} and \SI{241.1}{\milli\electronvolt}, respectively, with opposite easy and hard axes. This is clearly visible in the figures, as the \SI{155.0}{\milli\electronvolt} case is stable around $n\SI{90}{\degree}$, while \SI{241.1}{\milli\electronvolt} is stable around $\SI{45}{\degree} + n\SI{90}{\degree}$. The exponential dependence on the temperature is qualitatively clear from the difference between \cref{fig:switching-temp-300-65x100,fig:switching-temp-350-65x100}, where the latter switches significantly more for only a \SI{16}{\percent} increase in temperature. The exponential dependence on the energy barrier can be seen in the difference between \cref{fig:switching-temp-300-65x100,fig:switching-temp-350-100x100}, where the latter has not a single switch due to the \SI{55}{\percent} higher energy barrier. The numerical value for $f_0$ is also for these simulations close to \SI{e10}{\per\second}, as listed in \cref{tab:Switching_f0}.
 
 \paragraph{Limit of low barrier}
-In the limit where the energy barrier is comparable to the thermal energy $k_B T$, the exponential law from \cref{eq:f0_experimental} no longer holds. For such a low barrier, the switching rate is on the same timescale as the LLG dynamics, such that these dynamics now also play a role next to the energy barrier. An example of a \SI{100}{\nano\second} simulation for an energy barrier of \SI{24.7}{\milli\electronvolt} is shown in \cref{fig:switching-49x100-300}. In this case, the switching frequency is very high.
 \begin{figure}
     \centering
-    \includegraphics[width=0.9\columnwidth]{Figures/biaxial_island/Switching/49x100_300K_alpha0.01_100ns_2nm.pdf}
-    \caption{Switching for $L=\SI{49}{\nano\metre}$ island, for which $E_{barrier}=\SI{24.7}{\milli\electronvolt}$ at a grid discretization of \SI{2}{\nano\metre}. Temperature \SI{300}{\kelvin} and $\alpha = 0.01$.}
+    \includegraphics[width=0.8\columnwidth]{Figures/biaxial_island/Switching/49x100_300K_alpha0.01_100ns_2nm.pdf}
+    \caption{Switching for $\rho=\SI{49}{\nano\metre}$ island, for which $E_{barrier}=\SI{24.7}{\milli\electronvolt}$ at a grid discretization of \SI{2}{\nano\metre}. Temperature \SI{300}{\kelvin} and $\alpha = 0.01$.}
     \label{fig:switching-49x100-300}
 \end{figure}
-
-\paragraph{Conclusion (table etc.)}
-There exists some ambiguity as to how one can count the amount of switches during a time interval. The counting method applied here counts every monotone rotation of the magnetization in either direction as a switch. Hence, not every crossing of the magnetization direction through an energy maximum is counted as a separate switch; when the magnetization rotates through multiple energy maxima in quick succession, such switches larger than \SI{90}{\degree} are counted as one single switch. As soon as the magnetization starts turning in the opposite direction, any subsequent \SI{90}{\degree} turn or higher is counted as another switch.
-
-% TODO: The footnote is maybe quite long
-\ctable[
-    cap = Switching Rates,
-    caption = {Switching rates and corresponding $f_0$ values for different energy barriers (determined by the roundness $\rho$ and grid discretization), temperatures and values of the damping constant. $L=\SI{100}{\nano\metre}$ and $M_{sat}=\SI{8e5}{\ampere\per\metre}$ for all entries.},
-    label = {tab:Switching_f0},
-    pos = ht,
-    %sideways
-    ]{
-    c|c||c|c|c|c|c||c
-    }{
-    \tnote[a]{This energy barrier is comparable to the thermal energy $k_B T$. Hence, the switching rate ($\approx \SI{2}{\nano\second}$) is on the same timescale as the LLG dynamics, which causes the estimate for $f_0$ using \cref{eq:f0_theoretical_general} to be inaccurate.}
-    }{
-        $\rho$ & Grid [nm] & Barrier [meV] & T [K] & $\alpha$ & $\Delta t$ [ns] & $N$ & $f_0$ \\
-        \hline
-        0.49 & 2 & 24.7\tmark[a] & 300 & 0.01 & 100 & 37 & \SI{1.33e9}{} \\
-        \hline
-        0.65 & 4 & 155.0 & 273 & 0.01 & 1000 & 13 & \SI{1.31e10}{} \\
-        0.65 & 4 & 155.0 & 300 & 0.1 & 1000 & 12 & \SI{6.68e9}{} \\
-        0.65 & 4 & 155.0 & 300 & 0.01 & 1000 & 11 & \SI{6.12e9}{} \\
-        0.65 & 4 & 155.0 & 350 & 0.01 & 1000 & 41 & \SI{9.69e9}{} \\
-        0.65 & 2 & 286.0 & 350 & 0.01 & 500 & 0 & 0 \\
-        0.65 & 3.125 & 207.9 & 350 & 0.01 & 1000 & 9 & \SI{1.23e10}{} \\
-        \hline
-        1 & 4 & 241.1 & 300 & 0.01 & 1000 & 0 & 0 \\
-        1 & 4 & 241.1 & 350 & 0.01 & 1000 & 5 & \SI{2.06e10}{} 
-    }
-
-The dependence of $f_0$ on the damping constant $\alpha$, energy barrier and temperature was already examined qualitatively in the previous paragraphs. The parameters of these different simulations are listed in \cref{tab:Switching_f0}. For each simulation, a theoretical value for $f_0$ was estimated using \cref{eq:f0_experimental} as listed in the last column of the table. All the simulations for which the energy barrier is significantly higher than the thermal energy yield a value around $f_0=\SI{e10}{\per\second}$, which is of the same order of magnitude as the intrinsic resonance frequency of the small sinus of the energy minimum. % TODO: word this and the next line differently
-
-Alpha: doesnt seem to have a significant effect in the simulation, but should according to formula :l Hence, we conclude that the theoretical formula is not applicable perhaps because the system is not perfectly uniformly magnetized. Note that alpha couples with the thermal bath so a dependence on alpha should be expected, but alas. The order of magnitude between theoretical and simulation of f0 does not match, also indicating that the theoretical formula does not work :( 
-
-%Idea: perhaps attempt frequency is the sinusoidal pattern in the long simulations, with period of about \SI{0.5}{\nano\second}.
-% TODO: The gyromagnetic resonance frequency and response time (see ThermFluc_SingleDomain bottom of first page)
+In the limit where the energy barrier is comparable to the thermal energy $k_B T$, the exponential law from \cref{eq:f0_experimental} no longer holds. For such a low barrier, the switching rate is on the same timescale as the LLG dynamics, such that besides the energy barrier, now also these dynamics play a role. An example of a \SI{100}{\nano\second} simulation for an energy barrier of \SI{24.7}{\milli\electronvolt} is shown in \cref{fig:switching-49x100-300}. As one would expect, the magnetization does not get stuck in any of the energy minima because they are too shallow. The switching frequency for such a low barrier comes close to that of the intrinsic sinusoidal pattern visible in the inset of \cref{fig:switching-alpha-0.01}.
 
 
 \clearpage
 \section{Interaction between islands}
 \subsection{Two islands}
-The interaction between two islands can be seen as the contribution of three components: the shape anisotropy of the first island, the shape anisotropy of the second island, and the interaction energy between them. The anisotropy of the islands has been examined in the previous section. In this section, the interaction energy between two islands will be determined. It is expected that this energy will depend on the distance $d$ between the two islands, the average magnetization angle $\theta_i$ of each island, the total size $L$ of each island, and perhaps to a lesser degree also the roundness $\rho$ and orientation $\alpha_i$ of each island with respect to their common axis. \par
-Care needs to be taken that each island is placed on the grid in the correct manner, i.e. that the numerical energy barrier is known correctly. To keep things simple, the two islands will be kept identical as much as possible. Hence, they must also be placed on identical positions with respect to the cells of the numerical grid.
+The interaction between two islands can be seen as the contribution of three components: the shape anisotropy of the first island, the shape anisotropy of the second island, and the interaction energy between them. The anisotropy of the islands has already been examined in \cref{par:Biaxial_EnergyBarrier}. In this section, the interaction energy between two islands will be determined. It is expected that this will depend on the distance $d$ between centers of the two islands, the average magnetization angle $\theta_i$ of each island, the total size $L$ of each island, and perhaps to a lesser degree also the roundness $\rho$ and orientation $\alpha_i$ of each island with respect to their common axis. \par
+Care needs to be taken that each island is placed on the grid in the correct manner, i.e. such that the numerical energy barrier is known correctly. To keep things simple, the two islands will be kept identical as much as possible, and will hence be placed on identical positions with respect to the cells of the numerical grid. % TODO: What about rotated islands? idk if I must say anything about that, because now I imply that all islands are exactly the same but thats of course not the case for a 45° rotated island
+In order to investigate the interaction energy, and the interaction energy only, islands should be chosen such that their anisotropy is minimal. This can be achieved by choosing the roundness $\rho$ such that the energy barrier is zero. According to \cref{fig:barrier-cell_size-100nm}, for an island with $L=\SI{100}{\nano\metre}$, this happens around $\rho=0.49$.
 
 \subsubsection{Interaction energy as function of magnetization angle}
-Distance between the two particles is \SI{128}{\nano\metre}, their size is \SI{100}{\nano\metre} in this subsubsection. The effect of changing either of these two parameters will be examined in the next subsubsections.
+\begin{figure}
+    \centering
+    \begin{subfigure}[c]{4cm} % no problem: this appears blurry online but offline it is nice and sharp
+         \centering
+         \includegraphics[width=\textwidth]{Figures/two_islands/Geometry/geom_r0.49_s100_d128_a0,0_cell4nm.png}
+     \end{subfigure}
+    \begin{subfigure}[c]{0.7\columnwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/two_islands/EnergyLandscape/Int_a0Pi,0Pi_d128_r0.49,0.49_cell4nm.pdf}
+     \end{subfigure}
+    \caption{\textbf{Left:} geometry with two $(\rho, L) = (0.49, \SI{100}{\nano\metre})$ islands spaced \SI{128}{\nano\metre} apart, with \SI{4}{\nano\metre} grid. Corresponding $E_{barrier}=\SI{5.3}{\milli\electronvolt}$. \textbf{Right:} interaction energy as function of the magnetization angle of each island.}
+    \label{fig:two-islands_interaction_(0.49,100)_a0,0}
+\end{figure}
+\begin{figure}
+    \centering
+    \begin{subfigure}[c]{4cm} % no problem: this appears blurry online but offline it is nice and sharp
+         \centering
+         \includegraphics[width=\textwidth]{Figures/two_islands/Geometry/geom_r0.66_s100_d128_a0,0_cell1nm.png}
+     \end{subfigure}
+    \begin{subfigure}[c]{0.7\columnwidth}
+         \centering
+         \includegraphics[width=\textwidth]{Figures/two_islands/EnergyLandscape/Int_a0Pi,0Pi_d128_r0.66,0.66_cell1nm.pdf}
+     \end{subfigure}
+    \caption{\textbf{Left:} geometry with two $(\rho, L) = (0.66, \SI{100}{\nano\metre})$ islands spaced \SI{128}{\nano\metre} apart, with \SI{1}{\nano\metre} grid. Corresponding $E_{barrier}=\SI{353.0}{\milli\electronvolt}$. \textbf{Right:} interaction energy as function of the magnetization angle of each island.}
+    \label{fig:two-islands_interaction_(0.66,100)_a0,0}
+\end{figure}
+Figure~\ref{fig:two-islands_interaction_(0.49,100)_a0,0} shows the energy landscape for two adjacent $(\rho, L)=(0.49, \SI{100}{\nano\metre})$ islands with their centers spaced \SI{128}{\nano\metre} apart, as a function of their magnetization angles. There are 4 stable states, if one makes abstraction of global rotations. The lowest energy configuration is that where both islands are magnetized in the same direction along their common axis. Conversely, the highest energy occurs for opposite magnetization along this common axis. There are also four saddle points on the energy landscape, corresponding to two distinct situations where both islands are magnetized perpendicularly to their common axis. The one with the lowest energy of the two is for opposite magnetization, while the parallel case has higher energy. This discussion sounds familiar, because the figure simply gives a geometric representation of the behavior discussed at the start of \cref{par:Intro_nanomagnetic-islands} and \cref{fig:Intro_IslandEllipticPreferredDirection}, but now for two separate islands which are not coupled by the exchange energy. The only new information the figure gives us, is that the configurations with magnetization perpendicular to the common axis are higher in energy than those parallel to it. \par
+From the energy landscape, it is also clear that switching between energy minima preferably occurs by rotating the magnetization of the two islands in opposite directions. \par
+Figure~\ref{fig:two-islands_interaction_(0.66,100)_a0,0} shows the total energy of two interacting islands, with nonzero shape anisotropy. To make the contribution of the shape anisotropy to the energy landscape as clear as possible, a geometry with high barrier ($\rho=0.66$) and a small grid (\SI{1}{\nano\metre}) were chosen.
 
-Observations for islands without biaxial anisotropy ($\rho = 0.49$):
-- There is one 'racetrack' in the energy landscape, it is basically all diagonal troughs and ridges
-- The global minima are for magnetization in each other's direction (0 or 180 deg) which is understandable because the magnetization prefers to lay among the longest direction of a geometric structure
-- The configuration (90 deg, 270 deg) is unstable and will like to relax to the global minimum (0, 0) or (180, 180).
 
 Observations for islands with biaxial anisotropy ($\rho = 0.66$):
 - Of course, an additional energy grid of sine functions with period 90 degrees is now added to the anisotropyless landscape, which creates local minima and maxima
 - The configuration (90 deg, 270 deg) is now stable for a positive energy barrier
+- Energy barrier is 353 meV, but the energy scale goes to 1.6eV now instead of 0.75. This is not due to the smaller grid (i mean, it will be a bit but not significantly), but primarily because there is more volume of the islands close to each other. This effect is significant, as evidenced from the 0.81nm case.
 
 If one rotates one of the islands, then the corresponding 90 degree spaced lines (horizontal or vertical in the plot depending on which island is rotated) will move up down left or right in the plot.
 
