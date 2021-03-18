@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper,english]{article}
+\documentclass[11pt,a4paper,english]{article}
 
 %%%% PACKAGES WITH OPTIONS
 \usepackage[english]{babel}
@@ -16,6 +16,7 @@
 %%%% PACKAGES WITHOUT OPTIONS
 \usepackage{adjustbox} % Use \begin{adjustbox}{center} environment for too wide floats
 \usepackage{amsmath, amsfonts, amssymb}
+\usepackage{booktabs} % Lines in tables (\<top,mid,bottom>rule)
 \usepackage{ctable} % Usage: \ctable[options]{column def like c|c|r|l}{\tnote commands for footnotes}{normal table content}, with \tnote[symbol]{text} footnote definitions, and \tmark[symbol] used to reference the footnote in the normal table content
 \usepackage{enumitem} % Lists
 \usepackage{flafter} % Place floats after their first appearance in text
@@ -24,6 +25,7 @@
 \usepackage{hyperref, cleveref} % Creates links (boxes in various colors around words)
 %\usepackage{indentfirst} % Always indent the first line of a section
 \usepackage{listings} % Typesetting source code
+\usepackage{longtable}
 \usepackage{pdfpages} % Include other pdf
 \usepackage{physics} % Vector calculus etc.
 \usepackage{siunitx} % Fancy display of SI units
@@ -58,6 +60,14 @@
 % MuMax3
 \newcommand{\mumax}{$\mathsf{mumax}^3$}
 
+%%%% EXTRA SYMBOLS
+\DeclareSymbolFont{extraitalic}      {U}{zavm}{m}{it}
+\DeclareMathSymbol{\Qoppa}{\mathord}{extraitalic}{161}
+\DeclareMathSymbol{\qoppa}{\mathord}{extraitalic}{162}
+\DeclareMathSymbol{\Sampi}{\mathord}{extraitalic}{165}
+\DeclareMathSymbol{\sampi}{\mathord}{extraitalic}{166}
+\DeclareMathSymbol{\Stigma}{\mathord}{extraitalic}{167}
+\DeclareMathSymbol{\stigma}{\mathord}{extraitalic}{168}
 
 %%%% DOCUMENT
 \begin{document}
@@ -70,6 +80,9 @@
 % - ization ipv isation
 % - centre ipv center
 % - island ipv droplet
+% TODO op het einde: bibliografie check
+% - Volgorde in tekst zelf: bv. niet [36,34] maar wel [34,36]
+% - Kijken of er geen vreemde tekst in de bibliografie staat
 \newpage
 \pagenumbering{roman}
 % TODO: Toelating tot bruikleen
@@ -82,10 +95,117 @@
 }
 \newpage
 % TODO: Lijst van afkortingen en symbolen
-\pagenumbering{arabic}
+% TODO: op het einde een symbool vervangen door \sampi voor de lol
+% TODO: Radian or degree?
+% TODO: Dubbele betekenissen wegwerken
+\subsection*{List of constants}
+\begin{longtable}{llll}
+\toprule
+\bfseries Symbol & \bfseries Name &
+\bfseries Value \\\midrule\endhead
+$k_B$ & Boltzmann constant & \SI{1.380649e-23}{\joule\per\kelvin} \\
+\midrule
+$\gamma$ & Gyromagnetic ratio & \SI{1.7595e11}{\radian\per\tesla\per\second} \\
+$\mu_0$ & Vacuum permeability & $4\pi\SI{e-7}{\henry\per\metre}$ \\
+\bottomrule
+\end{longtable}
+
+\subsection*{List of abbreviations}
+\begin{longtable}{llll}
+\toprule
+\bfseries Abbreviation & \bfseries Full name \\\midrule\endhead
+AFM & Anti-ferromagnetic \\
+BCC & Body-centered cubic \\
+CMOS & Complementary metal-oxide-semiconductor \\
+EQCA & Electronic quantum cellular automata \\
+FCC & Face-centered cubic \\
+FM & Ferromagnetic \\
+FSAL & First-same-as-last \\
+LL & Landau-Lifshitz \\
+LLG & Landau-Lifshitz-Gilbert \\
+MFM & Magnetic force microscopy \\
+MOKE & Magneto-optical Kerr effect \\
+MQCA & Magnetic quantum cellular automata \\
+MTXM & Magnetic transmission X-ray microscopy \\
+NAND & Not-AND \\ % Quite useless probably
+NML & Nanomagnetic logic \\
+PEEM & Photoelectron emission microscopy \\
+QCA & Quantum cellular automata \\
+XMCD & X-ray magnetic circular dichroism \\
+\bottomrule
+\end{longtable}
+
+\subsection*{List of symbols}
+\begin{longtable}{llll}
+\toprule
+\bfseries Symbol & \bfseries Name &
+\bfseries Unit \\\midrule\endhead
+$A_{ex}$ & Exchange stiffness constant & \si{\joule\per\metre} \\
+$\vb{B}$ & Magnetic flux density & \si{\tesla} \\
+$\vb{B_{ext}}$ & External field flux density & \si{\tesla} \\
+$\vb{B_{ext,v}}$ & Virtual external field flux density & \si{\tesla} \\
+$d$ & Distance between centers of two islands & \si{\metre} \\
+$\vb{e_i}$ & Unit vectors along the axes of cubic anisotropy & $\vb{1}$ \\
+$E$ & Energy & \si{\joule} \\
+$E_{anis}$ & Anisotropy energy & \si{\joule} \\
+$E_{barrier}$ & Energy barrier between stable states & \si{\joule} \\
+$E_{demag}$ & Demagnetization energy & \si{\joule} \\
+$E_{exch}$ & Exchange energy & \si{\joule} \\
+$E_{me}$ & Magneto-elastic energy & \si{\joule} \\
+$E_{Zeeman}$ & Zeeman energy & \si{\joule} \\
+$f_0$ & Attempt frequency & \si{\hertz} \\
+$\vb{H}$ & Magnetic field strength & \si{\ampere\per\metre} \\
+$\vb{H_{demag}}$ & Demagnetizing field & \si{\ampere\per\metre} \\
+$\vb{H_{eff}}$ & Effective field & \si{\ampere\per\metre} \\
+$\vb{H_{ex}}$ & Exchange field & \si{\ampere\per\metre} \\
+$\vb{H_{ext}}$ & External field & \si{\ampere\per\metre} \\
+$\vb{H_{therm}}$ & Stochastic thermal field & \si{\ampere\per\metre} \\
+$I_{XMCD}$ & Intensity of XMCD signal & \si{\watt\per\metre\squared} \\
+$J_{ij}$ & Exchange integral for spins $i$ and $j$ & \si{\joule} \\
+$K_{c1}$ & First order cubic anisotropy constant & \si{\joule\per\metre\cubed} \\
+$K_{c2}$ & Second order cubic anisotropy constant & \si{\joule\per\metre\cubed} \\
+$K_{u1}$ & First order uniaxial anisotropy constant & \si{\joule\per\metre\cubed} \\
+$K_{u2}$ & Second order uniaxial anisotropy constant & \si{\joule\per\metre\cubed} \\
+$L$ & Ellipse major axis & \si{\metre} \\
+$\vb{m}$ & Reduced magnetization & $\vb{1}$ \\
+$\vb{m_i}$ & Magnetic moment of atom $i$ & \si{\ampere\metre\squared} \\
+$\vb{M}$ & Magnetization & \si{\ampere\per\metre} \\
+$M_{sat}$ & Saturation magnetization & \si{\ampere\per\metre} \\
+$\vb{n_i}$ & Unit vector in the direction of $\vb{S_i}$ & $\vb{1}$ \\
+$N$ & Number of bodies in N-body problem, or number of switches during a time interval $\Delta t$ & 1 \\ % TODO: solve this double meaning
+$P_i$ & Uniformly random number between 0 and 1 &  \\
+$\vb{r}$ & Position vector & \si{\metre} \\
+$\vb{s}$ & Lattice displacement field & \si{\metre} \\
+$\vb{S_i}$ & Spin of atom $i$ &  \\
+$t$ & Time & \si{\second} \\
+$t_i$ & Time between thermal switch $i$ and $i+1$ & \si{\second} \\
+$T$ & Temperature & \si{\kelvin} \\
+$T_C$ & Curie temperature & \si{\kelvin} \\
+$T_N$ & N\'{e}el temperature & \si{\kelvin} \\
+$\vb{u}$ & Unit vector along the axis of uniaxial anisotropy & $\vb{1}$ \\
+$V$ & Volume of single-domain particle & \si{\metre\cubed} \\
+\midrule
+$\alpha$ & Gilbert damping constant & 1 \\
+$\alpha'$ & $\frac{\alpha \gamma_0}{1+\alpha^2}$ & 1 \\
+$\alpha_i$ & Orientation of geometry of island $i$ & \si{\radian} \\
+$\gamma_0$ & $\mu_0 \gamma$ & \si{\radian\metre\per\coulomb} \\
+$\gamma_0'$ & $\frac{\gamma_0}{1+\alpha^2}$ & \si{\radian\metre\per\coulomb} \\
+$\Delta t$ & Time between two time steps, or total simulation time & \si{\second} \\ % TODO: solve this double meaning
+$\vec{\eta}$ & Random vector from standard normal distribution & $\vb{1}$ \\
+$\theta_i$ & Relaxed or instantaneous magnetization angle in the horizontal plane of island $i$ & \si{\radian} \\
+$\Theta$ & Angle of virtual external field in the horizontal plane & \si{\radian} \\
+$\lambda$ & Exchange length & \si{\metre} \\
+$\rho$ & Ellipse roundness - ratio between major and minor axes & 1 \\
+$\sigma$ & Photon spin & \si{} \\
+$\phi$ & General symbol for an angle & \si{\radian} \\
+$\psi$ & Vector potential & \\
+\bottomrule
+\end{longtable}
+
 
 
 \clearpage
+\pagenumbering{arabic}
 \section{Introduction}
 %\noindent \textit{Note: This section exists to explain nanomagnetic logic to the unfamiliar reader. \textbf{Biaxial island} begins the investigation of the dynamics of a single biaxial island, and is a suitable starting point for those already familiar with nanomagnetic logic.} \bigskip
 
@@ -128,7 +248,7 @@ When constructing a logic gate, it can be useful to include islands whose magnet
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.8\columnwidth]{Figures/Introduction/Syallabus_PoAEaPD - Figure 2.7.png}
-    \caption{The exchange bias effect in ferromagnet/antiferromagnet bilayers with exchange field on the ferromagnetic layer, $H_{ex}$, originating from the interface. Figure taken from \cite{syllabus_PoAEaPD}.}
+    \caption{The exchange bias effect in ferromagnet/antiferromagnet bilayers with exchange field on the ferromagnetic layer, $\vb{H_{ex}}$, originating from the interface. Figure taken from \cite{syllabus_PoAEaPD}.}
     \label{fig:Intro_ExchangeBias}
 \end{figure}
 An AFM material consists of magnetic moments which alternate direction in each atomic plane, while in a FM material all these moments point in the same direction. In the situation as illustrated in the figure, the top layer of the AFM material thus also wants the bottom layer of the FM to align anti-parallel, while the FM layer on the contrary prefers a parallel alignment. One of these two competing effects will be stronger than the other, which often results in an anti-parallel alignment of the magnetic moments at the FM/AFM interface. The AFM material is not affected by external fields since it consists of alternating magnetic moments which leads to a zero net magnetization. The AFM layer will thus remain fixed at temperatures below its N\'{e}el temperature $T_N$, which in turn fixes the FM layer. At strong enough fields, however, the FM layer will follow the external field anyway, though this will occur at significantly higher fields than for the case where there would be no AFM material. Thus, by manufacturing a FM island on top of an AFM material, the island can be made to have a single preferential direction. \par
@@ -172,12 +292,12 @@ It is of utmost importance to understand the influence of the wire on the gates,
 If one wishes to not only perform theoretical, but also practical studies on nanomagnetic islands, it can be useful to employ specialized microscopy techniques to image the magnetization direction. Several often encountered techniques are presented in this section, each with certain advantages and disadvantages.
 
 \subsubsection{Magnetic Force Microscopy}
-Magnetic Force Microscopy (MFM) is a form of scanning probe microscopy that can measure out-of-plane magnetic fields. For this, a cantilever with a magnetic tip is used which is scanned across the sample at a very low height. If this tip were to simply scan over the surface without keeping a small distance to the sample, both the magnetic forces as well as the atomic forces would be measured. To remedy this, the topography of the sample is first determined using conventional Atomic Force Microscopy (AFM).~\cite{NML_Carlton, PEEM} Once the topography is known, the magnetic tip can scan the sample while maintaining a constant distance above it at any point using the now known topography. This decouples the measurement of magnetic forces from the atomic forces and allows one to determine only the magnetic field. Important to note is that the force measured is only the out-of-plane component of the magnetic field, because the cantilever can only move vertically and is thus only sensitive to the vertical component of the magnetic field.~\cite{NML_Carlton} One must also take care that the magnetic tip does not significantly influence the magnetization of the sample itself.~\cite{Probing_MagnetoOptics} \par
+Magnetic Force Microscopy (MFM) is a form of scanning probe microscopy that can measure out-of-plane magnetic fields. For this, a cantilever with a magnetic tip is used which is scanned across the sample at a very low height. If this tip were to simply scan over the surface without keeping a small distance to the sample, both the magnetic forces as well as the atomic forces would be measured. To remedy this, the topography of the sample is first determined using conventional atomic force microscopy.~\cite{NML_Carlton, PEEM} Once the topography is known, the magnetic tip can scan the sample while maintaining a constant distance above it at any point using the now known topography. This decouples the measurement of magnetic forces from the atomic forces and allows one to determine only the magnetic field. Important to note is that the force measured is only the out-of-plane component of the magnetic field, because the cantilever can only move vertically and is thus only sensitive to the vertical component of the magnetic field.~\cite{NML_Carlton} One must also take care that the magnetic tip does not significantly influence the magnetization of the sample itself.~\cite{Probing_MagnetoOptics} \par
 When imaging a nanomagnet, it will manifest itself in the output as the combination of a region with positive and a region with negative out-of-plane magnetic field, because the stray magnetic field of a dipole curls back on itself.~\cite{NML_Carlton} An example of an MFM image of a chain of nanomagnets is shown at the top of~\cref{fig:Intro_Imaging}. \par
-The main disadvantage of MFM is that it does not image the magnetization directly, but rather the stray out-of-plane magnetic fields, which can make the results more difficult to interpret. It can however achieve a very high resolution due to its resemblance to AFM. Furthermore, it is a relatively cheap and commonly available technique compared to X-ray based techniques, which are discussed in the next section.
+The main disadvantage of MFM is that it does not image the magnetization directly, but rather the stray out-of-plane magnetic fields, which can make the results more difficult to interpret. It can however achieve a very high resolution due to its close resemblance to atomic force microscopy. Furthermore, it is a relatively cheap and commonly available technique compared to X-ray based techniques, which are discussed in the next section.
 
 \subsubsection{X-ray Magnetic Circular Dichroism: PEEM and MTXM}
-Both Photoelectron Emission Microscopy (PEEM) and Magnetic Transmission X-ray Microscopy (MTXM) are techniques which rely on a physical phenomenon called X-ray Magnetic Circular Dichroism (XMCD). This effect states that the number of electrons emitted from the sample upon irradiation with circularly polarized X-rays depends on the magnetization direction of the surface of the sample.~\cite{NML_Carlton} More specifically, the measured quantity is the angle $\phi$ between the magnetization direction $\vb{m(\vb{r})}$ of the sample and the photon spin $\vec{\sigma}$, which is aligned with the photon propagation direction and changes sign when the photon helicity is reversed.~\cite{PEEM} The intensity of emitted electrons is given by
+Both Photoelectron Emission Microscopy (PEEM) and Magnetic Transmission X-ray Microscopy (MTXM) are techniques which rely on a physical phenomenon called X-ray Magnetic Circular Dichroism (XMCD). This effect states that the number of electrons emitted from the sample upon irradiation with circularly polarized X-rays depends on the magnetization direction of the surface of the sample.~\cite{NML_Carlton} More specifically, the measured quantity is the angle $\phi$ between the magnetization direction $\vb{M(\vb{r})}$ of the sample and the photon spin $\vec{\sigma}$, which is aligned with the photon propagation direction and changes sign when the photon helicity is reversed.~\cite{PEEM} The intensity of emitted electrons is given by
 \begin{equation}
     I_{\mathrm{XMCD}} \propto M_{sat} \cos(\phi) \mathrm{.}
     \label{eq:XMCD}
@@ -206,12 +326,12 @@ Besides the magnetization direction, also the chemical composition of the sample
 
 \subsubsection{Magneto-Optical Kerr Effect}
 The Magneto-Optical Kerr Effect (MOKE) is another physical phenomenon that can be used to determine the magnetization direction. A linearly polarized laser beam is focused onto the sample, and the polarization state of the reflected light is measured in order to access the longitudinal Kerr effect.~\cite{MQCA_RoomTemp} This effect states that, depending on the angle between the magnetization and the incoming light, the reflected light will become elliptically polarized to a certain degree.~\cite{KerrFaraday_book} The effect is small, but the ellipticity is directly proportional to the cosine of the angle, which can then be used to derive the magnetization direction. There also exists the transversal Kerr effect, though this is not often used as it results in a change in reflectivity, which is more difficult to detect and prone to error. \par
-Due to the diffraction limit of the laser, MOKE has a low resolution and can only measure the average magnetization over a larger area, on the order of several \SI{}{\micro\metre\squared}. For structures smaller than this diffraction limit the signal strength diminishes.~\cite{Probing_MagnetoOptics} One must take care that the focused laser beam does not excessively heat up the sample, as this could influence the magnetization itself. The temperature rise for a \SI{2.5}{\milli\watt} laser focused on a \SI{5}{\micro\metre} diameter spot was however found to be negligible by Cowburn \textit{et al.}~\cite{Probing_MagnetoOptics} \par
+Due to the diffraction limit of the laser, MOKE has a low resolution and can only measure the average magnetization over a larger area, on the order of several \si{\micro\metre\squared}. For structures smaller than this diffraction limit the signal strength diminishes.~\cite{Probing_MagnetoOptics} One must take care that the focused laser beam does not excessively heat up the sample, as this could influence the magnetization itself. The temperature rise for a \SI{2.5}{\milli\watt} laser focused on a \SI{5}{\micro\metre} diameter spot was however found to be negligible by Cowburn \textit{et al.}~\cite{Probing_MagnetoOptics} \par
 This measurement technique can be easier or cheaper to set up than X-ray based techniques, but the (very) low resolution does not allow the imaging of individual nanomagnets in complex structures.
 
 \clearpage
 \section{Physics}
-In a crystalline material, the atoms are evenly spaced. Each atom has a discrete magnetic moment $\vb{m_i}$ associated with it. The interaction of many magnetic moments can give rise to macroscopic effects. Since every magnetic moment interacts with every other magnetic moment, the underlying problem is therefore a discrete N-body problem. Unfortunately, such a problem quickly becomes very hard if not impossible to solve analytically for even small $N$, hence restricting analytical calculations to very small systems.~\cite{abert2013discrete} Due to the lack of an analytical solution, many particular problems can only be solved approximately in a numerical manner.~\cite{abert2013discrete} Even with numerical techniques, the computational power or time required to solve an N-body problem increases rapidly with $N$, due to the number of interactions. For this reason, a continuum theory was developed, called the micromagnetic theory. In this formalism, the magnetization is represented by the continuous magnetization field, denoted by $\vb{M}(\vb{r}) = M_{sat} \vb{m}(\vb{r})$. This is the magnetic moment per unit volume averaged over a small region of space, with $\vb{m}(\vb{r})$ a unit vector, and $M_{sat}$ [\SI{}{\ampere\per\metre}] called the saturation magnetization.~\cite{Gilbert1956}
+In a crystalline material, the atoms are evenly spaced. Each atom has a discrete magnetic moment $\vb{m_i}$ associated with it. The interaction of these many magnetic moments can give rise to macroscopic effects. Since every magnetic moment interacts with every other magnetic moment, the underlying problem is a discrete N-body problem. Unfortunately, such a problem quickly becomes very hard if not impossible to solve analytically for even small $N$, hence restricting analytical calculations to very small systems.~\cite{abert2013discrete} Due to the lack of an analytical solution, many particular problems can only be solved approximately in a numerical manner.~\cite{abert2013discrete} Even with numerical techniques, the computational power or time required to solve an N-body problem increases rapidly with $N$, due to the number of interactions. For this reason, a continuum theory was developed, called the micromagnetic theory. In this formalism, the magnetization is represented by the continuous magnetization field, denoted by $\vb{M}(\vb{r}) = M_{sat} \vb{m}(\vb{r})$. This is the magnetic moment per unit volume averaged over a small region of space, with $M_{sat}$ [\si{\ampere\per\metre}] called the saturation magnetization.~\cite{Gilbert1956} $\vb{m}(\vb{r})$ is a unit vector field called the reduced magnetization, which should not be confused with the individual magnetic moments $\vb{m_i}$. $\vb{M}(\vb{r})$ has constant norm because of the even spacing of atoms in the crystal structure.~\cite{abert2013discrete}
 The size of this small region is characterized by the exchange length $\lambda$, a formula for which is given by \cref{eq:Energy_ExchangeEnergy_ExchangeLength}. It should be much smaller than the size of a single magnetic domain, yet much larger than a crystal unit cell, so on the order of several nanometres. It is clear that this continuum approximation is only applicable if locally all discrete magnetic moments try to align themselves parallel to each other, i.e.
 \begin{equation}
     \vb{m_i} \approx \vb{m_j}~~\mathrm{if}~~\abs{\vb{r_i} - \vb{r_j}} < \lambda \mathrm{,}
@@ -221,7 +341,7 @@ In situations where this approximation holds, the continuum theory can provide a
 
 
 \subsection{Energy contributions}
-The energy corresponding to a certain continuous magnetization field $\vb{m}(\vb{r})$ is the sum of several different contributions
+The energy corresponding to a static configuration of the reduced magnetization field $\vb{m}(\vb{r})$ is the sum of several different contributions
 \begin{equation}
     E = E_{exch} + E_{anis} + E_{demag} + E_{Zeeman} + E_{me} \mathrm{.} \label{eq:Energy_Terms}
 \end{equation}
@@ -230,31 +350,31 @@ The physical nature of these different terms along with small derivations to acc
 \label{par:Energy_Exchange}
 The exchange energy is of quantum mechanical origin. It tries to align neighboring spins and takes on the simple form
 \begin{equation}
-    E_{i,j} = -J \vb{S_i} \vdot \vb{S_j} \mathrm{.}
+    E_{i,j} = -J_{ij} \vb{S_i} \vdot \vb{S_j} \mathrm{.}
     \label{eq:Energy_ExchangeEnergy_Discrete}
 \end{equation}
 Summing over all contributions gives
 \begin{equation}
-    E = -\sum_{i,j} J_{i,j} S^2 \vb{n_i} \vdot \vb{n_j} \mathrm{,}
+    E = -\sum_{i,j} J_{ij} S^2 \vb{n_i} \vdot \vb{n_j} \mathrm{,}
     \label{eq:Energy_ExchangeEnergy_SumDiscrete}
 \end{equation}
 with $\vb{S_i} = S \vb{n_i}$ and $\abs{n_i} = 1$. 
 The sign of $J$ determines whether the spins align parallel ($J>0$) or anti-parallel ($J<0$). A parallel alignment results in a so-called ferromagnetic material, while an anti-parallel alignment is characteristic of an anti-ferromagnetic material. \par
-Micromagnetic theory makes use of the magnetization field $\vb{m}(\vb{r})$, while \cref{eq:Energy_ExchangeEnergy_Discrete} is discrete. Two particles $i$ and $j$ only feel the exchange interaction when they are close to each other. This allows us to expand $\vb{m}(\vb{r}) \cdot \vb{m}(\vb{r} + \Delta\vb{r})$ in first order~\cite{abert2013discrete} to
+Micromagnetic theory makes use of the magnetization field $\vb{m}(\vb{r})$, while \cref{eq:Energy_ExchangeEnergy_Discrete} is discrete. An equation similar to \cref{eq:Energy_ExchangeEnergy_SumDiscrete}, but for the continuous $\vb{m}(\vb{r})$, can now be written down:
+\begin{equation}
+    E_{exch} = \int_\Omega \sum_i A_i \vb{m}(\vb{r}) \cdot \vb{m}(\vb{r} + \Delta\vb{r}_i) \mathrm{.} \label{eq:Energy_ExchangeEnergy_SumContinuous}
+\end{equation}
+Since two particles $i$ and $j$ only feel the exchange interaction when they are close to each other, $\vb{m}(\vb{r}) \cdot \vb{m}(\vb{r} + \Delta\vb{r})$ can be expanded in first order~\cite{abert2013discrete} to
 \begin{align*}
     \vb{m}(\vb{r}) \cdot \vb{m}(\vb{r} + \Delta\vb{r}) &= 1 - \frac{1}{2}(\vb{m}(\vb{r}) - \vb{m}(\vb{r} + \Delta\vb{r}))^2 \\
-    &\approx 1 - \frac{1}{2}\sum_i(\Delta\vb{r} \cdot \gradient{m_i})^2 \numberthis \label{eq:Energy_ExchangeEnergy_DotApprox} \mathrm{.}
+    &\approx 1 - \frac{1}{2}\sum_i(\Delta\vb{r} \cdot \gradient{m_i})^2 \label{eq:Energy_ExchangeEnergy_DotApprox} \mathrm{.}
 \end{align*}
-We can now write an equation similar to \cref{eq:Energy_ExchangeEnergy_SumDiscrete}, but for $\vb{m}(\vb{r})$:
-\begin{equation*}
-    E_{exch} = \int_\Omega \sum_i A_i \vb{m}(\vb{r}) \cdot \vb{m}(\vb{r} + \Delta\vb{r}_i) \mathrm{,}
-\end{equation*}
-which by substitution of \cref{eq:Energy_ExchangeEnergy_DotApprox} finally yields~\cite{abert2013discrete,Gilbert1956}
+This can be substituted into \cref{eq:Energy_ExchangeEnergy_SumContinuous}~\cite{abert2013discrete,Gilbert1956}, finally yielding
 \begin{equation}
     E_{exch} = A_{ex} \int_\Omega \sum_i (\gradient{m_i}(\vb{r}))^2 \, d\vb{r} \mathrm{.} \label{eq:Energy_Term_Exchange}
 \end{equation}
 $A_{ex}$ is called the exchange stiffness constant.~\cite{Gilbert1956} The physical interpretation of this energy term is that the magnetization tries to align itself as smoothly as possible.
-The exchange length $\lambda$, which characterizes the length scale over which the magnetization can still be approximated as nearly uniform is defined in SI units \cite{ExchangeLength, ExchangeLength_original, MuMax3} as
+The exchange length $\lambda$, which characterizes the length scale over which the magnetization can still be approximated as nearly uniform, is defined in SI units \cite{ExchangeLength, ExchangeLength_original, MuMax3} as
 \begin{equation}
     \lambda = \sqrt{\frac{2 A_{ex}}{\mu_0 M_{sat}^2}} \mathrm{.}
     \label{eq:Energy_ExchangeEnergy_ExchangeLength}
@@ -267,7 +387,7 @@ In the uniaxial case, the energy is minimal when the magnetization lies along a 
 \begin{equation}
     E_{anis,u} = - \int_\Omega \big(K_{u1} (\vb{m} \cdot \vb{u})^2 + K_{u2} (\vb{m} \cdot \vb{u})^4 + \dots\big) \, d\vb{r} \mathrm{.} \label{eq:Energy_Term_AnisUniaxial}
 \end{equation}
-The coefficients $K_{ui}$ [\SI{}{\joule\per\metre\squared}] are called the uniaxial anisotropy constants.
+The coefficients $K_{ui}$ [\si{\joule\per\metre\squared}] are called the uniaxial anisotropy constants.
 For cubic anisotropy, one can use a similar symmetry reasoning~\cite{abert2013discrete} to find
 \begin{equation}
     E_{anis,c} = \int_\Omega \big(K_{c1} (m_1^2m_2^2 + m_2^2m_3^2 + m_3^2m_1^2) + K_{c2} m_1^2m_2^2m_3^2\big) \, d\vb{r} \mathrm{,} \label{eq:Energy_Term_AnisCubic}
@@ -284,7 +404,7 @@ From classical electrodynamics it is known that, in the absence of currents,
 \end{align}
 From \cref{eq:Energy_Demag_CurlH0} immediately follows that $\exists \psi(\vb{r}): \vb{H} = -\gradient{\psi}$. By substituting \cref{eq:Energy_Demag_BHM} in \cref{eq:Energy_Demag_DivB0} it is then clear that
 \begin{equation}
-    \Delta \phi = \div{\vb{M}} \mathrm{.}
+    \laplacian{\psi} = \div{\vb{M}} \mathrm{.}
 \end{equation}
 The solution of this Laplace equation, for the boundary condition $\abs{\vb{r}} \rightarrow 0 \Rightarrow \psi \rightarrow 0$, is found using Green's function and Green's theorem:
 \begin{align*}
@@ -313,36 +433,39 @@ In case there is stress present in the crystal lattice, an additional magneto-el
 with $\vb{s}(\vb{r})$ the displacement field of the lattice.
 
 \subsubsection{Other energy terms}
-Other energy terms still exist to describe other specific phenomena, though these will not be used in this work. An example of such an energy term is the Dzyaloshinskii-Moriya interaction~\cite{DzyaloshinskiiMoriya}, which tries to orient neighboring spins perpendicular to each other, and is responsible for the stabilisation of skyrmions as described in~\cite{skyrmions}. \par Additional torques can also be taken into account, like the Zhang-Li or Slonczewski spin-transfer torques, which describe the interaction between a spin-polarised current and the magnetization~\cite{ZhangLiSpinTransferTorque, MuMax3, syllabus_PoAEaPD}. This effect can be used in information storage technologies like MRAM, magnetic field sensors, among many other applications.~\cite{syllabus_PoAEaPD}
+Other energy terms still exist to describe other specific phenomena, though these will not be used in this work. An example of such an energy term is the Dzyaloshinskii-Moriya interaction~\cite{DzyaloshinskiiMoriya}, which tries to orient neighboring spins perpendicular to each other, and is responsible for the stabilisation of skyrmions as described in~\cite{skyrmions}. \par Additional torques can also be taken into account, like the Zhang-Li or Slonczewski spin-transfer torques, which describe the interaction between a spin-polarised current and the magnetization~\cite{ZhangLiSpinTransferTorque, MuMax3, syllabus_PoAEaPD}. This effect can be used in information storage technologies like MRAM, magnetic field sensors, among many other applications.~\cite{syllabus_PoAEaPD} % TODO: Put the torques in the 'dynamics' part and leave the energies in the 'statics' part
 
 \subsection{Landau-Lifschitz-Gilbert equation}
-% TODO: Sort out the difference between LL eq. and LLG eq.
-The aforementioned energy terms can be used to define the potential energy of a magnetization state $\vb{m}(\vb{r})$. Because $\vb{m}(\vb{r})$ is always a unit vector, its motion can be described by that of a rotating body, thus allowing the use of Lagrangian formalism with the kinetic energy term $-M_{sat}/\gamma \dot{\phi} \cos(\theta)$ to determine the dynamics of the system.~\cite{abert2013discrete} Solving this Lagrangian problem yields the Landau-Lifschitz (LL) equation. This is a partial differential equation given by~\cite{phd_leliaert}
+The aforementioned energy terms express the potential energy of a static magnetization state $\vb{m}(\vb{r})$, but do not tell us how this magnetization evolves over time. Landau and Lifschitz~\cite{lifdau} first described the time evolution of the magnetization field, as the sum of a precessional and a damping term.~\cite{abert2013discrete, NML_Carlton, phd_leliaert} The Landau-Lifschitz (LL) equation reads
 \begin{equation}
-	\frac{\partial \vb{m}}{\partial t} = - \gamma_0 \vb{m} \cross \vb{H_{eff}} - \lambda \vb{m} \cross (\vb{m} \cross \vb{H_{eff}}) \mathrm{.}
-	\label{eq:LL}
+    \frac{\partial \vb{m}}{\partial t} = - \gamma_0' \vb{m} \cross \vb{H_{eff}} - \alpha' \vb{m} \cross (\vb{m} \cross \vb{H_{eff}}) \mathrm{.}
+    \label{eq:LL}
 \end{equation}
-% mumax3-workshop says
-% \begin{equation}
-% 	\frac{\partial \vb{m}}{\partial t} = - \frac{\gamma}{1+\alpha^2} \big( \vb{m} \cross \vb{H_{eff}} - \alpha \vb{m} \cross (\vb{m} \cross \vb{H_{eff}}) \big) \mathrm{.}
-% \end{equation}
-In this equation, the so-called effective field $\vb{H_{eff}}$ is used, which is defined as
+The first term describes the precession of the magnetization around the effective field and can be derived from quantum mechanical considerations.  The second term was introduced phenomenologically, to make sure the precession does not carry on forever, and causes $\vb{m}$ to slowly damp toward the effective field vector $\vb{H_{eff}}$.~\cite{NML_Carlton}  The physical origins of this damping can be diverse, like eddy currents~\cite{phd_leliaert} and phonon excitation due to spin-lattice coupling~\cite{phd_leliaert}, among others. %TODO: more physical origins of damping?
+\par
+In order to obtain a physically more intuitive damping term, Gilbert~\cite{Gilbert1955ALF} proposed an alternative form of this equation. He argued that, because $\vb{m}(\vb{r})$ is always a unit vector, its motion can be described by that of a rotating body, thus allowing the use of a Lagrangian formalism to determine the dynamics of the system.~\cite{abert2013discrete} For the kinetic energy term in this Lagrangian, he proposed $-M_{sat}/\gamma \dot{\phi} \cos(\theta)$, with $\phi$ and $\theta$ spherical coordinates and the dot denoting a time derivative, thus relating the damping to the time derivative of the magnetization.~\cite{abert2013discrete} This yields the Landau-Lifschitz-Gilbert (LLG) equation~\cite{ThermFluc_SingleDomain, phd_leliaert, LEL-17b}
 \begin{equation}
-	\vb{H_{eff}} = - \frac{1}{\mu_0} \frac{\partial E}{\partial \vb{m}} \mathrm{,}
+    \frac{\partial \vb{m}}{\partial t} = - \gamma_0 \vb{m} \cross \vb{H_{eff}} + \alpha \vb{m} \cross \frac{\partial \vb{m}}{\partial t} \mathrm{.}
+    \label{eq:LLG}
+\end{equation}
+Here, $\gamma_0=\mu_0 \gamma$ with $\gamma$ the gyromagnetic ratio. The dimensionless $\alpha > 0$ is called the Gilbert damping constant. The precession frequency in absence of damping, also called the Larmor frequency, is given by  $f_L=\frac{\gamma_0}{2\pi}\abs{\vb{H_{eff}}}$.~\cite{phd_leliaert}
+%TODO: tell that permalloy has alpha=0.01
+
+Both equations make use of the so-called effective field $\vb{H_{eff}}$, defined as
+\begin{equation}
+	\vb{H_{eff}} = - \frac{1}{\mu_0} \frac{\partial E}{\partial \vb{M}} \mathrm{,}
 	\label{eq:H_eff}
 \end{equation}
-with the energy $E$ the sum of several contributions as explained before. $\partial E/\partial \vb{m}$ means the vector whose components are $\partial E/\partial m_x$, etc.~\cite{ThermFluc_SingleDomain} 
-The term $\vb{m} \cross \vb{H_{eff}}$ causes the magnetic moment to precess around the effective field. The constant $\gamma_0 = \mu_0 \frac{ge}{2m_e}$, with $g$ the Landé factor, is related to the gyromagnetic ratio and determines the precession frequency $f=\frac{\gamma_0}{2\pi}\abs{\vb{H_{eff}}}$, then called the Larmor frequency.~\cite{phd_leliaert} If only this first term were present, the precession would occur forever, so Landau and Lifschitz included a phenomenological damping term $\vb{m} \cross (\vb{m} \cross \vb{H_{eff}})$ as well, which causes the moment $\vb{m}$ to slowly damp toward the effective field vector $\vb{H_{eff}}$.~\cite{NML_Carlton} The physical origins of this damping include eddy currents~\cite{phd_leliaert}, phonon excitation due to spin-lattice coupling~\cite{phd_leliaert}, %TODO: physical origins of damping
+with the energy $E$ the sum of several contributions as explained before. $\partial E/\partial \vb{m}$ means the vector whose components are $\partial E/\partial m_x$, etc.~\cite{ThermFluc_SingleDomain}
 
-In order to obtain a physically more intuitive damping term, Gilbert \cite{Gilbert1955anomalous} replaced it with a term dependent on the time derivative of the magnetization, thus forming the Landau-Lifschitz-Gilbert (LLG) equation~\cite{ThermFluc_SingleDomain, phd_leliaert, LEL-17b}:
-\begin{equation}
-	\frac{\partial \vb{m}}{\partial t} = - \gamma_0\vb{m} \cross \vb{H_{eff}} + \alpha \vb{m} \cross \frac{\partial \vb{m}}{\partial t} \mathrm{,}
-	\label{eq:LLG}
-\end{equation}
-where $\alpha>0$ is a dimensionless damping constant. If this equation is solved for $\partial \vb{m}/\partial t$, it is of the same form as the LL equation \eqref{eq:LL}. These LL and LLG equations are hence equivalent, where a substitution of $\lambda$ and $\gamma_0$ in the LL equation by $\frac{\gamma_0 \alpha}{1+\alpha^2}$ and $\frac{\gamma_0}{1+\alpha^2}$, respectively, yields the LLG equation.~\cite{ThermFluc_SingleDomain,phd_leliaert} Remark that this substitution indicates that, in the LLG equation, the precession frequency is dependent on the damping, which means that the LL and LLG equations only represent the same physics in the limit of low damping. Since the LL equation treats the damping only phenomenologically, it will not describe the physics correctly for high damping, whereas the LLG equation will.~\cite{phd_leliaert}
-%TODO: Perhaps prove that modulus is preserved and that energy always decreases (see abert2013discrete)
-%TODO: The sort out what the factors in front should be because there are conflicting or at least confusing sources
-%TODO: tell that permalloy has alpha=0.01
+Though the LL and LLG equations look slightly different, they can easily be transformed into each other~\cite{ThermFluc_SingleDomain,phd_leliaert} using the substitutions
+\begin{align*}
+    \gamma_0' &= \frac{\gamma_0}{1+\alpha^2} \\
+    \alpha' &= \alpha \frac{\gamma_0}{1+\alpha^2} \mathrm{.}
+\end{align*}
+
+Because the LLG equation \eqref{eq:LLG} is implicit, the explicit LL equation \eqref{eq:LL} is rather used in computational packages like \mumax{}. %Remark that this substitution indicates that, in the LLG equation, the precession frequency is dependent on the damping, which means that the LL and LLG equations only represent the same physics in the limit of low damping.  Since the LL equation treats the damping only phenomenologically, it will not describe the physics correctly for high damping, whereas the LLG equation will.~\cite{phd_leliaert}
+It is also possible to derive the LLG equation as a limit case of a quantum mechanical description of a spin subject to the effects corresponding to the different energy terms.~\cite{abert2013discrete,bode2012current}
 
 \begin{figure}
     \centering
@@ -386,15 +509,15 @@ The first part of this thesis consists of investigating the properties of a sing
 
 \subsection{Energy barrier}
 \label{par:Biaxial_EnergyBarrier}
-Due to symmetry reasons, all of $\theta = k\frac{\pi}{4} , k\in\mathbb{Z}$ are equilibria. However, not all are stable; some are energy minima while some are energy maxima. To determine the energy barrier $E_{barrier}$ for random switching between stable states, the energy landscape as a function of magnetization angle must be calculated. If one were to simply set the magnetization $\vb{M}$ of the entire island in one specific direction and calculate the energy, one finds that the energy is the same for all such directions. This is due to the absence of the demagnetizing field caused by the shape anisotropy of the magnetic body.~\cite{Nonmonotonic_reversal} Thus, the magnetization should first be relaxed to accommodate for the shape of the island, which can be done using the \mumax{} command \code{minimize()}. However, this would result in a complete relaxation to an energy minimum, hence not yielding any useful information on the energy barrier which is the difference between an energy minimum and maximum. To circumvent this issue, an external magnetic field is applied to keep the average magnetization $\frac{1}{A}\int_A \vb{M}\,dA$ close to the initial direction. Practically, this `virtual' external field $B_{ext,v}$ is realized through the custom field functionality in \mumax{}, using \code{AddFieldTerm} and \code{AddEdensTerm}. \par
-The procedure is therefore as follows. First the magnetization of the entire island $\vb{M}$ is initialized uniformly under an angle $\theta$ and an external magnetic field is applied along that same direction. Then, the magnetization is relaxed using \code{minimize()}. The internal energy, responsible for the energy landscape, is then equal to $E_{total} - E_{Zeeman}$. This procedure is repeated for different angles $\theta$ to generate an energy profile from which the energy barrier can be deduced.
+Due to symmetry reasons, all of $\theta = k\frac{\pi}{4} , k\in\mathbb{Z}$ are equilibria. However, not all are stable; some are energy minima while some are energy maxima. To determine the energy barrier $E_{barrier}$ for random switching between stable states, the energy landscape as a function of magnetization angle must be calculated. If one were to simply set the magnetization $\vb{M}$ of the entire island in one specific direction and calculate the energy, one finds that the energy is the same for all such directions. This is due to the absence of the demagnetizing field caused by the shape anisotropy of the magnetic body.~\cite{Nonmonotonic_reversal} Thus, the magnetization should first be relaxed to accommodate for the shape of the island, which can be done using the \mumax{} command \code{minimize()}. However, this would result in a complete relaxation to an energy minimum, hence not yielding any useful information on the energy barrier which is the difference between an energy minimum and maximum. To circumvent this issue, an external magnetic field is applied to keep the average magnetization $\frac{1}{A}\int_A \vb{M}\,dA$ close to the initial direction. Practically, this `virtual' external field $\vb{B_{ext,v}}$ is realized through the custom field functionality in \mumax{}, using \code{AddFieldTerm} and \code{AddEdensTerm}. \par
+The procedure is therefore as follows. First the magnetization of the entire island $\vb{M}$ is initialized uniformly under an angle $\Theta$ and an external magnetic field is applied along that same direction. Then, the magnetization is relaxed using \code{minimize()}. The internal energy, responsible for the energy landscape, is then equal to $E_{total} - E_{Zeeman}$. This procedure is repeated for different angles $\Theta$ to generate an energy profile from which the energy barrier can be deduced.
 
 \subsubsection{Optimal virtual external field magnitude}
-The procedure as described above makes use of an external magnetic field. This is merely out of necessity to make sure that a magnetization initialized in an unstable maximum energy state stays there and does not relax to the energy minimum, which would prevent the determination of the height of the energy barrier. In reality, there is no such field, so this `virtual' external field should ideally be of small magnitude. To investigate the influence of this magnitude on the energy landscape, a simulation is carried out in which both the angle and the magnitude of the external magnetic field are varied. In \cref{fig:barrierLandscape-sweepBext} the relaxed magnetization angle $\theta$ and corresponding energy are plotted for different magnitudes of the external magnetic field $\abs{\vb{B_{ext,v}}}$, with the angle of this field taken at 64 equally spaced values from \SIrange{0}{90}{\degree}. Note that the average relaxed magnetization angle is not necessarily equal to the external magnetic field angle, as the relaxation process will tend to more or less cant the magnetization towards the closest intrinsic energy minimum.
+The procedure as described above makes use of an external magnetic field. This is merely out of necessity to make sure that a magnetization initialized in an unstable maximum energy state stays there and does not relax to the energy minimum, which would prevent the determination of the height of the energy barrier. In reality, there is no such field, so this `virtual' external field should ideally be of small magnitude. To investigate the influence of this magnitude on the energy landscape, a simulation is carried out in which both the angle and the magnitude of the external magnetic field are varied. In \cref{fig:barrierLandscape-sweepBext} the relaxed magnetization angle $\theta$ and corresponding energy are plotted for different magnitudes of the external magnetic field $\abs{\vb{B_{ext,v}}}$, with the angle $\Theta$ of this field taken at 64 equally spaced values from \SIrange{0}{90}{\degree}. Note that the average relaxed magnetization angle is not necessarily equal to the external magnetic field angle, as the relaxation process will tend to more or less cant the magnetization towards the closest intrinsic energy minimum.
 \begin{figure}
     \centering
     \includegraphics[width=0.9\textwidth]{Figures/biaxial_island/BarrierLandscape/Plus_65_B25-0.001-div4_a128Pi_plotOptimized.pdf}
-    \caption{Energy landscape between \SIrange{0}{90}{\degree} for various external magnetic field magnitudes $\abs{\vb{B_{ext,v}}}$ as shown in the legend. The external field angle was varied uniformly from \SIrange{0}{90}{\degree} in 64 steps for each magnitude, and each dot corresponds to one such angle. The horizontal axis denotes the average angle of the magnetization over the whole island after relaxation. Note that this is not necessarily equal to the external field angle, especially for low field magnitudes. The geometry used here is $(\rho, L)=(0.65, \SI{100}{\nano\metre})$.}
+    \caption{Energy landscape between \SIrange{0}{90}{\degree} for various external magnetic field magnitudes $\abs{\vb{B_{ext,v}}}$ as shown in the legend. The external field angle $\Theta$ was varied uniformly from \SIrange{0}{90}{\degree} in 64 steps for each magnitude, and each dot corresponds to one such angle. The horizontal axis denotes the average angle of the magnetization over the whole island after relaxation. Note that this is not necessarily equal to the external field angle, especially for low field magnitudes. The geometry used here is $(\rho, L)=(0.65, \SI{100}{\nano\metre})$.}
     \label{fig:barrierLandscape-sweepBext}
 \end{figure}
 At very high magnetic fields, the magnetization of the entire island will be nearly uniform and will not follow the shape of the island along the edges. As mentioned before, this causes the energy to be the same for all angles, since it is the relaxation of the magnetization in a non-uniform way which causes the anisotropy, due to the absence of the demagnetizing field.~\cite{Nonmonotonic_reversal} This is the case in the figure for the extremely high field $\abs{\vb{B_{ext,v}}}=\SI{25}{\tesla}$. \par
@@ -461,7 +584,7 @@ Everything taken into account, it seems that the optimal compromise between simu
 
 \subsubsection{Energy landscape in presence of an external magnetic field}
 % TODO: external field but there is not a lot of interesting things to say about this
-The `virtual' external field $B_{ext,v}$ used in the previous paragraphs was solely there to make sure the magnetization remains in the energy maximum in order to determine the value of this maximum. Of course, it is also possible to put the biaxial island in a real external field, denoted with $B_{ext}$. This will make the energy term in \cref{eq:Energy_Term_Zeeman} nonzero, hence adding a cosine function to the energy landscape. In order to calculate the energy landscape, the virtual external field is still necessary to stabilize the magnetization in the desired direction, away from the global minimum. This can be done in \mumax{} by using a custom field for the virtual external field and using the normal external field functionality for the real external field, hence decoupling the calculation of their energies and allowing the virtual field to be ignored in the energy calculation. The energy landscape for a situation where the external field is applied at $3\pi/8$ is shown in \cref{fig:barrierLandscape_extField}.
+The `virtual' external field $\vb{B_{ext,v}}$ used in the previous paragraphs was solely there to make sure the magnetization remains in the energy maximum in order to determine the value of this maximum. Of course, it is also possible to put the biaxial island in a real external field, denoted as $\vb{B_{ext}}$. This will make the energy term in \cref{eq:Energy_Term_Zeeman} nonzero, hence adding a cosine function to the energy landscape. In order to calculate the energy landscape, the virtual external field is still necessary to stabilize the magnetization in the desired direction, away from the global minimum. This can be done in \mumax{} by using a custom field for the virtual external field and using the normal external field functionality for the real external field, hence decoupling the calculation of their energies and allowing the virtual field to be ignored in the energy calculation. The energy landscape for a situation where the external field is applied at $3\pi/8$ is shown in \cref{fig:barrierLandscape_extField}.
 % TODO: mention that there is a second external field
 \begin{figure}
     \centering
@@ -489,14 +612,14 @@ Conversely, if one needs to achieve a specific switching time $t_i$, the require
     E_{barrier} = k_B T \ln(\frac{f_0 t_i}{\ln(4)}) \mathrm{.}
 \end{equation}
 The main unknown in all previous equations is the attempt frequency $f_0$. As this parameter is crucial to achieve a correct estimate for the switching time, it will be determined both theoretically and through numerical simulations with the biaxial geometry. \par
-A theoretical formula for $f_0$ [\SI{}{\radian\per\second}] in the case of uniaxial anisotropy~\cite{MuMax3, LEL-17b, f0_mumax3_reference} is given by
+A theoretical formula for $f_0$ (in \si{\radian\per\second}) in the case of uniaxial anisotropy~\cite{MuMax3, LEL-17b, f0_mumax3_reference} is given by
 \begin{equation}
-    f_0 = \gamma_{LL} \frac{\alpha}{1+\alpha^2} \sqrt{\frac{4 K_{u1}^3 V}{\pi M_{sat}^2 k_B T}} \mathrm{,}
+    f_0 = \gamma \frac{\alpha}{1+\alpha^2} \sqrt{\frac{4 K_{u1}^3 V}{\pi M_{sat}^2 k_B T}} \mathrm{,}
     \label{eq:f0_theoretical_uniaxial}
 \end{equation}
-with $\gamma_{LL}$ the gyromagnetic ratio equal to \SI{1.7595e11}{\radian\per\tesla\per\second}, $\alpha$ the dimensionless damping constant, $V$ the volume of the nanomagnet, and $K_{u1}$ and $M_{sat}$ the uniaxial anisotropy constant and saturation magnetization as defined in the Physics section. The anisotropy constant in general is simply the energy barrier corresponding to said anisotropy, divided by the volume of the particle. Hence, \cref{eq:f0_theoretical_uniaxial} can be adapted to a general anisotropic situation by substituting $K_{u1} \rightarrow E_{barrier}/V$, yielding
+with $\gamma$ the previously encountered gyromagnetic ratio equal to \SI{1.7595e11}{\radian\per\tesla\per\second}, $\alpha$ the dimensionless damping constant, $V$ the volume of the nanomagnet, and $K_{u1}$ and $M_{sat}$ the uniaxial anisotropy constant and saturation magnetization as defined in the Physics section. The anisotropy constant in general is simply the energy barrier corresponding to said anisotropy, divided by the volume of the particle. Hence, \cref{eq:f0_theoretical_uniaxial} can be adapted to a general anisotropic situation by substituting $K_{u1} \rightarrow E_{barrier}/V$, yielding
 \begin{equation}
-    f_0 = \gamma_{LL} \frac{\alpha}{1+\alpha^2} \frac{2}{M_{sat} V} \sqrt{\frac{E_{barrier}^3}{\pi k_B T}} \mathrm{.}
+    f_0 = \gamma \frac{\alpha}{1+\alpha^2} \frac{2}{M_{sat} V} \sqrt{\frac{E_{barrier}^3}{\pi k_B T}} \mathrm{.}
     \label{eq:f0_theoretical_general}
 \end{equation}
 An alternative formula is found in \cite{f0_alternative_Jonathan}, which after simplification in the absence of an external field simply boils down to twice the value obtained from \cref{eq:f0_theoretical_general}, and thus yields the same order of magnitude. \par
@@ -596,7 +719,7 @@ Quantitatively, the effect of $\alpha$ on $f_0$ can be examined by comparing row
     \caption{Switching for different energy barriers and temperatures, with grid discritization of \SI{4}{\nano\metre} and $\alpha = 0.01$. The energy barrier of \SI{155.0}{\milli\electronvolt} corresponds to a geometry with $\rho=0.65$, and \SI{241.1}{\milli\electronvolt} to $\rho=1$.}
     \label{fig:switching-temp}
 \end{figure}
-It is expected that $f_0$ exhibits an exponential dependency on the ratio between energy barrier and temperature. To confirm this, simulations spanning \SI{1}{\micro\second} were carried out for two different temperatures and two different energy barriers. The different energy barriers correspond to $\rho=0.65$ and $\rho=1$ geometries at a cell size of \SI{4}{\nano\metre}. These have numerical energy barriers of \SI{155.0}{\milli\electronvolt} and \SI{241.1}{\milli\electronvolt}, respectively, with opposite easy and hard axes. This is clearly visible in the figures, as the \SI{155.0}{\milli\electronvolt} case is stable around $n\SI{90}{\degree}$, while \SI{241.1}{\milli\electronvolt} is stable around $\SI{45}{\degree} + n\SI{90}{\degree}$. The exponential dependence on the temperature is qualitatively clear from the difference between \cref{fig:switching-temp-300-65x100,fig:switching-temp-350-65x100}, where the latter switches significantly more for only a \SI{16}{\percent} increase in temperature. The exponential dependence on the energy barrier can be seen in the difference between \cref{fig:switching-temp-300-65x100,fig:switching-temp-350-100x100}, where the latter has not a single switch due to the \SI{55}{\percent} higher energy barrier. The numerical value for $f_0$ is also for these simulations close to \SI{e10}{\per\second}, as listed in \cref{tab:Switching_f0}.
+It is expected that $f_0$ exhibits an exponential dependency on the ratio between energy barrier and temperature. To confirm this, simulations spanning \SI{1}{\micro\second} were carried out for two different temperatures and two different energy barriers. The different energy barriers correspond to $\rho=0.65$ and $\rho=1$ geometries at a cell size of \SI{4}{\nano\metre}. These have numerical energy barriers of \SI{155.0}{\milli\electronvolt} and \SI{241.1}{\milli\electronvolt}, respectively, with opposite easy and hard axes. This is clearly visible in the figures, as the \SI{155.0}{\milli\electronvolt} case is stable around $n\SI{90}{\degree}$, $n \in \mathbb{Z}$, while \SI{241.1}{\milli\electronvolt} is stable around $\SI{45}{\degree} + n\SI{90}{\degree}$. The exponential dependence on the temperature is qualitatively clear from the difference between \cref{fig:switching-temp-300-65x100,fig:switching-temp-350-65x100}, where the latter switches significantly more for only a \SI{16}{\percent} increase in temperature. The exponential dependence on the energy barrier can be seen in the difference between \cref{fig:switching-temp-300-65x100,fig:switching-temp-350-100x100}, where the latter has not a single switch due to the \SI{55}{\percent} higher energy barrier. The numerical value for $f_0$ is also for these simulations close to \SI{e10}{\per\second}, as listed in \cref{tab:Switching_f0}.
 
 \paragraph{Limit of low barrier}
 \begin{figure}
@@ -604,7 +727,7 @@ It is expected that $f_0$ exhibits an exponential dependency on the ratio betwee
     \includegraphics[width=0.8\columnwidth]{Figures/biaxial_island/Switching/49x100_300K_alpha0.01_100ns_2nm.pdf}
     \caption{Switching for $\rho=\SI{49}{\nano\metre}$ island, for which $E_{barrier}=\SI{24.7}{\milli\electronvolt}$ at a grid discretization of \SI{2}{\nano\metre}. Temperature \SI{300}{\kelvin} and $\alpha = 0.01$.}
     \label{fig:switching-49x100-300}
-\end{figure}
+\end{figure} % TODO: remake these plots (here and above) with decent y-axis
 In the limit where the energy barrier is comparable to the thermal energy $k_B T$, the exponential law from \cref{eq:f0_experimental} no longer holds. For such a low barrier, the switching rate is on the same timescale as the LLG dynamics, such that besides the energy barrier, now also these dynamics play a role. An example of a \SI{100}{\nano\second} simulation for an energy barrier of \SI{24.7}{\milli\electronvolt} is shown in \cref{fig:switching-49x100-300}. As one would expect, the magnetization does not get stuck in any of the energy minima because they are too shallow. The switching frequency for such a low barrier comes close to that of the intrinsic sinusoidal pattern visible in the inset of \cref{fig:switching-alpha-0.01}.
 
 
@@ -626,7 +749,7 @@ In order to investigate the interaction energy, and the interaction energy only,
          \centering
          \includegraphics[width=\textwidth]{Figures/two_islands/EnergyLandscape/Int_a0Pi,0Pi_d128_r0.49,0.49_cell4nm.pdf}
      \end{subfigure}
-    \caption{\textbf{Left:} geometry with two $(\rho, L) = (0.49, \SI{100}{\nano\metre})$ islands spaced \SI{128}{\nano\metre} apart, with \SI{4}{\nano\metre} grid. Corresponding $E_{barrier}=\SI{5.3}{\milli\electronvolt}$. \textbf{Right:} interaction energy as function of the magnetization angle of each island.}
+    \caption{\textbf{Left:} geometry for two $(\rho, L)~=~(0.49, \SI{100}{\nano\metre})$ islands spaced \SI{128}{\nano\metre} apart, with \SI{4}{\nano\metre} grid. Corresponding $E_{barrier}=\SI{5.3}{\milli\electronvolt}$. \textbf{Right:} interaction energy as function of the magnetization angle of each island.}
     \label{fig:two-islands_interaction_(0.49,100)_a0,0}
 \end{figure}
 \begin{figure}
@@ -639,17 +762,15 @@ In order to investigate the interaction energy, and the interaction energy only,
          \centering
          \includegraphics[width=\textwidth]{Figures/two_islands/EnergyLandscape/Int_a0Pi,0Pi_d128_r0.66,0.66_cell1nm.pdf}
      \end{subfigure}
-    \caption{\textbf{Left:} geometry with two $(\rho, L) = (0.66, \SI{100}{\nano\metre})$ islands spaced \SI{128}{\nano\metre} apart, with \SI{1}{\nano\metre} grid. Corresponding $E_{barrier}=\SI{353.0}{\milli\electronvolt}$. \textbf{Right:} interaction energy as function of the magnetization angle of each island.}
+    \caption{\textbf{Left:} geometry for two $(\rho, L)~=~(0.66, \SI{100}{\nano\metre})$ islands spaced \SI{128}{\nano\metre} apart, with \SI{1}{\nano\metre} grid. Corresponding $E_{barrier}=\SI{353.0}{\milli\electronvolt}$. \textbf{Right:} interaction energy as function of the magnetization angle of each island.}
     \label{fig:two-islands_interaction_(0.66,100)_a0,0}
 \end{figure}
 Figure~\ref{fig:two-islands_interaction_(0.49,100)_a0,0} shows the energy landscape for two adjacent $(\rho, L)=(0.49, \SI{100}{\nano\metre})$ islands with their centers spaced \SI{128}{\nano\metre} apart, as a function of their magnetization angles. There are 4 stable states, if one makes abstraction of global rotations. The lowest energy configuration is that where both islands are magnetized in the same direction along their common axis. Conversely, the highest energy occurs for opposite magnetization along this common axis. There are also four saddle points on the energy landscape, corresponding to two distinct situations where both islands are magnetized perpendicularly to their common axis. The one with the lowest energy of the two is for opposite magnetization, while the parallel case has higher energy. This discussion sounds familiar, because the figure simply gives a geometric representation of the behavior discussed at the start of \cref{par:Intro_nanomagnetic-islands} and \cref{fig:Intro_IslandEllipticPreferredDirection}, but now for two separate islands which are not coupled by the exchange energy. The only new information the figure gives us, is that the configurations with magnetization perpendicular to the common axis are higher in energy than those parallel to it. \par
 From the energy landscape, it is also clear that switching between energy minima preferably occurs by rotating the magnetization of the two islands in opposite directions. \par
-Figure~\ref{fig:two-islands_interaction_(0.66,100)_a0,0} shows the total energy of two interacting islands, with nonzero shape anisotropy. To make the contribution of the shape anisotropy to the energy landscape as clear as possible, a geometry with high barrier ($\rho=0.66$) and a small grid (\SI{1}{\nano\metre}) were chosen.
+Figure~\ref{fig:two-islands_interaction_(0.66,100)_a0,0} shows the total energy of two interacting islands, but now with nonzero shape anisotropy. To make the contribution of the shape anisotropy to the energy landscape as clear as possible, a geometry with high barrier ($\rho=0.66$) and a small grid (\SI{1}{\nano\metre}) were chosen. As one would expect, this anisotropy simply superposes a sinusoidal pattern in the figures in both the vertical and horizontal directions, thus creating local minima and maxima. One would expect the total height of the energy landscape to increase by double the energy barrier, i.e. \SI{706}{\milli\electronvolt}, as compared to the case without anisotropy. However, the total height of the energy landscape has increased more than this. This can be explained by the fact that, for a $\rho=0.66$ geometry, more volume of the islands is located closer to the other island than for a $\rho=0.49$ geometry. This can be confirmed by running a simulation at $\rho=0.81$ or \SI{4}{\nano\metre} cells, which is another geometry without anisotropy. Due to the larger volume of such islands, and this additional volume being close to the other island, the energy landscape height for $\rho=0.81$ is \SI{1.37}{\electronvolt} as compared to the \SI{0.74}{\electronvolt} for $\rho=0.49$. 
 
 
 Observations for islands with biaxial anisotropy ($\rho = 0.66$):
-- Of course, an additional energy grid of sine functions with period 90 degrees is now added to the anisotropyless landscape, which creates local minima and maxima
-- The configuration (90 deg, 270 deg) is now stable for a positive energy barrier
 - Energy barrier is 353 meV, but the energy scale goes to 1.6eV now instead of 0.75. This is not due to the smaller grid (i mean, it will be a bit but not significantly), but primarily because there is more volume of the islands close to each other. This effect is significant, as evidenced from the 0.81nm case.
 
 If one rotates one of the islands, then the corresponding 90 degree spaced lines (horizontal or vertical in the plot depending on which island is rotated) will move up down left or right in the plot.
@@ -659,6 +780,7 @@ bla bla some stuff about the normal distance behavior
 
 When halving all dimensions, like cell size, inter-island distance, and island size, the energy landscape height also halves. However, for very small distances (i.e. when the islands touch each other) the energy is not exactly half or double anymore. I guess this is because of the exchange energy working on a small distance. It is only at a distance of about $1.2 L$ that the energies are reasonably close to being half or double.
 
+% TODO: Add that x x chain is ultrabalanced
 
 \newpage
 \bibliographystyle{bibliography/unsrtnat2}
