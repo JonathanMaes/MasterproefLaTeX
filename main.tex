@@ -3,7 +3,8 @@
 %%%% PACKAGES WITH OPTIONS
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
-\usepackage[margin=2.5cm]{geometry}
+%\usepackage[margin=2.5cm]{geometry}
+\usepackage[inner=4cm,outer=1cm,vmargin=2.5cm]{geometry}
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
 \usepackage[version=4]{mhchem} % Chemistry and isotopes with \ce{} (other option: 'chemformula' \ch{})
@@ -78,13 +79,13 @@
 \begin{document}
 
 \includepdf[pages={1}]{Frontpage.pdf} % (download from plato.ea.ugent.be)
+\pagenumbering{gobble}
 \shipout\null % Blank page
 \includepdf[pages={1}]{Frontpage.pdf} % (download from plato.ea.ugent.be)
 
 % TODO op het einde: figures check
 % - Plaats in tekst
 \newpage
-\pagenumbering{gobble}
 \begin{center}
     The author(s) gives (give) permission to make this master dissertation available for consultation and to copy parts of this master dissertation for personal use. In all cases of other use, the copyright terms have to be respected, in particular with regard to the obligation to state explicitly the source when quoting results from this master dissertation.
 \end{center}
